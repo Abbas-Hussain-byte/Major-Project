@@ -124,6 +124,17 @@ export const checkEligibility = (profile, criteria) => {
     }
   }
 
+  // --- Bank Account check (Custom Rule) ---
+  if (criteria.custom_rules?.bank_account === true) {
+    if (profile.has_bank_account === undefined || profile.has_bank_account === null) {
+      missing_fields.push('has_bank_account');
+    } else if (profile.has_bank_account !== true) {
+      violations.push('Requires an active bank account.');
+    } else {
+      reasons.push('Has active bank account.');
+    }
+  }
+
   // Priority 1: Any violation -> ineligible
   if (violations.length > 0) {
     return { status: 'ineligible', reasons: violations, missing_fields: [] };
@@ -140,8 +151,11 @@ export const checkEligibility = (profile, criteria) => {
 
   // Priority 3: Custom rules or unrecognised keys -> unknown
   const unknownReasons = [];
-  if (criteria.custom_rules && Object.keys(criteria.custom_rules).length > 0) {
-    unknownReasons.push(`Contains custom rules that require manual evaluation: ${Object.keys(criteria.custom_rules).join(', ')}.`);
+  if (criteria.custom_rules) {
+    const unhandledCustomRules = Object.keys(criteria.custom_rules).filter(k => k !== 'bank_account');
+    if (unhandledCustomRules.length > 0) {
+      unknownReasons.push(`Contains custom rules that require manual evaluation: ${unhandledCustomRules.join(', ')}.`);
+    }
   }
   if (unrecognisedKeys.length > 0) {
     unknownReasons.push(`Contains unrecognised criteria keys: ${unrecognisedKeys.join(', ')}.`);

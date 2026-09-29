@@ -73,12 +73,34 @@ describe('Rule Engine - checkEligibility', () => {
     expect(result.status).toBe('ineligible');
   });
 
-  it('returns unknown for PMJJBY-style custom_rules even if other criteria match', () => {
-    const profile = { age: 30 };
-    const criteria = { age_min: 18, age_max: 50, custom_rules: { bank_account: true } };
+  it('returns unknown for unhandled custom_rules even if other criteria match', () => {
+    const profile = { age: 30, has_bank_account: true };
+    const criteria = { age_min: 18, age_max: 50, custom_rules: { other_rule: true } };
     const result = checkEligibility(profile, criteria);
     expect(result.status).toBe('unknown');
     expect(result.reasons.some(r => r.includes('custom rules'))).toBe(true);
+  });
+
+  it('returns eligible for bank_account custom rule when has_bank_account is true', () => {
+    const profile = { age: 30, has_bank_account: true };
+    const criteria = { age_min: 18, age_max: 50, custom_rules: { bank_account: true } };
+    const result = checkEligibility(profile, criteria);
+    expect(result.status).toBe('eligible');
+  });
+
+  it('returns ineligible for bank_account custom rule when has_bank_account is false', () => {
+    const profile = { age: 30, has_bank_account: false };
+    const criteria = { age_min: 18, age_max: 50, custom_rules: { bank_account: true } };
+    const result = checkEligibility(profile, criteria);
+    expect(result.status).toBe('ineligible');
+  });
+
+  it('returns unknown with missing_fields if has_bank_account is undefined but required', () => {
+    const profile = { age: 30 }; // missing has_bank_account
+    const criteria = { age_min: 18, age_max: 50, custom_rules: { bank_account: true } };
+    const result = checkEligibility(profile, criteria);
+    expect(result.status).toBe('unknown');
+    expect(result.missing_fields).toContain('has_bank_account');
   });
 
   it('returns unknown for unrecognised criteria keys', () => {

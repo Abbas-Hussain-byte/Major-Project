@@ -188,6 +188,7 @@ Profile                    // 1:1 with User
   occupation
   employment_type            // e.g. "gig_worker" | "street_vendor" | "daily_wage" | "other_unorganised"
   dependents
+  has_bank_account           // boolean
   existing_coverage         // array of scheme/policy identifiers
   updated_at
 
