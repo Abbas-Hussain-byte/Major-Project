@@ -25,6 +25,8 @@ export const ENV = {
   BHASHINI_PIPELINE_ID: process.env.BHASHINI_PIPELINE_ID || '',
 
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
+  GEMINI_CHAT_MODEL: process.env.GEMINI_CHAT_MODEL || 'gemini-3.5-flash',
+  GEMINI_EMBED_MODEL: process.env.GEMINI_EMBED_MODEL || 'gemini-embedding-2',
   GROQ_API_KEY: process.env.GROQ_API_KEY || '',
 
   UPLOAD_DIR: process.env.UPLOAD_DIR || 'uploads',

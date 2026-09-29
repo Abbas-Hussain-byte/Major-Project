@@ -19,7 +19,7 @@ const profileSchema = new mongoose.Schema(
       enum: ['gig_worker', 'street_vendor', 'daily_wage', 'other_unorganised'],
     },
     dependents: { type: Number, default: 0, min: 0 },
-    has_bank_account: { type: Boolean, default: false },
+    has_bank_account: { type: Boolean },
     existing_coverage: [{ type: String }], // scheme/policy identifiers
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }

@@ -9,7 +9,8 @@ export default function ProfilePage() {
     occupation: '',
     employment_type: 'daily_wage',
     income_band: 'below_1L',
-    dependents: '0'
+    dependents: '0',
+    has_bank_account: ''
   });
 
   const handleMicClick = () => {
@@ -106,6 +107,21 @@ export default function ProfilePage() {
               value={formData.dependents}
               onChange={handleChange}
             />
+          </div>
+
+          <div className="field-group">
+            <label htmlFor="profile-bank" className="field-label">Do you have an active bank account?</label>
+            <select 
+              id="profile-bank"
+              name="has_bank_account"
+              className="input-control"
+              value={formData.has_bank_account}
+              onChange={handleChange}
+            >
+              <option value="" disabled>-- Select Yes or No --</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
           </div>
 
           <button 

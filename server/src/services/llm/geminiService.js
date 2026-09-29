@@ -1,7 +1,6 @@
 import { ENV } from '../../config/env.js';
 
 const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta';
-const MODEL = 'gemini-1.5-flash-latest';
 
 /**
  * Send a prompt to Gemini and return the text response.
@@ -18,7 +17,7 @@ export const geminiChat = async (systemPrompt, userMessage) => {
     return '[STUB] Gemini response — add GEMINI_API_KEY to .env';
   }
 
-  const url = `${GEMINI_BASE}/models/${MODEL}:generateContent?key=${ENV.GEMINI_API_KEY}`;
+  const url = `${GEMINI_BASE}/models/${ENV.GEMINI_CHAT_MODEL}:generateContent?key=${ENV.GEMINI_API_KEY}`;
 
   const body = {
     contents: [
@@ -55,10 +54,10 @@ export const geminiEmbed = async (text) => {
     return new Array(768).fill(0);
   }
 
-  const url = `${GEMINI_BASE}/models/text-embedding-004:embedContent?key=${ENV.GEMINI_API_KEY}`;
+  const url = `${GEMINI_BASE}/models/${ENV.GEMINI_EMBED_MODEL}:embedContent?key=${ENV.GEMINI_API_KEY}`;
 
   const body = {
-    model: 'models/text-embedding-004',
+    model: `models/${ENV.GEMINI_EMBED_MODEL}`,
     content: { parts: [{ text }] },
   };
 
