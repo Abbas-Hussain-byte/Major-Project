@@ -25,14 +25,14 @@ Output as JSON array: [{scheme_id, name, explanation}]`;
 /**
  * Run eligibility check for a user and return gap list with explanations.
  * @param {string} userId
- * @returns {Promise<{gaps: object[], explanation: string}>}
+ * @returns {Promise<{gaps: object[], explanations: object[], unknown: object[]}>}
  */
 export const runEligibilityCheck = async (userId) => {
   const profile = await Profile.findOne({ user_id: userId }).lean();
   if (!profile) throw new Error('Profile not found — complete your profile first');
 
   const schemes = await Scheme.find({ is_active: true }).lean();
-  const { eligible } = filterEligibleSchemes(profile, schemes);
+  const { eligible, unknown } = filterEligibleSchemes(profile, schemes);
 
   // Compute gap = eligible but not already enrolled
   const enrolledIds = new Set((profile.existing_coverage || []).map(String));
@@ -44,7 +44,7 @@ export const runEligibilityCheck = async (userId) => {
   for (const scheme of gaps) {
     await EligibilityMatch.findOneAndUpdate(
       { user_id: userId, scheme_id: scheme._id },
-      { $setOnInsert: { matched_at: new Date(), status: 'notified' } },
+      { $setOnInsert: { matched_at: new Date(), status: 'matched' } },
       { upsert: true, new: false }
     );
   }
@@ -53,7 +53,7 @@ export const runEligibilityCheck = async (userId) => {
   let explanations = [];
   if (gaps.length > 0) {
     const schemeData = gaps.map((s) => ({
-      scheme_id: s._id,
+      scheme_id: String(s._id),
       name: s.name,
       benefit: s.benefit_description,
       premium_annual_inr: s.premium_annual_inr,
@@ -66,16 +66,31 @@ export const runEligibilityCheck = async (userId) => {
         EXPLANATION_PROMPT,
         JSON.stringify(schemeData)
       );
-      explanations = JSON.parse(raw);
-    } catch {
+      
+      // Strip markdown code fences
+      const cleanRaw = raw.replace(/^```json/m, '').replace(/^```/m, '').trim();
+      const parsedExplanations = JSON.parse(cleanRaw);
+
+      // Validate LLM output against the known gaps array
+      const gapDict = Object.fromEntries(gaps.map(s => [String(s._id), s]));
+      
+      explanations = parsedExplanations
+        .filter(exp => exp.scheme_id && gapDict[exp.scheme_id])
+        .map(exp => ({
+          scheme_id: exp.scheme_id,
+          name: gapDict[exp.scheme_id].name, // Take name from DB, not LLM
+          explanation: exp.explanation
+        }));
+
+    } catch (e) {
       // LLM failure must not break eligibility results
       explanations = gaps.map((s) => ({
-        scheme_id: s._id,
+        scheme_id: String(s._id),
         name: s.name,
         explanation: s.benefit_description,
       }));
     }
   }
 
-  return { gaps, explanations };
+  return { gaps, explanations, unknown };
 };

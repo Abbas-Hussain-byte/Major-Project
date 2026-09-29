@@ -197,7 +197,11 @@ Scheme                     // reference corpus, not user-specific
   type                      // "government_scheme" | "govt_insurance" | "private_insurance"
   eligibility_criteria       // JSON: structured rule fields (age_min, age_max, income_max, occupation, etc.) — this is what the Rule Engine reads; never bypass it via the LLM
   benefit_description
+  premium_annual_inr        // cost in INR per year (0 for free schemes)
+  coverage_inr              // benefit amount in INR
+  how_to_apply              // instructions for application
   source_document_ref
+  is_active                 // soft delete flag
   // Embeddings for semantic retrieval are NOT necessarily stored inline here —
   // route all embedding generation/lookup through an EmbeddingService/
   // RetrievalService abstraction so the underlying vector store (MongoDB

@@ -6,17 +6,17 @@
  * LLM involvement is limited to downstream explanation of already-decided results.
  */
 
-/**
- * Income band ordering for comparison.
- * The profile stores an income_band (e.g., '1L_3L') and the criteria stores an income_max_band.
- * We map each to a numeric order. If the user's order > max order, they are ineligible.
- */
 const INCOME_BAND_ORDER = {
   below_1L: 0,
   '1L_3L': 1,
   '3L_5L': 2,
   above_5L: 3,
 };
+
+const KNOWN_CRITERIA_KEYS = new Set([
+  'age_min', 'age_max', 'income_max_band', 'occupation',
+  'employment_types', 'min_dependents', 'max_dependents', 'custom_rules'
+]);
 
 /**
  * Check whether a user profile satisfies a single scheme's eligibility criteria.
@@ -26,19 +26,23 @@ const INCOME_BAND_ORDER = {
  * @returns {{ status: 'eligible'|'ineligible'|'unknown', reasons: string[], missing_fields?: string[] }}
  */
 export const checkEligibility = (profile, criteria) => {
-  const reasons = [];
+  const violations = [];
   const missing_fields = [];
-  
+  const reasons = []; // display purposes only
+
   if (!criteria || Object.keys(criteria).length === 0) {
     return { status: 'unknown', reasons: ['Criteria is empty or not defined.'], missing_fields: [] };
   }
 
+  // --- Identify unrecognised keys ---
+  const unrecognisedKeys = Object.keys(criteria).filter(k => !KNOWN_CRITERIA_KEYS.has(k));
+  
   // --- Age checks ---
   if (criteria.age_min !== undefined) {
     if (profile.age === undefined || profile.age === null) {
       missing_fields.push('age');
     } else if (profile.age < criteria.age_min) {
-      reasons.push(`Minimum age ${criteria.age_min} not met (profile age: ${profile.age}).`);
+      violations.push(`Minimum age ${criteria.age_min} not met (profile age: ${profile.age}).`);
     } else {
       reasons.push(`Meets minimum age of ${criteria.age_min}.`);
     }
@@ -47,7 +51,7 @@ export const checkEligibility = (profile, criteria) => {
     if (profile.age === undefined || profile.age === null) {
       if (!missing_fields.includes('age')) missing_fields.push('age');
     } else if (profile.age > criteria.age_max) {
-      reasons.push(`Maximum age ${criteria.age_max} exceeded (profile age: ${profile.age}).`);
+      violations.push(`Maximum age ${criteria.age_max} exceeded (profile age: ${profile.age}).`);
     } else {
       reasons.push(`Meets maximum age limit of ${criteria.age_max}.`);
     }
@@ -60,10 +64,13 @@ export const checkEligibility = (profile, criteria) => {
     } else {
       const maxOrder = INCOME_BAND_ORDER[criteria.income_max_band];
       const userOrder = INCOME_BAND_ORDER[profile.income_band];
+      
       if (maxOrder === undefined) {
-        reasons.push(`Scheme has an invalid income_max_band: ${criteria.income_max_band}.`);
+        return { status: 'unknown', reasons: [`Scheme has an invalid income_max_band: ${criteria.income_max_band}.`], missing_fields: [] };
+      } else if (userOrder === undefined) {
+        return { status: 'unknown', reasons: [`Profile has an unrecognised income_band: ${profile.income_band}.`], missing_fields: [] };
       } else if (userOrder > maxOrder) {
-        reasons.push(`Income band ${profile.income_band} exceeds maximum allowed ${criteria.income_max_band}.`);
+        violations.push(`Income band ${profile.income_band} exceeds maximum allowed ${criteria.income_max_band}.`);
       } else {
         reasons.push(`Income band ${profile.income_band} is within allowed limit.`);
       }
@@ -79,7 +86,7 @@ export const checkEligibility = (profile, criteria) => {
         (o) => o.toLowerCase() === profile.occupation.toLowerCase()
       );
       if (!match) {
-        reasons.push(`Occupation '${profile.occupation}' not in allowed list: ${criteria.occupation.join(', ')}.`);
+        violations.push(`Occupation '${profile.occupation}' not in allowed list: ${criteria.occupation.join(', ')}.`);
       } else {
         reasons.push(`Occupation '${profile.occupation}' is eligible.`);
       }
@@ -91,7 +98,7 @@ export const checkEligibility = (profile, criteria) => {
     if (!profile.employment_type) {
       missing_fields.push('employment_type');
     } else if (!criteria.employment_types.includes(profile.employment_type)) {
-      reasons.push(`Employment type '${profile.employment_type}' not in allowed list: ${criteria.employment_types.join(', ')}.`);
+      violations.push(`Employment type '${profile.employment_type}' not in allowed list: ${criteria.employment_types.join(', ')}.`);
     } else {
       reasons.push(`Employment type '${profile.employment_type}' is eligible.`);
     }
@@ -102,7 +109,7 @@ export const checkEligibility = (profile, criteria) => {
     if (profile.dependents === undefined || profile.dependents === null) {
       missing_fields.push('dependents');
     } else if (profile.dependents < criteria.min_dependents) {
-      reasons.push(`Minimum dependents ${criteria.min_dependents} not met.`);
+      violations.push(`Minimum dependents ${criteria.min_dependents} not met.`);
     } else {
       reasons.push(`Meets minimum dependents requirement.`);
     }
@@ -111,33 +118,41 @@ export const checkEligibility = (profile, criteria) => {
     if (profile.dependents === undefined || profile.dependents === null) {
       if (!missing_fields.includes('dependents')) missing_fields.push('dependents');
     } else if (profile.dependents > criteria.max_dependents) {
-      reasons.push(`Maximum dependents ${criteria.max_dependents} exceeded.`);
+      violations.push(`Maximum dependents ${criteria.max_dependents} exceeded.`);
     } else {
       reasons.push(`Meets maximum dependents limit.`);
     }
   }
 
+  // Priority 1: Any violation -> ineligible
+  if (violations.length > 0) {
+    return { status: 'ineligible', reasons: violations, missing_fields: [] };
+  }
+
+  // Priority 2: Missing required profile fields -> unknown
   if (missing_fields.length > 0) {
-    return { status: 'unknown', reasons: [`Missing profile fields required to determine eligibility: ${missing_fields.join(', ')}`], missing_fields };
+    return { 
+      status: 'unknown', 
+      reasons: [`Missing profile fields required to determine eligibility: ${missing_fields.join(', ')}`], 
+      missing_fields 
+    };
   }
 
-  // If there's any rejection reason containing words indicating failure (hacky for this refactor without massive restructure, but we just check if it 'exceeds', 'not met', 'not in', 'exceeded')
-  const isRejected = reasons.some(r => r.includes('not met') || r.includes('exceeded') || r.includes('exceeds') || r.includes('not in') || r.includes('invalid'));
-
-  if (isRejected) {
-    return { status: 'ineligible', reasons, missing_fields: [] };
+  // Priority 3: Custom rules or unrecognised keys -> unknown
+  const unknownReasons = [];
+  if (criteria.custom_rules && Object.keys(criteria.custom_rules).length > 0) {
+    unknownReasons.push(`Contains custom rules that require manual evaluation: ${Object.keys(criteria.custom_rules).join(', ')}.`);
+  }
+  if (unrecognisedKeys.length > 0) {
+    unknownReasons.push(`Contains unrecognised criteria keys: ${unrecognisedKeys.join(', ')}.`);
+  }
+  
+  if (unknownReasons.length > 0) {
+    return { status: 'unknown', reasons: unknownReasons, missing_fields: [] };
   }
 
-  if (reasons.length === 0) {
-      // If we got here and there are no reasons, it means there were criteria but none of them triggered any logic (e.g. unknown criteria properties or only custom_rules)
-      // Custom rules we treat as 'unknown' for now since we don't have code to evaluate them.
-      if (criteria.custom_rules && Object.keys(criteria.custom_rules).length > 0) {
-        return { status: 'unknown', reasons: ['Contains custom rules that require manual evaluation or missing profile data (e.g. bank account).'], missing_fields: [] };
-      }
-      return { status: 'eligible', reasons: ['Meets all evaluated criteria.'], missing_fields: [] };
-  }
-
-  return { status: 'eligible', reasons, missing_fields: [] };
+  // Priority 4: Meets all rules -> eligible
+  return { status: 'eligible', reasons: reasons.length ? reasons : ['Meets all evaluated criteria.'], missing_fields: [] };
 };
 
 /**
@@ -145,23 +160,24 @@ export const checkEligibility = (profile, criteria) => {
  *
  * @param {object} profile
  * @param {object[]} schemes  - array of Mongoose Scheme documents (lean)
- * @returns {{ eligible: object[], ineligible: object[], unknown: object[] }}
+ * @returns {{ eligible: object[], ineligible: object[], unknown: object[], enrolled: object[] }}
  */
 export const filterEligibleSchemes = (profile, schemes) => {
   const eligible = [];
   const ineligible = [];
   const unknown = [];
+  const enrolled = [];
+
+  const enrolledIds = new Set((profile.existing_coverage || []).map(String));
 
   for (const scheme of schemes) {
-    const result = checkEligibility(profile, scheme.eligibility_criteria ?? {});
-    
-    // Check existing coverage
-    const enrolledIds = new Set((profile.existing_coverage || []).map(String));
     if (enrolledIds.has(String(scheme._id))) {
-       ineligible.push({ scheme, reasons: [...result.reasons, 'Already enrolled in this scheme.'] });
+       enrolled.push({ scheme, reasons: ['Already enrolled in this scheme.'] });
        continue;
     }
 
+    const result = checkEligibility(profile, scheme.eligibility_criteria ?? {});
+    
     if (result.status === 'eligible') {
       eligible.push({ scheme, reasons: result.reasons });
     } else if (result.status === 'ineligible') {
@@ -171,5 +187,5 @@ export const filterEligibleSchemes = (profile, schemes) => {
     }
   }
 
-  return { eligible, ineligible, unknown };
+  return { eligible, ineligible, unknown, enrolled };
 };
