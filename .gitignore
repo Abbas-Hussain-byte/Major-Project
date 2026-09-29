@@ -8,3 +8,7 @@ build/
 uploads/
 .vite/
 coverage/
+
+# Note: .agents/ and docs/ are intentionally NOT ignored. 
+# They contain critical project documentation and agent instructions 
+# that should be version-controlled so other developers/agents can use them.
