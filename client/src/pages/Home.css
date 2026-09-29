@@ -1,0 +1,49 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  min-height: calc(100vh - 80px); /* Account for bottom nav */
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.home-header h1 {
+  font-size: var(--text-2xl);
+  margin-bottom: 8px;
+}
+
+.home-header p {
+  color: #666666;
+}
+
+.language-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.lang-button {
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  font-size: var(--text-xl);
+  font-weight: bold;
+  padding: 16px;
+  color: var(--color-text-dark);
+}
+
+.lang-button.active {
+  background-color: var(--color-eligibility-bg);
+  border-color: var(--color-eligibility-bg);
+  color: var(--color-eligibility-text);
+}
+
+.mic-section {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}

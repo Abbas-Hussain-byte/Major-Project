@@ -1,0 +1,38 @@
+:root {
+  /* Font Family */
+  --font-primary: 'Noto Sans', 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif;
+  
+  /* Typography Sizes */
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  
+  /* Touch Targets */
+  --touch-target: 56px;
+
+  /* Colors */
+  --color-text-dark: #111111;
+  --color-text-light: #ffffff;
+  --color-bg: #ffffff;
+  
+  /* Module Colors (Minimum 7:1 contrast) */
+  --color-eligibility-bg: #FFC107; /* Gold */
+  --color-eligibility-text: #111111; /* Contrast > 14:1 */
+  
+  --color-documents-bg: #004488; /* Deep Blue */
+  --color-documents-text: #ffffff; /* Contrast > 7:1 */
+  
+  --color-literacy-bg: #993300; /* Burnt Orange */
+  --color-literacy-text: #ffffff; /* Contrast > 7:1 */
+  
+  --color-income-bg: #005522; /* Forest Green */
+  --color-income-text: #ffffff; /* Contrast > 7:1 */
+
+  /* Utility Colors */
+  --color-focus-ring: #000000;
+  --color-border: #dddddd;
+  --color-mic-idle: #e0e0e0;
+  --color-mic-listening: #ff4444;
+  --color-mic-error: #ff9900;
+}

@@ -1,0 +1,47 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-text-dark);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, a, input, select, textarea {
+  font-family: inherit;
+  touch-action: manipulation;
+}
+
+/* Accessible focus ring on all interactive elements */
+:focus {
+  outline: none; /* Remove default browser outline */
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Ensure all buttons have minimum touch target */
+button {
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* App layout wrapper to handle fixed bottom nav */
+.app-container {
+  padding-bottom: calc(var(--touch-target) + 20px);
+  min-height: 100vh;
+  position: relative;
+}
