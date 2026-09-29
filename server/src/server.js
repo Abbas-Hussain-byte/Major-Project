@@ -20,9 +20,28 @@ import adminRoutes from './routes/admin.routes.js';
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: ENV.CLIENT_ORIGIN }));
+const allowedOrigins = [
+  ENV.CLIENT_ORIGIN,
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:4173',
+  'http://127.0.0.1:4173'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow non-browser requests or allowed dev origins
+    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('http://localhost:')) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
 app.use(helmet());
 app.use(morgan('dev'));
+
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
@@ -43,3 +62,5 @@ const startServer = async () => {
 };
 
 startServer();
+// Server entry point ready
+

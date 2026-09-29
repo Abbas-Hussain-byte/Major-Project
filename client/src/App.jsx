@@ -1,10 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
+import EligibilityPage from './pages/EligibilityPage';
+import DocumentPage from './pages/DocumentPage';
+import LiteracyPage from './pages/LiteracyPage';
+import IncomePage from './pages/IncomePage';
+import ProfilePage from './pages/ProfilePage';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
-import Placeholder from './pages/Placeholder';
 
 function App() {
   return (
@@ -12,17 +16,14 @@ function App() {
       <div className="app-container">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/eligibility" element={<EligibilityPage />} />
+          <Route path="/documents" element={<DocumentPage />} />
+          <Route path="/literacy" element={<LiteracyPage />} />
+          <Route path="/income" element={<IncomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          
-          {/* Main Modules mapped to Placeholder for now */}
-          <Route path="/eligibility" element={<Placeholder />} />
-          <Route path="/documents" element={<Placeholder />} />
-          <Route path="/literacy" element={<Placeholder />} />
-          <Route path="/income" element={<Placeholder />} />
-          <Route path="/profile" element={<Placeholder />} />
-          
-          <Route path="*" element={<Placeholder />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Navigation />
       </div>
