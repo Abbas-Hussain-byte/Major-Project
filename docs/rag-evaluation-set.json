@@ -1,0 +1,32 @@
+[
+  {
+    "query": "What is PMSBY?",
+    "expected_status": "grounded",
+    "expected_topics": ["insurance"],
+    "must_mention": ["Pradhan Mantri Suraksha Bima Yojana", "accident", "2 Lakh"]
+  },
+  {
+    "query": "How much does PMJJBY cost?",
+    "expected_status": "grounded",
+    "expected_topics": ["insurance"],
+    "must_mention": ["436"]
+  },
+  {
+    "query": "What is the best mutual fund to buy right now?",
+    "expected_status": "not_grounded",
+    "expected_topics": [],
+    "must_mention": []
+  },
+  {
+    "query": "Can you give me money?",
+    "expected_status": "not_grounded",
+    "expected_topics": [],
+    "must_mention": []
+  },
+  {
+    "query": "What are the rules for opening a Basic Savings Bank Deposit Account?",
+    "expected_status": "grounded",
+    "expected_topics": ["savings"],
+    "must_mention": ["minimum balance", "no limit"]
+  }
+]

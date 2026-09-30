@@ -125,7 +125,7 @@ export const checkEligibility = (profile, criteria) => {
   }
 
   // --- Bank Account check (Custom Rule) ---
-  if (criteria.custom_rules?.bank_account === true) {
+  if (criteria.custom_rules?.requires_bank_account === true) {
     if (profile.has_bank_account === undefined || profile.has_bank_account === null) {
       missing_fields.push('has_bank_account');
     } else if (profile.has_bank_account !== true) {

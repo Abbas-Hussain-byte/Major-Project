@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import MicButton from '../components/MicButton';
+import { useVoice } from '../services/speech/useVoice';
 import './Home.css';
 
 export default function Home() {
   const { language, setLanguage } = useLanguage();
-  const [micState, setMicState] = useState('idle');
+  
+  const moduleName = import.meta.env.VITE_VOICE_ECHO === 'true' ? 'echo' : 'home';
+  const { micState, errorMsg, lastAnswer, startListening, stop } = useVoice({ lang: language, moduleName });
+  const [showTextFallback, setShowTextFallback] = useState(false);
+  const [textInput, setTextInput] = useState('');
 
   const handleMicClick = () => {
-    if (micState === 'idle') setMicState('listening');
-    else if (micState === 'listening') setMicState('error');
-    else setMicState('idle');
+    if (micState === 'listening' || micState === 'processing') {
+      stop();
+    } else {
+      startListening(() => setShowTextFallback(true));
+    }
+  };
+
+  const handleTextSubmit = async (e) => {
+    e.preventDefault();
+    if (!textInput.trim()) return;
+    // Handled in full implementation, for now just show we received it
+    console.log('Text fallback submitted:', textInput);
   };
 
   return (
@@ -39,6 +53,21 @@ export default function Home() {
 
       <div className="mic-section">
         <MicButton state={micState} onClick={handleMicClick} />
+        {errorMsg && <p className="error-msg" aria-live="polite">{errorMsg}</p>}
+        {lastAnswer && <p className="answer-msg" aria-live="polite">{lastAnswer}</p>}
+        
+        {showTextFallback && (
+          <form className="text-fallback-form" onSubmit={handleTextSubmit}>
+            <input 
+              type="text" 
+              value={textInput}
+              onChange={(e) => setTextInput(e.target.value)}
+              placeholder="Type your question..."
+              aria-label="Text fallback input"
+            />
+            <button type="submit">Send</button>
+          </form>
+        )}
       </div>
     </div>
   );

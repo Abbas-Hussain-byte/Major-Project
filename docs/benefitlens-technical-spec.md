@@ -67,12 +67,11 @@ of these as bugs, not style choices:
 
 ### 3.1 Voice & Language Gateway
 - Accepts voice input in Telugu or Hindi; also accepts plain text input.
-- Wraps Bhashini API for ASR (speech-to-text), MT (translation), and TTS
-  (text-to-speech). Consult Bhashini's official API documentation for exact
-  endpoint/auth schema — do not assume a specific request shape without
-  verifying against their current docs.
-- On ASR failure, prompts the user to repeat or switch to text — never fails
-  silently or dead-ends.
+- Uses an ordered fallback chain for ASR/MT/TTS (e.g. Bhashini, then browser/Gemini fallback).
+- ASR (speech-to-text) and TTS (text-to-speech) are handled by active providers (e.g., client-side browser speech or server-side APIs).
+- MT (translation) uses the server's fallback chain, skipping translation entirely if the language is 'en'.
+- On failure of one provider, it gracefully falls through to the next.
+- On translation-in failure, prompts the user to repeat or switch to text. On translation-out failure, provides the English answer with a failure flag rather than dead-ending.
 - Acts as the single entry/exit point between the outside world (voice/text) and
   the four processing modules below, which only ever operate in English.
 
@@ -267,9 +266,11 @@ POST   /api/auth/login
 GET    /api/profile
 PUT    /api/profile
 
-POST   /api/voice/transcribe        -> wraps Bhashini ASR
-POST   /api/voice/translate         -> wraps Bhashini MT
-POST   /api/voice/synthesize        -> wraps Bhashini TTS
+GET    /api/voice/capabilities      -> returns active provider chain & step locations
+POST   /api/voice/translate         -> {text, from, to} translation
+POST   /api/voice/query             -> translates, runs handler, translates back
+POST   /api/voice/transcribe        -> 501 (handled client-side fallback)
+POST   /api/voice/synthesize        -> 501 (handled client-side fallback)
 
 POST   /api/eligibility/query       -> returns matched schemes + gap list
 GET    /api/eligibility/gaps        -> proactive gap list for logged-in user

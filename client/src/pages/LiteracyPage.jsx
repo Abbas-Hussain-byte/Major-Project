@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { BookOpen, Send } from 'lucide-react';
 import MicButton from '../components/MicButton';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useVoice } from '../services/speech/useVoice';
 
 export default function LiteracyPage() {
-  const [micState, setMicState] = useState('idle');
+  const { language } = useLanguage();
+  const { micState, errorMsg, lastAnswer, startListening, stop } = useVoice({ lang: language, moduleName: 'literacy' });
   const [question, setQuestion] = useState('');
 
   const handleMicClick = () => {
-    if (micState === 'idle') setMicState('listening');
-    else if (micState === 'listening') setMicState('error');
-    else setMicState('idle');
+    if (micState === 'listening' || micState === 'processing') stop();
+    else startListening();
+  };
+
+  const handleTextSubmit = (e) => {
+    e.preventDefault();
+    if (!question.trim()) return;
+    console.log('Text question submitted:', question);
   };
 
   return (
@@ -28,9 +36,12 @@ export default function LiteracyPage() {
             Speak or type your question
           </h2>
           <p>Tap the big microphone below to ask in Telugu or Hindi, or type your question below.</p>
+          
+          {errorMsg && <p className="error-msg" aria-live="polite">{errorMsg}</p>}
+          {lastAnswer && <p className="answer-msg" aria-live="polite" style={{ marginTop: '16px', fontWeight: 'bold' }}>{lastAnswer}</p>}
         </section>
 
-        <div className="field-group">
+        <form className="field-group" onSubmit={handleTextSubmit}>
           <label htmlFor="text-fallback-input" className="field-label">
             Type your question (optional)
           </label>
@@ -45,7 +56,7 @@ export default function LiteracyPage() {
               aria-label="Type your question"
             />
             <button 
-              type="button" 
+              type="submit" 
               className="btn-primary btn-literacy" 
               style={{ minWidth: '56px', padding: '0 16px' }}
               aria-label="Send question"
@@ -53,7 +64,7 @@ export default function LiteracyPage() {
               <Send size={20} aria-hidden="true" />
             </button>
           </div>
-        </div>
+        </form>
       </main>
 
       <footer className="mic-section">

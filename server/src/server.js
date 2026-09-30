@@ -17,7 +17,10 @@ import literacyRoutes from './routes/literacy.routes.js';
 import incomeExpenseRoutes from './routes/incomeExpense.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 
+import rateLimit from 'express-rate-limit';
+
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(express.json());
 const allowedOrigins = [
@@ -40,9 +43,15 @@ app.use(morgan('dev'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
+const voiceRateLimiter = rateLimit({
+  windowMs: ENV.RATE_LIMIT_VOICE_WINDOW_MS,
+  max: ENV.RATE_LIMIT_VOICE_MAX,
+  message: { error: 'Too many voice requests, please try again later.' }
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/voice', voiceRoutes);
+app.use('/api/voice', voiceRateLimiter, voiceRoutes);
 app.use('/api/eligibility', eligibilityRoutes);
 app.use('/api/documents', documentsRoutes);
 app.use('/api/literacy', literacyRoutes);

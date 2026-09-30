@@ -1,37 +1,125 @@
 .mic-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 24px;
+  justify-content: center;
+  padding: 32px;
+  position: relative;
 }
 
 .mic-button {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: all 0.2s ease-in-out;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-h);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 10;
 }
 
-.mic-button.idle {
-  background-color: var(--color-mic-idle);
+.mic-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.4);
 }
 
+.mic-button:active {
+  transform: translateY(2px) scale(0.95);
+}
+
+.mic-button svg {
+  width: 48px;
+  height: 48px;
+  transition: all 0.3s ease;
+}
+
+/* Idle State glow */
+.mic-button.idle::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.mic-button.idle:hover::before {
+  opacity: 1;
+}
+
+/* Listening State */
 .mic-button.listening {
-  background-color: var(--color-mic-listening);
-  animation: pulse 1.5s infinite;
+  background: linear-gradient(135deg, #ef4444, #f43f5e);
+  border-color: #f43f5e;
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.5);
+  animation: listenPulse 1.5s infinite;
+}
+.mic-button.listening svg {
+  color: white;
 }
 
+/* Error State */
 .mic-button.error {
-  background-color: var(--color-mic-error);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #f59e0b;
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
 }
 
-.mic-button:focus-visible {
-  outline: 4px solid var(--color-focus-ring);
-  outline-offset: 4px;
+/* Audio waves animation behind button */
+.mic-waves {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mic-button.listening ~ .mic-waves {
+  opacity: 1;
+}
+
+.mic-waves::before, .mic-waves::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(239, 68, 68, 0.6);
+  animation: ripple 2s infinite cubic-bezier(0.1, 0.5, 0.5, 1);
+}
+
+.mic-waves::after {
+  animation-delay: 1s;
+}
+
+@keyframes listenPulse {
+  0% { transform: scale(1); box-shadow: 0 0 40px rgba(239, 68, 68, 0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(239, 68, 68, 0.8); }
+  100% { transform: scale(1); box-shadow: 0 0 40px rgba(239, 68, 68, 0.5); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.icon-spin {
+  animation: spin 1.5s linear infinite;
 }
 
 /* Screen reader only utility */
@@ -45,22 +133,4 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mic-button.listening {
-    animation: none;
-    /* Static visual indicator instead of pulsing */
-    border: 4px dashed #111111;
-  }
-  
-  .mic-button {
-    transition: none;
-  }
 }

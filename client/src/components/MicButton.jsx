@@ -31,8 +31,9 @@ export default function MicButton({ state = 'idle', onClick }) {
         onClick={onClick}
         aria-label={statusText}
       >
-        <Icon size={64} color="#111111" />
+        <Icon className={state === 'listening' ? 'icon-spin' : ''} />
       </button>
+      <div className="mic-waves"></div>
     </div>
   );
 }

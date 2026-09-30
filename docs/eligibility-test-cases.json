@@ -1,0 +1,35 @@
+[
+  {
+    "description": "User meets all criteria for PMSBY",
+    "profile": {
+      "age": 35,
+      "income_band": "1L_3L",
+      "occupation": "daily_wage",
+      "has_bank_account": true
+    },
+    "scheme": "PMSBY",
+    "expected_status": "eligible"
+  },
+  {
+    "description": "User is too old for PMJJBY",
+    "profile": {
+      "age": 55,
+      "income_band": "below_1L",
+      "occupation": "street_vendor",
+      "has_bank_account": true
+    },
+    "scheme": "PMJJBY",
+    "expected_status": "ineligible"
+  },
+  {
+    "description": "User is missing bank account information for PMJJBY",
+    "profile": {
+      "age": 35,
+      "income_band": "below_1L",
+      "occupation": "gig_worker"
+    },
+    "scheme": "PMJJBY",
+    "expected_status": "unknown",
+    "expected_missing_fields": ["has_bank_account"]
+  }
+]

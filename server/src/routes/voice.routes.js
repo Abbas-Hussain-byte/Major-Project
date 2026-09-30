@@ -1,13 +1,12 @@
 import express from 'express';
-import { protect } from '../middleware/auth.js';
-import { transcribe, translate, synthesize } from '../controllers/voice.controller.js';
-import { upload } from '../middleware/uploadHandler.js';
+import * as voiceController from '../controllers/voiceGateway.controller.js';
 
 const router = express.Router();
 
-router.use(protect);
-router.post('/transcribe', upload.single('audio'), transcribe);
-router.post('/translate', translate);
-router.post('/synthesize', synthesize);
+router.get('/capabilities', voiceController.getCapabilities);
+router.post('/translate', voiceController.translate);
+router.post('/query', voiceController.query);
+router.post('/transcribe', voiceController.transcribe);
+router.post('/synthesize', voiceController.synthesize);
 
 export default router;
