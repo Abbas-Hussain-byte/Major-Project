@@ -1,6 +1,7 @@
 import Scheme from '../models/Scheme.js';
 import LiteracyContent from '../models/LiteracyContent.js';
 import KnowledgeSource from '../models/KnowledgeSource.js';
+import { embed } from './embeddings/embeddingService.js';
 
 export const getAllSchemes = async (filter = {}) => {
   return await Scheme.find(filter).lean();
@@ -19,5 +20,16 @@ export const createNewLiteracyContent = async (data) => {
   if (!sourceExists) {
     throw new Error('Knowledge source not found');
   }
-  return await LiteracyContent.create(data);
+
+  let vector;
+  try {
+    vector = await embed(data.content_text, 'RETRIEVAL_DOCUMENT');
+  } catch (err) {
+    throw new Error(`Failed to generate embedding: ${err.message}`);
+  }
+
+  return await LiteracyContent.create({
+    ...data,
+    embedding: vector
+  });
 };

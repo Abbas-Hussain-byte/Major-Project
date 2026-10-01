@@ -64,4 +64,32 @@ describe('Voice Gateway - voiceService', () => {
     expect(res.status).toBe('module_not_ready');
     expect(res.english_answer).toBe('');
   });
+
+  it('handles structured result from handler and passes status/sources', async () => {
+    handlerRegistry.registerHandler('mocked_structured', async (q) => {
+      return { status: 'not_grounded', text: null, sources: [] };
+    });
+    
+    const res = await processQuery('test', 'en', 'mocked_structured');
+    
+    expect(res.status).toBe('not_grounded');
+    expect(res.sources).toEqual([]);
+    expect(res.english_answer).toBe('');
+    expect(res.native_answer).toBe('');
+  });
+
+  it('handles structured result with text and sources', async () => {
+    handlerRegistry.registerHandler('mocked_structured2', async (q) => {
+      return { status: 'grounded', text: 'answer', sources: [{id: 1}] };
+    });
+    
+    vi.spyOn(factory, 'translateWithFallback').mockResolvedValue({ translated: 'translated text', usedFallback: false });
+    
+    const res = await processQuery('test', 'hi', 'mocked_structured2');
+    
+    expect(res.status).toBe('grounded');
+    expect(res.sources).toEqual([{id: 1}]);
+    expect(res.english_answer).toBe('answer');
+    expect(res.native_answer).toBe('translated text');
+  });
 });

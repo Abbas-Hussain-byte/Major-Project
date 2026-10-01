@@ -154,10 +154,10 @@ APPLICATION MODULES (all in Node.js)
 
   Eligibility Engine (internal decision, NOT LLM-dependent):
     Structured Scheme/Insurance KB + Deterministic Rule Engine --> decision
-    decision --> Gemini/Groq LLM API   [EXTERNAL, explanation/summarization only]
+    decision --> Gemini (gemini-2.5-flash)   [EXTERNAL, explanation/summarization only]
 
-  Document Explainer        <----> Gemini/Groq LLM API            [EXTERNAL]
-  Literacy Tutor            <----> Gemini/Groq LLM API            [EXTERNAL]
+  Document Explainer        <----> Gemini (gemini-2.5-flash)            [EXTERNAL]
+  Literacy Tutor            <----> Gemini (gemini-2.5-flash)            [EXTERNAL]
   Income/Expense Logging    -- (no external AI call; DB only) --
 
   All five modules --> MongoDB Atlas                              [DATA LAYER]
@@ -299,8 +299,8 @@ POST   /api/admin/literacy-content
 | Frontend | React (PWA), optimized for low-end Android |
 | Backend | Node.js + Express |
 | Database | MongoDB Atlas (free tier) |
-| LLM | Gemini (free tier) or Groq (free tier) |
-| Embeddings | Free embedding API (e.g., Gemini embeddings) for semantic search |
+| LLM | Gemini (gemini-2.5-flash) |
+| Embeddings | Gemini embeddings (gemini-embedding-2) for semantic search |
 | Voice (ASR/MT/TTS) | Bhashini API (Government of India, free for individual/low-volume developers) |
 | Hosting | Vercel or Render (free tier) |
 | Auth | JWT-based |

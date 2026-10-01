@@ -2,7 +2,7 @@ import * as voiceService from '../services/voiceGateway/voiceService.js';
 import { TranslationUnavailableError } from '../services/voiceGateway/errors.js';
 
 const ALLOWED_LANGS = ['te', 'hi', 'en'];
-const ALLOWED_MODULES = ['echo', 'literacy', 'profile'];
+const ALLOWED_MODULES = ['echo', 'literacy'];
 
 export const getCapabilities = (req, res) => {
   const caps = voiceService.getCapabilities();

@@ -9,10 +9,11 @@ import { geminiEmbed } from '../llm/geminiService.js';
 /**
  * Generate an embedding vector for arbitrary text.
  * @param {string} text
+ * @param {string} taskType
  * @returns {Promise<number[]>}
  */
-export const embed = async (text) => {
-  return geminiEmbed(text);
+export const embed = async (text, taskType = 'RETRIEVAL_DOCUMENT') => {
+  return geminiEmbed(text, taskType);
 };
 
 /**

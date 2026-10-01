@@ -1,32 +1,152 @@
 [
   {
-    "query": "What is PMSBY?",
+    "query": "What is a basic savings bank deposit account?",
     "expected_status": "grounded",
-    "expected_topics": ["insurance"],
-    "must_mention": ["Pradhan Mantri Suraksha Bima Yojana", "accident", "2 Lakh"]
+    "expected_chunk_title": "What is a Basic Savings Bank Deposit Account (BSBDA)?"
   },
   {
-    "query": "How much does PMJJBY cost?",
+    "query": "How many times can I withdraw from a BSBDA?",
     "expected_status": "grounded",
-    "expected_topics": ["insurance"],
-    "must_mention": ["436"]
+    "expected_chunk_title": "Are there limits on BSBDA withdrawals?"
+  },
+  {
+    "query": "Why do banks ask for KYC?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is KYC and why is it needed?"
+  },
+  {
+    "query": "Can I open an account if I don't have Aadhaar?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "Can I open a bank account without full KYC?"
+  },
+  {
+    "query": "What is the benefit of keeping a budget?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "Why is budgeting important?"
+  },
+  {
+    "query": "How does inflation affect my money?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is inflation?"
+  },
+  {
+    "query": "How much should I save for emergencies?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "Why keep an emergency fund?"
+  },
+  {
+    "query": "What does compound interest mean?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is compound interest?"
+  },
+  {
+    "query": "Why do I need insurance?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is insurance and how does it work?"
+  },
+  {
+    "query": "Will my family get money if I die?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is life insurance?"
+  },
+  {
+    "query": "Does insurance pay for hospital bills?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is health insurance?"
+  },
+  {
+    "query": "What happens if my shop catches fire?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is property or vehicle insurance?"
+  },
+  {
+    "query": "Should I take a loan?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What should you consider before taking a loan?"
+  },
+  {
+    "query": "What does EMI stand for?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is an EMI?"
+  },
+  {
+    "query": "How can I avoid loan sharks?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "How to avoid predatory lenders?"
+  },
+  {
+    "query": "What is UPI used for?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is UPI?"
+  },
+  {
+    "query": "Do I need a PIN to get money on UPI?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "Is a UPI PIN required to receive money?"
+  },
+  {
+    "query": "My UPI payment failed but money was cut, what do I do?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What happens if a UPI transaction fails but money is deducted?"
+  },
+  {
+    "query": "What is a CIBIL score?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "What is a credit score (CIBIL score)?"
+  },
+  {
+    "query": "How can I increase my credit score?",
+    "expected_status": "grounded",
+    "expected_chunk_title": "How to improve a bad credit score?"
   },
   {
     "query": "What is the best mutual fund to buy right now?",
     "expected_status": "not_grounded",
-    "expected_topics": [],
-    "must_mention": []
+    "expected_chunk_title": null
   },
   {
     "query": "Can you give me money?",
     "expected_status": "not_grounded",
-    "expected_topics": [],
-    "must_mention": []
+    "expected_chunk_title": null
+  },
+  {
+    "query": "Which stock should I invest in?",
+    "expected_status": "not_grounded",
+    "expected_chunk_title": null
+  },
+  {
+    "query": "Who won the cricket match yesterday?",
+    "expected_status": "not_grounded",
+    "expected_chunk_title": null
   },
   {
     "query": "What are the rules for opening a Basic Savings Bank Deposit Account?",
     "expected_status": "grounded",
-    "expected_topics": ["savings"],
-    "must_mention": ["minimum balance", "no limit"]
+    "expected_chunk_title": "What is a Basic Savings Bank Deposit Account (BSBDA)?"
+  },
+  {
+    "query": "How to cook biryani?",
+    "expected_status": "not_grounded",
+    "expected_chunk_title": null
+  },
+  {
+    "query": "Tell me a joke.",
+    "expected_status": "not_grounded",
+    "expected_chunk_title": null
+  },
+  {
+    "query": "Is Bitcoin a good investment?",
+    "expected_status": "not_grounded",
+    "expected_chunk_title": null
+  },
+  {
+    "query": "Where can I buy a house?",
+    "expected_status": "not_grounded",
+    "expected_chunk_title": null
+  },
+  {
+    "query": "How to apply for a US visa?",
+    "expected_status": "not_grounded",
+    "expected_chunk_title": null
   }
 ]

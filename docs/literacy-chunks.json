@@ -1,0 +1,233 @@
+[
+  {
+    "organization": "RBI",
+    "source_url": "https://rbi.org.in/Scripts/FAQView.aspx?Id=144",
+    "source_type": "faq",
+    "topic": "savings",
+    "title": "What is a Basic Savings Bank Deposit Account (BSBDA)?",
+    "content_text": "A Basic Savings Bank Deposit Account (BSBDA) is a savings account that does not require you to maintain any minimum balance. It provides basic banking facilities to everyone. You can deposit cash at bank branches and ATMs. You also get an ATM or debit card for free. There is no limit on the number and value of deposits you can make in a month.",
+    "section": "Q1 and Q3",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://rbi.org.in/Scripts/FAQView.aspx?Id=144",
+    "source_type": "faq",
+    "topic": "savings",
+    "title": "Are there limits on BSBDA withdrawals?",
+    "content_text": "In a Basic Savings Bank Deposit Account (BSBDA), you are allowed a maximum of four withdrawals in a month. This includes ATM withdrawals and cash withdrawals at the bank branch. If you need to make more withdrawals, the bank may charge a fee or ask you to convert it into a regular savings account.",
+    "section": "Q4",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://rbi.org.in/Scripts/FAQView.aspx?Id=73",
+    "source_type": "faq",
+    "topic": "savings",
+    "title": "What is KYC and why is it needed?",
+    "content_text": "KYC means 'Know Your Customer'. Banks use KYC rules to verify the identity and address of their customers. This helps prevent banks from being used for money laundering or illegal activities. To complete KYC, you usually need to provide a proof of identity and a proof of address, such as an Aadhaar card, Voter ID, or NREGA card.",
+    "section": "Q1 and Q2",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://rbi.org.in/Scripts/FAQView.aspx?Id=73",
+    "source_type": "faq",
+    "topic": "savings",
+    "title": "Can I open a bank account without full KYC?",
+    "content_text": "Yes, if you do not have official valid documents, you can open a 'Small Account'. A Small Account can be opened by submitting a recent photo and putting your signature or thumbprint in front of a bank official. However, Small Accounts have limits: you cannot keep a balance of more than 50,000 rupees, and total withdrawals in a month cannot exceed 10,000 rupees.",
+    "section": "Q10",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/images/pdfs/financial_education_handbook.pdf",
+    "source_type": "consumer_guide",
+    "topic": "general",
+    "title": "Why is budgeting important?",
+    "content_text": "Budgeting helps you plan how to spend your money. It tracks your income and expenses so you can ensure you have enough money for your needs. A good budget helps you avoid unnecessary debt and ensures you can save some money for emergencies and future goals.",
+    "section": "Page 12",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/images/pdfs/financial_education_handbook.pdf",
+    "source_type": "consumer_guide",
+    "topic": "general",
+    "title": "What is inflation?",
+    "content_text": "Inflation is the rate at which the general prices of goods and services rise over time. When prices go up, the purchasing power of your money goes down. This means a hundred rupees today will buy fewer things in the future. To beat inflation, you need to save and invest your money where it can earn a return higher than the inflation rate.",
+    "section": "Page 14",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/images/pdfs/financial_education_handbook.pdf",
+    "source_type": "consumer_guide",
+    "topic": "general",
+    "title": "Why keep an emergency fund?",
+    "content_text": "An emergency fund is money set aside for unexpected events, like a medical emergency, sudden loss of income, or urgent repairs. It stops you from taking expensive loans when bad things happen. Financial experts recommend keeping at least three to six months of your regular living expenses saved in a safe and easily accessible bank account.",
+    "section": "Page 17",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/images/pdfs/financial_education_handbook.pdf",
+    "source_type": "consumer_guide",
+    "topic": "general",
+    "title": "What is compound interest?",
+    "content_text": "Compound interest is the interest you earn on both your original money and the interest it has already earned. It helps your money grow faster over time. The longer you keep your money saved or invested, the more it grows because the interest keeps building on top of previous interest.",
+    "section": "Page 19",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/financial-education/insurance",
+    "source_type": "consumer_guide",
+    "topic": "insurance",
+    "title": "What is insurance and how does it work?",
+    "content_text": "Insurance is a way to protect yourself from large financial losses. You pay a small regular amount, called a premium, to an insurance company. In return, if you face a specific problem, like an accident, illness, or death, the company pays a large sum of money to cover the costs or support your family.",
+    "section": "Basics of Insurance",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/financial-education/insurance",
+    "source_type": "consumer_guide",
+    "topic": "insurance",
+    "title": "What is life insurance?",
+    "content_text": "Life insurance provides financial support to your family if you pass away. If the person whose life is insured dies, the insurance company pays a lump sum money to their family members. This helps the family replace the lost income and manage their daily expenses and debts.",
+    "section": "Types of Insurance",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/financial-education/insurance",
+    "source_type": "consumer_guide",
+    "topic": "insurance",
+    "title": "What is health insurance?",
+    "content_text": "Health insurance pays for your medical expenses when you fall ill or get injured. If you are hospitalized, the insurance company covers the hospital bills, medicines, and doctor fees up to a certain limit. This prevents you from spending your life savings or taking loans for medical treatments.",
+    "section": "Types of Insurance",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/financial-education/insurance",
+    "source_type": "consumer_guide",
+    "topic": "insurance",
+    "title": "What is property or vehicle insurance?",
+    "content_text": "Property and vehicle insurance protect your physical assets. If your house, shop, or vehicle is damaged due to fire, theft, or accidents, the insurance company helps pay for the repairs or replacement. In India, third-party vehicle insurance is required by law to cover damages you might cause to others.",
+    "section": "General Insurance",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/financial-education/borrowing",
+    "source_type": "consumer_guide",
+    "topic": "loans",
+    "title": "What should you consider before taking a loan?",
+    "content_text": "Before taking a loan, you must check if you really need it and if you can afford to repay it. Always look at the interest rate and the fees charged by the lender. Compare offers from different banks. Remember that failing to repay a loan on time will add penalties and make it harder for you to get loans in the future.",
+    "section": "Borrowing Basics",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/financial-education/borrowing",
+    "source_type": "consumer_guide",
+    "topic": "loans",
+    "title": "What is an EMI?",
+    "content_text": "EMI stands for Equated Monthly Installment. It is the fixed amount you pay every month to the bank until your loan is fully paid off. The EMI includes both a portion of the original borrowed money (principal) and the interest charged on it.",
+    "section": "Loan Repayment",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "NCFE",
+    "source_url": "https://www.ncfe.org.in/financial-education/borrowing",
+    "source_type": "consumer_guide",
+    "topic": "loans",
+    "title": "How to avoid predatory lenders?",
+    "content_text": "Always borrow from official banks or registered finance companies. Avoid private moneylenders who charge extremely high interest rates, ask for blank cheques, or take your ATM cards and PINs as a guarantee. These unregulated lenders can trap you in a cycle of debt.",
+    "section": "Safe Borrowing",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=87",
+    "source_type": "faq",
+    "topic": "upi",
+    "title": "What is UPI?",
+    "content_text": "UPI stands for Unified Payments Interface. It is a system that links multiple bank accounts into a single mobile application. It allows you to instantly transfer money to anyone using their mobile number, a UPI ID, or by scanning a QR code, directly from your bank account.",
+    "section": "Q1",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=87",
+    "source_type": "faq",
+    "topic": "upi",
+    "title": "Is a UPI PIN required to receive money?",
+    "content_text": "No, a UPI PIN is only needed to send money or check your balance. You never need to enter your UPI PIN to receive money from someone. If an app or person asks you to enter your PIN to receive funds, it is a scam.",
+    "section": "Security FAQ",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=87",
+    "source_type": "faq",
+    "topic": "upi",
+    "title": "What happens if a UPI transaction fails but money is deducted?",
+    "content_text": "If money is deducted from your account but the transaction fails, the money will automatically be refunded to your account. This usually happens within a few hours to a maximum of a few days. If you do not get it back, you can raise a complaint directly in your UPI app.",
+    "section": "Failed Transactions",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=115",
+    "source_type": "faq",
+    "topic": "credit",
+    "title": "What is a credit score (CIBIL score)?",
+    "content_text": "A credit score is a number that shows how reliable you are at repaying loans. It is based on your past borrowing history. When you apply for a new loan, banks check this score. A high score means you pay your loans on time, making it easier and cheaper for you to get new loans.",
+    "section": "Credit Basics",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=115",
+    "source_type": "faq",
+    "topic": "credit",
+    "title": "Are you required to pay to check your credit score?",
+    "content_text": "No. The Reserve Bank of India mandates that all credit bureaus in India must provide one free full credit report every year to individuals. You can request your free report directly from the websites of bureaus like CIBIL, Equifax, or Experian.",
+    "section": "Free Reports",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  },
+  {
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=115",
+    "source_type": "faq",
+    "topic": "credit",
+    "title": "How to improve a bad credit score?",
+    "content_text": "To improve your credit score, you must pay your EMIs and credit card bills on time every month. Never default on a loan payment. Keep your credit card usage low and do not apply for too many new loans at once. It takes time, but regular timely payments will slowly increase your score.",
+    "section": "Improving Score",
+    "retrieved_on": "2026-10-01",
+    "verified": false
+  }
+]

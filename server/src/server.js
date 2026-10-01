@@ -54,7 +54,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/voice', voiceRateLimiter, voiceRoutes);
 app.use('/api/eligibility', eligibilityRoutes);
 app.use('/api/documents', documentsRoutes);
-app.use('/api/literacy', literacyRoutes);
+app.use('/api/literacy', voiceRateLimiter, literacyRoutes);
 app.use('/api/income-expense', incomeExpenseRoutes);
 app.use('/api/admin', adminRoutes);
 

@@ -50,7 +50,20 @@ export const processQuery = async (text, lang, moduleName) => {
       };
     }
 
-    const englishAnswer = await handler(englishQuery);
+    const handlerResult = await handler(englishQuery);
+    
+    // Handlers can return a string (old way) or { status, text, sources } (new way)
+    let englishAnswer = '';
+    let finalStatus = 'grounded';
+    let sources = [];
+    
+    if (typeof handlerResult === 'string') {
+      englishAnswer = handlerResult;
+    } else {
+      englishAnswer = handlerResult.text || '';
+      finalStatus = handlerResult.status || 'grounded';
+      sources = handlerResult.sources || [];
+    }
     
     if (lang === 'en') {
       return {
@@ -58,21 +71,25 @@ export const processQuery = async (text, lang, moduleName) => {
         english_answer: englishAnswer,
         native_answer: englishAnswer,
         translation_failed: false,
-        used_fallback: usedFallback
+        used_fallback: usedFallback,
+        status: finalStatus,
+        sources
       };
     }
 
     let nativeAnswer = '';
     let translationFailed = false;
 
-    try {
-      const resultOut = await translateWithFallback(englishAnswer, 'en', lang);
-      nativeAnswer = resultOut.translated;
-      usedFallback = usedFallback || resultOut.usedFallback;
-    } catch (err) {
-      console.error('[VoiceGateway] Translate-out failed:', err.message);
-      nativeAnswer = englishAnswer;
-      translationFailed = true;
+    if (englishAnswer) {
+      try {
+        const resultOut = await translateWithFallback(englishAnswer, 'en', lang);
+        nativeAnswer = resultOut.translated;
+        usedFallback = usedFallback || resultOut.usedFallback;
+      } catch (err) {
+        console.error('[VoiceGateway] Translate-out failed:', err.message);
+        nativeAnswer = englishAnswer;
+        translationFailed = true;
+      }
     }
 
     return {
@@ -80,7 +97,9 @@ export const processQuery = async (text, lang, moduleName) => {
       english_answer: englishAnswer,
       native_answer: nativeAnswer,
       translation_failed: translationFailed,
-      used_fallback: usedFallback
+      used_fallback: usedFallback,
+      status: finalStatus,
+      sources
     };
   })());
 };

@@ -20,6 +20,7 @@ const literacyContentSchema = new mongoose.Schema(
     },
     content_text: { type: String, required: true },
     language: { type: String, default: 'en' }, // stored in English; translated on demand
+    embedding: { type: [Number], select: false },
     last_updated: { type: Date, default: Date.now },
   },
   { timestamps: false }

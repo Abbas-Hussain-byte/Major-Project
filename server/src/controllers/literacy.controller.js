@@ -12,11 +12,29 @@ export const askQuestion = async (req, res) => {
     ? await translateToEnglish(question, userLang)
     : question;
 
-  const { answer, sources } = await answerQuestion(englishQuestion);
+  const result = await answerQuestion(englishQuestion);
 
-  const nativeAnswer = userLang !== 'en'
-    ? await translateFromEnglish(answer, userLang)
-    : answer;
+  if (result.status === 'llm_unavailable') {
+    return res.status(503).json({
+      status: 'llm_unavailable',
+      message: 'Service temporarily unavailable',
+    });
+  }
 
-  res.json({ answer: nativeAnswer, sources, original_language: userLang });
+  let nativeAnswer = result.text;
+  if (result.text && userLang !== 'en') {
+    nativeAnswer = await translateFromEnglish(result.text, userLang);
+  } else if (!result.text) {
+    nativeAnswer = "I don't have reliable information on that topic.";
+    if (userLang !== 'en') {
+      nativeAnswer = await translateFromEnglish(nativeAnswer, userLang);
+    }
+  }
+
+  res.status(200).json({
+    status: result.status,
+    answer: nativeAnswer,
+    sources: result.sources,
+    original_language: userLang,
+  });
 };
