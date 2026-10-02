@@ -1,0 +1,696 @@
+// Automatically generated verified financial literacy data (32 Chunks)
+// Full multilingual support for English, Hindi (हिन्दी), and Telugu (తెలుగు)
+
+export const FINANCIAL_LITERACY_CHUNKS = [
+  {
+    "id": "A01",
+    "topic": "savings",
+    "category": "savings",
+    "organization": "RBI",
+    "source_url": "https://website.rbi.org.in/web/rbi/rbi-kehta-hai/bsbd-account-with-no-minimum-balance",
+    "section": "Overview",
+    "verified_level": "A",
+    "en": {
+      "title": "What is a Basic Savings Bank Deposit (BSBD) account?",
+      "content_text": "A Basic Savings Bank Deposit (BSBD) account can be opened by any individual, whatever their age or income. It needs no opening deposit and no minimum balance. You need an Aadhaar card and a PAN card or Form 60 to open it. A regular savings account can be changed into a BSBD account if the customer asks."
+    },
+    "hi": {
+      "title": "बेसिक सेविंग्स बैंक जमा (बी.एस.बी.डी.) खाता क्या है?",
+      "content_text": "कोई भी व्यक्ति, चाहे उसकी उम्र या आय कुछ भी हो, एक बेसिक सेविंग्स बैंक डिपॉजिट (बी.एस.बी.डी.) खाता खोल सकता है। इसमें कोई प्रारंभिक जमा राशि और न्यूनतम शेष राशि की आवश्यकता नहीं है। इसे खोलने के लिए आपके पास आधार कार्ड और पैन कार्ड या फॉर्म 60 होना आवश्यक है। ग्राहक की इच्छा हो तो एक नियमित बचत खाते को बी.एस.बी.डी. खाते में बदला जा सकता है।"
+    },
+    "te": {
+      "title": "బేసిక్ సేవింగ్స్ బ్యాంక్ డిపాజిట్ (బీఎస్‌బీడీ) ఖాతా అంటే ఏమిటి?",
+      "content_text": "ప్రాథమిక పొదుపు బ్యాంకు డిపాజిట్ (బీఎస్‌బీడీ) ఖాతాను ఏ వ్యక్తి అయినా, వారి వయస్సు లేదా ఆదాయంతో సంబంధం లేకుండా తెరవవచ్చు. దీనికి ప్రారంభ డిపాజిట్ మరియు కనీస బ్యాలెన్స్ అవసరం లేదు. దీన్ని ప్రారంభించడానికి మీకు ఆధార్ కార్డు మరియు పాన్ కార్డు లేదా ఫారం 60 అవసరం. వినియోగదారుడు అడిగితే, సాధారణ పొదుపు ఖాతాను బీఎస్‌బీడీ ఖాతాగా మార్చవచ్చు."
+    }
+  },
+  {
+    "id": "A02",
+    "topic": "savings",
+    "category": "savings",
+    "organization": "RBI",
+    "source_url": "https://website.rbi.org.in/web/rbi/rbi-kehta-hai/bsbd-account-with-no-minimum-balance",
+    "section": "Overview",
+    "verified_level": "A",
+    "en": {
+      "title": "What services are free in a BSBD account?",
+      "content_text": "The first four withdrawals each month are free in a BSBD account. They count ATM withdrawals and transfers made by RTGS, NEFT, clearing, internet debit, standing instruction or EMI. A free ATM-cum-debit card is offered. There is no limit on the number of deposits."
+    },
+    "hi": {
+      "title": "बी.एस.बी.डी. खाते में कौन सी सेवाएँ निःशुल्क हैं?",
+      "content_text": "बी.एस.बी.डी. खाते में प्रत्येक महीने पहले चार निकासी निःशुल्क हैं। वे आर.टी.जी.एस., एन.ई.एफ.टी., क्लियरिंग, इंटरनेट डेबिट, स्थायी निर्देश या ई.एम.आई. द्वारा किए गए ए.टी.एम. निकासी और हस्तांतरण की गणना करते हैं। एक निःशुल्क एटीएम-सह-डेबिट कार्ड प्रदान किया जाता है। जमा राशि की कोई सीमा नहीं है।"
+    },
+    "te": {
+      "title": "బీఎస్‌బీడీ ఖాతాలో ఏ సేవలు ఉచితం?",
+      "content_text": "బిఎస్బిడి ఖాతాలో ప్రతి నెలా మొదటి నాలుగు విత్‌డ్రాయల్స్ ఉచితం. వారు ఆర్టీజీఎస్, ఎన్ఈఎఫ్టీ, క్లియరింగ్, ఇంటర్నెట్ డెబిట్, స్టాండింగ్ ఇన్స్ట్రక్షన్ లేదా ఈఎంఐ ద్వారా చేసిన ఏటీఎం విత్‌డ్రాల్‌లు మరియు బదిలీలను లెక్కిస్తారు. ఉచిత ATM-కమ్-డెబిట్ కార్డును అందిస్తున్నాము. డిపాజిట్ల సంఖ్యకు ఎలాంటి పరిమితి లేదు."
+    }
+  },
+  {
+    "id": "A03",
+    "topic": "savings",
+    "category": "savings",
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=11583",
+    "section": "RBI/2018-19/206",
+    "verified_level": "A",
+    "en": {
+      "title": "What does RBI's BSBD circular require banks to offer?",
+      "content_text": "RBI's circular RBI/2018-19/206 tells banks to give BSBD account holders these services free of charge and with no minimum balance: cash deposits at the branch and at ATMs or cash deposit machines, at least four withdrawals a month including ATM withdrawals, and an ATM or ATM-cum-debit card. The free withdrawals can be made at any bank's ATMs."
+    },
+    "hi": {
+      "title": "आर.बी.आई. के बी.एस.बी.डी. परिपत्र के अनुसार बैंकों को क्या देना होगा?",
+      "content_text": "आर.बी.आई. का परिपत्र आर.बी.आई./2018-19/206 बैंकों को बी.एस.बी.डी. खाताधारकों को ये सेवाएँ निःशुल्क और न्यूनतम राशि के बिना देने के लिए कहता हैः शाखा और ए.टी.एम. पर नकद जमा करना या नकद जमा करने वाली मशीनें, ए.टी.एम. से ए.टी.एम. निकासी सहित महीने में कम से कम चार बार निकासी, और एक ए.टी.एम. या ए.टी.एम.-सह-डेबिट कार्ड। निःशुल्क निकासी किसी भी बैंक के एटीएम से की जा सकती है।"
+    },
+    "te": {
+      "title": "ఆర్‌బీఐ యొక్క బీఎస్బీడీ సర్క్యులర్ బ్యాంకులు ఏమి అందించాలని కోరుతుంది?",
+      "content_text": "ఆర్‌బీఐ యొక్క సర్క్యులర్ ఆర్‌బీఐ/2018-19/206 బ్యాంకులను బిఎస్‌బిడి ఖాతాదారులకు ఈ సేవలను ఉచితంగా మరియు కనీస బ్యాలెన్స్ లేకుండా ఇవ్వమని చెబుతుంది: శాఖలో మరియు ఏటీఎంలలో నగదు జమ చేయడం లేదా ఏటీఎం యంత్రాలు, ఏటీఎంల ద్వారా నెలకు కనీసం నాలుగు సార్లు నగదు ఉపసంహరించుకోవడం మరియు ఏటీఎం లేదా ఏటీఎం-కమ్-డెబిట్ కార్డు. ఉచిత విత్‌డ్రాను ఏ బ్యాంకు యొక్క ఏటీఎంల నుండి అయినా చేయవచ్చు."
+    }
+  },
+  {
+    "id": "A04",
+    "topic": "savings",
+    "category": "savings",
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=11583",
+    "section": "RBI/2018-19/206",
+    "verified_level": "A",
+    "en": {
+      "title": "Can a BSBD holder keep another savings account in the same bank?",
+      "content_text": "No. A BSBD account holder cannot open any other savings bank deposit account in that bank. If the person already has a savings account there, it must be closed within 30 days of opening the BSBD account."
+    },
+    "hi": {
+      "title": "क्या बी.एस.बी.डी. धारक उसी बैंक में दूसरा बचत खाता रख सकता है?",
+      "content_text": "नहीं, एक बी.एस.बी.डी. खाताधारक उस बैंक में कोई अन्य बचत बैंक जमा खाता नहीं खोल सकता है। यदि व्यक्ति के पास पहले से ही वहां बचत खाता है, तो उसे बी.एस.बी.डी. खाता खोलने के 30 दिनों के भीतर बंद कर देना चाहिए।"
+    },
+    "te": {
+      "title": "బీఎస్‌బీడీ హోల్డర్‌ ఒకరు అదే బ్యాంకులో మరొక పొదుపు ఖాతాను కలిగి ఉండవచ్చా?",
+      "content_text": "లేదు, ఒక బీఎస్బీడీ ఖాతాదారుడు ఆ బ్యాంకులో మరే ఇతర పొదుపు బ్యాంకు డిపాజిట్ ఖాతాను తెరవలేరు. ఆ వ్యక్తి అప్పటికే అక్కడ పొదుపు ఖాతా కలిగి ఉంటే, బీఎస్‌బీడీ ఖాతా తెరవడం జరిగిన 30 రోజుల్లోపు దాన్ని మూసివేయాలి."
+    }
+  },
+  {
+    "id": "A05",
+    "topic": "savings",
+    "category": "savings",
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=106",
+    "section": "BSBDA FAQs",
+    "verified_level": "A",
+    "en": {
+      "title": "BSBD account rules: one per bank, deposits, ATM card",
+      "content_text": "A person can have only one BSBD account in a bank, and can hold fixed or recurring deposits in the same bank. Checking your balance at an ATM does not count as one of the four free withdrawals. Banks need not force an ATM debit card on a BSBD customer who does not want one."
+    },
+    "hi": {
+      "title": "बी.एस.बी.डी. खाते के नियम: एक प्रति बैंक, जमा, ए.टी.एम. कार्ड",
+      "content_text": "एक व्यक्ति के पास बैंक में केवल एक बी.एस.बी.डी. खाता हो सकता है और वह उसी बैंक में फिक्स्ड या रिकरिंग डिपॉजिट रख सकता है। ए.टी.एम. पर अपने बैलेंस की जाँच करना चार मुफ्त निकासी में से एक नहीं है। जो बैंक बी.एस.बी.डी. ग्राहक नहीं चाहता उसे ए.टी.एम. डेबिट कार्ड पर मजबूर नहीं करना चाहिए।"
+    },
+    "te": {
+      "title": "BSBD ఖాతా నియమాలు: ఒక్కో బ్యాంకుకు ఒకటి, డిపాజిట్లు, ఏటీఎం కార్డు.",
+      "content_text": "ఒక వ్యక్తి బ్యాంకులో ఒకే ఒక బీఎస్బీడీ ఖాతాను కలిగి ఉండవచ్చు, మరియు అదే బ్యాంకులో స్థిర లేదా పునరావృత డిపాజిట్లను కలిగి ఉండవచ్చు. ఏటీఎంలో మీ బ్యాలెన్స్‌ను తనిఖీ చేయడం నాలుగు ఉచిత విత్‌‌డ్రాయల్‌లలో ఒకటిగా లెక్కించబడదు. బ్యాంకులు బీఎస్బీడీ కస్టమర్‌కు ఏటీఎం డెబిట్ కార్డును బలవంతంగా ఇవ్వాల్సిన అవసరం లేదు, వారికి అది అవసరం లేదు."
+    }
+  },
+  {
+    "id": "A06",
+    "topic": "savings",
+    "category": "savings",
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=31935",
+    "section": "Small Accounts",
+    "verified_level": "A",
+    "en": {
+      "title": "What is a 'small account' and who can open it?",
+      "content_text": "People who have none of the officially valid documents can open a 'small account' with a self-attested photograph and their signature or thumb print before a bank official. Limits: balance up to Rs 50,000, withdrawals up to Rs 10,000 a month, and credits up to Rs 1 lakh a year. It is valid for 12 months, and for 12 more if the holder shows they have applied for an official document."
+    },
+    "hi": {
+      "title": "छोटा खाता क्या होता है और इसे कौन खोल सकता है?",
+      "content_text": "आधिकारिक रूप से मान्य दस्तावेज़ों में से कोई भी नहीं रखने वाले लोग बैंक अधिकारी के समक्ष स्वयं सत्यापित फोटो और अपने हस्ताक्षर या अंगूठे के निशान के साथ एक 'छोटे खाते' को खोल सकते हैं। सीमाएँः 50,000 रुपये तक का बैलेंस, 10,000 रुपये तक का विथड्रॉवल, और 1 लाख रुपये तक का क्रेडिट प्रति वर्ष। यह 12 महीनों के लिए मान्य है, और यदि धारक यह दर्शाता है कि उसने आधिकारिक दस्तावेज़ के लिए आवेदन किया है तो यह 12 महीनों के लिए मान्य है।"
+    },
+    "te": {
+      "title": "చిన్న ఖాతా అంటే ఏమిటి, దానిని ఎవరు తెరవవచ్చు?",
+      "content_text": "అధికారికంగా చెల్లుబాటు అయ్యే పత్రాలు లేని వ్యక్తులు బ్యాంకు అధికారి ముందు స్వీయ-ధృవీకరించబడిన ఫోటో మరియు వారి సంతకం లేదా బొటనవేలు ముద్రతో 'చిన్న ఖాతా'ను తెరవవచ్చు. పరిమితులు: 50,000 రూపాయల వరకు నిల్వలు, నెలకు 10,000 రూపాయల వరకు విత్‌డ్రాలు, మరియు సంవత్సరానికి 1 లక్ష రూపాయల వరకు క్రెడిట్లు. ఇది 12 నెలల పాటు చెల్లుబాటు అవుతుంది, మరియు హోల్డర్ అధికారిక పత్రం కోసం దరఖాస్తు చేసుకున్నట్లు చూపించినట్లయితే మరో 12 నెలల పాటు చెల్లుబాటు అవుతుంది."
+    }
+  },
+  {
+    "id": "A07",
+    "topic": "credit",
+    "category": "loans",
+    "organization": "RBI",
+    "source_url": "https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx?Id=10590",
+    "section": "Free Annual Credit Report to Individuals",
+    "verified_level": "A",
+    "en": {
+      "title": "Can I get my credit report for free?",
+      "content_text": "RBI has directed credit information companies to give each individual one free full credit report, including the credit score, in every calendar year (January to December). You ask for it and your identity is checked first. This has applied since 1 January 2017."
+    },
+    "hi": {
+      "title": "क्या मुझे अपना क्रेडिट रिपोर्ट निःशुल्क प्राप्त हो सकता है?",
+      "content_text": "आर.बी.आई. ने क्रेडिट सूचना कंपनियों को निर्देश दिया है कि वे प्रत्येक व्यक्ति को हर कैलेंडर वर्ष (जनवरी से दिसंबर) में क्रेडिट स्कोर सहित एक मुफ्त पूर्ण क्रेडिट रिपोर्ट दें। आप इसे मांगते हैं और आपकी पहचान पहले जाँच की जाती है। यह 1 जनवरी 2017 से लागू है।"
+    },
+    "te": {
+      "title": "నా క్రెడిట్ నివేదిక ఉచితంగా లభిస్తుందా?",
+      "content_text": "ప్రతి వ్యక్తికీ క్రెడిట్ స్కోర్‌తో సహా ప్రతి క్యాలెండర్ సంవత్సరంలో (జనవరి నుండి డిసెంబర్ వరకు) ఒక పూర్తి క్రెడిట్ రిపోర్ట్‌ను ఉచితంగా ఇవ్వాలని ఆర్బీఐ క్రెడిట్ సమాచార సంస్థలను ఆదేశించింది. మీరు దానిని అభ్యర్థిస్తారు, ముందుగా మీ గుర్తింపును పరిశీలిస్తారు. ఇది 2017 జనవరి 1 నుండి వర్తిస్తుంది."
+    }
+  },
+  {
+    "id": "A08",
+    "topic": "schemes",
+    "category": "schemes",
+    "organization": "PFRDA",
+    "source_url": "https://pfrda.org.in/web/pfrda/schemes/atal-pension-yojana-apy",
+    "section": "Eligibility and benefits",
+    "verified_level": "A",
+    "en": {
+      "title": "What is the Atal Pension Yojana (APY)?",
+      "content_text": "The Atal Pension Yojana is a pension scheme for savings bank account holders aged 18 to 40. After age 60 the subscriber gets a Government-guaranteed pension of Rs 1,000, 2,000, 3,000, 4,000 or 5,000 a month until death. The amount depends on the pension chosen and the age of joining. Contributions are paid until age 60."
+    },
+    "hi": {
+      "title": "अटल पेंशन योजना (एपीवाई) क्या है?",
+      "content_text": "अटल पेंशन योजना 18 से 40 वर्ष की आयु वर्ग के बचत बैंक खाताधारकों के लिए एक पेंशन योजना है। 60 वर्ष की आयु के बाद, ग्राहक को मृत्यु तक, 1,000, 2,000, 3,000, 4,000 या 5,000 रुपये का सरकारी-गारंटीकृत पेंशन प्रति माह प्राप्त होता है। राशि चुने गए पेंशन और जॉइनिंग की आयु पर निर्भर करती है। 60 वर्ष की आयु तक योगदान का भुगतान किया जाता है।"
+    },
+    "te": {
+      "title": "అటల్ పెన్షన్ యోజన (APY) అంటే ఏమిటి?",
+      "content_text": "అటల్ పెన్షన్ యోజన అనేది 18 నుండి 40 సంవత్సరాల వయస్సు గల పొదుపు బ్యాంకు ఖాతాదారుల కోసం ఒక పింఛను పథకం. 60 సంవత్సరాల వయస్సు తరువాత, చందాదారుడు మరణించే వరకు నెలకు 1,000, 2,000, 3,000, 4,000 లేదా 5,000 రూపాయల ప్రభుత్వ హామీ పెన్షన్ పొందుతారు. పెన్షన్ మొత్తం ఎంచుకున్న పెన్షన్ మరియు చేరే వయస్సుపై ఆధారపడి ఉంటుంది. 60 సంవత్సరాల వయస్సు వరకు సహకారాలకు చెల్లింపు ఉంటుంది."
+    }
+  },
+  {
+    "id": "A09",
+    "topic": "schemes",
+    "category": "schemes",
+    "organization": "PFRDA",
+    "source_url": "https://pfrda.org.in/web/pfrda/w/faqs/atal-pension-yojana",
+    "section": "APY FAQs",
+    "verified_level": "A",
+    "en": {
+      "title": "Who cannot join APY, and what happens after the subscriber dies?",
+      "content_text": "From 1 October 2022, a person who is or has been an income-tax payer cannot join APY. This is checked on the date of application, and later becoming a taxpayer does not affect an existing account. After the subscriber's death the spouse gets the same pension, and after both die the pension wealth saved up to age 60 goes to the nominee."
+    },
+    "hi": {
+      "title": "कौन APY में शामिल नहीं हो सकता है, और ग्राहक के निधन के बाद क्या होता है?",
+      "content_text": "1 अक्टूबर 2022 से, जो व्यक्ति या जो आयकर दे रहा हो, वह ए.पी.वाई. में शामिल नहीं हो सकता है। यह आवेदन की तारीख पर जाँच किया जाता है और बाद में करदाता बनने से मौजूदा खाते पर कोई प्रभाव नहीं पड़ता है। ग्राहक की मृत्यु के पश्चात उनके जीवनसाथी को वही पेंशन प्राप्त होती है और दोनों की मृत्यु के पश्चात 60 वर्ष की आयु तक की पेंशन संपत्ति नामित व्यक्ति को प्रदान की जाती है।"
+    },
+    "te": {
+      "title": "ఏపీవై లో ఎవరు చేరలేరు, మరియు చందాదారు మరణిస్తే ఏమి జరుగుతుంది?",
+      "content_text": "2022 అక్టోబరు 1 నుండి, ఆదాయపు పన్ను చెల్లింపుదారుగా ఉన్న లేదా ఉన్న వ్యక్తి ఏపీవైలో చేరలేరు. ఇది దరఖాస్తు చేసుకున్న తేదీన తనిఖీ చేయబడుతుంది, తరువాత పన్ను చెల్లింపుదారుడు కావడం అనేది ఇప్పటికే ఉన్న ఖాతాను ప్రభావితం చేయదు. చందాదారు మరణిస్తే వారి జీవిత భాగస్వామికి అదే పెన్షన్ లభిస్తుంది, మరియు ఇద్దరూ మరణించిన తరువాత 60 సంవత్సరాల వయస్సు వరకు పొదుపు చేసిన పెన్షన్ సంపద నామినీకి వెళుతుంది."
+    }
+  },
+  {
+    "id": "A10",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "MoHFW (via Vikaspedia, Govt. of India)",
+    "source_url": "https://vikaspedia.in/health/nrhm/national-health-mission/ayushman-bharat%E2%80%93pm-jan-arogya-yojana",
+    "section": "AB-PMJAY",
+    "verified_level": "A",
+    "en": {
+      "title": "What is Ayushman Bharat PM-JAY?",
+      "content_text": "Ayushman Bharat PM-JAY gives eligible families health cover of up to Rs 5 lakh a year for hospital treatment (secondary and most tertiary care) at empanelled public and private hospitals. Families are identified from deprivation and occupation criteria in the 2011 Socio-Economic Caste Census (SECC), not by a single income limit."
+    },
+    "hi": {
+      "title": "आयुष्मान भारत पीएम-जय क्या है?",
+      "content_text": "आयुष्मान भारत प्रधानमंत्री जन आरोग्य योजना (पी.एम.-जय) पात्र परिवारों को सूचीबद्ध सार्वजनिक और निजी अस्पतालों में अस्पताल उपचार (द्वितीयक और सबसे उच्च स्तर की देखभाल) के लिए प्रति वर्ष 5 लाख रुपये तक का स्वास्थ्य बीमा प्रदान करता है। 2011 की सामाजिक-आर्थिक जाति जनगणना (एस.ई.सी.सी.) में अभाव और व्यवसाय मानदंडों के आधार पर परिवारों की पहचान की जाती है, न कि एक आय सीमा के आधार पर।"
+    },
+    "te": {
+      "title": "ఆయుష్మాన్ భారత్ పిఎం-జయ్ అంటే ఏమిటి?",
+      "content_text": "ఆయుష్మాన్ భారత్ పిఎం-జేఏవై పథకం కింద ఎంపానెల్ చేయబడిన ప్రభుత్వ మరియు ప్రైవేట్ ఆసుపత్రులలో ఆసుపత్రి చికిత్స (ద్వితీయ మరియు అత్యంత తృతీయ సంరక్షణ) కోసం అర్హులైన కుటుంబాలకు సంవత్సరానికి ఐదు లక్షల రూపాయల వరకు ఆరోగ్య బీమా సౌకర్యం కల్పిస్తారు. 2011 సామాజిక-ఆర్థిక కులాల జనాభా గణన (ఎస్ఈసీసీ) లో, పేదరికం మరియు వృత్తి ప్రమాణాల ఆధారంగా కుటుంబాలను గుర్తించారు, ఒక్క ఆదాయ పరిమితి ఆధారంగా కాదు."
+    }
+  },
+  {
+    "id": "A11",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "Govt. of Manipur (PM-JAY FAQ)",
+    "source_url": "https://shamanipur.mn.gov.in/Static/FAQ",
+    "section": "Eligibility check",
+    "verified_level": "A",
+    "en": {
+      "title": "How do I check my PM-JAY eligibility?",
+      "content_text": "You can check PM-JAY eligibility on the beneficiary portal by searching with a name or family details, or by visiting an empanelled hospital. Keep a family ID such as a ration card ready. All eligible family members are covered, with no cap on number, age or gender."
+    },
+    "hi": {
+      "title": "मैं अपनी पीएम-जय की पात्रता की जाँच कैसे कर सकती हूँ?",
+      "content_text": "आप लाभार्थी पोर्टल पर नाम या पारिवारिक विवरण खोजकर या सूचीबद्ध अस्पताल जाकर पीएम-जय के लिए पात्र हैं या नहीं, इसकी जाँच कर सकते हैं। अपने परिवार के लिए एक पहचान पत्र तैयार रखें जैसे राशन कार्ड। सभी पात्र परिवार के सदस्यों को शामिल किया गया है, संख्या, आयु या लिंग की कोई सीमा नहीं है।"
+    },
+    "te": {
+      "title": "నా పీఎం-జేఏవై అర్హత ఎలా తనిఖీ చేసుకోవాలి?",
+      "content_text": "మీరు లబ్ధిదారుల పోర్టల్‌లో పేరు లేదా కుటుంబ వివరాలతో శోధించడం ద్వారా లేదా ఎంపానెల్ చేయబడిన ఆసుపత్రిని సందర్శించడం ద్వారా పీఎం-జేఏవై అర్హత సరిచూసుకోవచ్చు. కుటుంబ గుర్తింపు కార్డు వంటి కుటుంబ గుర్తింపు పత్రాన్ని సిద్ధంగా ఉంచుకోండి. అర్హత కలిగిన కుటుంబ సభ్యులందరూ కవర్ చేయబడతారు, సంఖ్య, వయస్సు లేదా లింగంపై పరిమితి లేదు."
+    }
+  },
+  {
+    "id": "A12",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "MoHFW (Rajya Sabha reply, 11 Feb 2025)",
+    "source_url": "https://rsdebate.nic.in/bitstream/123456789/758871/1/PQ_267_11022025_U903_p367_p370.pdf",
+    "section": "Ayushman Vay Vandana",
+    "verified_level": "A",
+    "en": {
+      "title": "Ayushman Vay Vandana card: PM-JAY for people aged 70 and above",
+      "content_text": "From 29 October 2024, all senior citizens aged 70 and above are eligible for PM-JAY cover of up to Rs 5 lakh a year on a family basis, whatever their income. Age is the only eligibility condition. Enrolment is by application with mandatory Aadhaar e-KYC, through the Ayushman App or the PM-JAY beneficiary portal. The helpline is 1800-110-770."
+    },
+    "hi": {
+      "title": "आयुषमान व्‍यय वन्‍दना कार्ड: 70 वर्ष और उससे अधिक आयु के लोगों के लिए पी.एम.-जय",
+      "content_text": "29 अक्टूबर 2024 से 70 वर्ष और उससे अधिक आयु के सभी वरिष्ठ नागरिकों को, उनकी आय की परवाह किए बिना, परिवार के आधार पर, वर्ष के 5 लाख रुपये तक के पीएम-जय कवर के लिए पात्र माना जाएगा। आयु एकमात्र पात्रता शर्त है। नामांकन अनिवार्य आधार ई-के.वाई.सी. के साथ आयुषमान ऐप या पीएम-जय लाभार्थी पोर्टल के माध्यम से आवेदन द्वारा किया जाता है। हेल्पलाइन 1800-110-770 है।"
+    },
+    "te": {
+      "title": "ఆయుష్మాన్ వందేమాతరం కార్డు: 70 మరియు అంతకంటే ఎక్కువ వయస్సు ఉన్న వ్యక్తుల కోసం పిఎం-జేఏవై",
+      "content_text": "29 అక్టోబర్ 2024 నుండి, 70 మరియు అంతకంటే ఎక్కువ వయస్సు గల అన్ని సీనియర్ సిటిజన్లు వారి ఆదాయంతో సంబంధం లేకుండా, సంవత్సరానికి 5 లక్షల రూపాయల వరకు పిఎం-జేఎవై కుటుంబ ఆధారిత కవరేజీకి అర్హులు. వయస్సు మాత్రమే అర్హత షరతు. నమోదు ఆయుష్మాన్ యాప్ లేదా పిఎం-జేఏవై లబ్ధిదారుల పోర్టల్ ద్వారా తప్పనిసరి ఆధార్ ఇ-కేవైసీతో దరఖాస్తు ద్వారా జరుగుతుంది. సహాయం కోసం 1800-110-770 నెంబర్‌కు సంప్రదించవచ్చు."
+    }
+  },
+  {
+    "id": "A13",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "MoHFW (via Vikaspedia, Govt. of India)",
+    "source_url": "https://vikaspedia.in/health/nrhm/national-health-mission/ayushman-bharat%E2%80%93pm-jan-arogya-yojana",
+    "section": "Senior citizens 70+",
+    "verified_level": "A",
+    "en": {
+      "title": "Vay Vandana: existing schemes and top-up",
+      "content_text": "Seniors aged 70 and above who already use CGHS, ECHS or Ayushman CAPF can keep that scheme or choose PM-JAY. Seniors with ESI or private health insurance are eligible for PM-JAY. Seniors in families already covered by PM-JAY get a separate top-up of up to Rs 5 lakh a year for themselves."
+    },
+    "hi": {
+      "title": "वायु वंदनाः मौजूदा योजनाएँ और टॉप-अप",
+      "content_text": "70 वर्ष और उससे अधिक आयु के वरिष्ठ नागरिक जो पहले से ही सी.जी.एच.एस., ई.सी.एच.एस. या आयुष्मान सी.एफ.एस. का उपयोग कर रहे हैं, वे इस योजना को जारी रख सकते हैं या पी.एम.-जय का विकल्प चुन सकते हैं। ई.एस.आई. या निजी स्वास्थ्य बीमा वाले वरिष्ठ नागरिक पी.एम.-जय के लिए पात्र हैं। पी.एम.-जय योजना के अंतर्गत आने वाले परिवारों के वरिष्ठ सदस्यों को अपने लिए प्रति वर्ष 5 लाख रुपये तक का एक अलग शीर्ष-अप प्राप्त होता है।"
+    },
+    "te": {
+      "title": "వే వందనా: ప్రస్తుత పథకాలు మరియు అదనపు నిధులు",
+      "content_text": "70 మరియు అంతకంటే ఎక్కువ వయస్సు గల సీనియర్లు ఇప్పటికే CGHS, ECHS లేదా ఆయుష్మాన్ CAF ను ఉపయోగిస్తున్నట్లయితే, వారు ఆ పథకాన్ని కొనసాగించవచ్చు లేదా PM-JAY ని ఎంచుకోవచ్చు. ESI లేదా ప్రైవేట్ ఆరోగ్య బీమా కలిగిన సీనియర్లు PM-JAY కి అర్హులు. పీఎం-జేఏవై కింద ఇప్పటికే కవర్ చేయబడిన కుటుంబాలలో ఉన్నతాధికారులకు సంవత్సరానికి 5 లక్షల రూపాయల వరకు ప్రత్యేక టాప్-అప్ లభిస్తుంది."
+    }
+  },
+  {
+    "id": "A14",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "MoHFW (Rajya Sabha reply, 4 Feb 2025)",
+    "source_url": "https://rsdebate.nic.in/bitstream/123456789/757667/1/PQ_267_04022025_S26_p78_p81.pdf",
+    "section": "Annexure: State/UT-wise mode of implementation",
+    "verified_level": "A",
+    "en": {
+      "title": "Is PM-JAY available in Telangana?",
+      "content_text": "A Rajya Sabha reply of 4 February 2025 lists Telangana among the States and Union Territories that implement AB-PMJAY, through a state Trust. To confirm whether your family is covered, check on the PM-JAY beneficiary portal or ask at an empanelled hospital."
+    },
+    "hi": {
+      "title": "तेलंगाना में क्या प्रधानमंत्री-जय योजना उपलब्ध है?",
+      "content_text": "4 फरवरी 2025 के राज्यसभा के एक जवाब में तेलंगाना को एक राज्य न्यास के माध्यम से ए.बी.-पी.एम.जे.ए. को लागू करने वाले राज्यों और केंद्र शासित प्रदेशों में सूचीबद्ध किया गया है। आपके परिवार का कवरेज सुनिश्चित करने के लिए, पीएम-जय लाभार्थी पोर्टल पर देखें या सूचीबद्ध अस्पताल में पूछ लें।"
+    },
+    "te": {
+      "title": "తెలంగాణలో పీఎం-జేఏవై అందుబాటులో ఉందా?",
+      "content_text": "2025 ఫిబ్రవరి 4న రాజ్యసభ ఇచ్చిన ఒక సమాధానంలో తెలంగాణ రాష్ట్ర ట్రస్ట్ ద్వారా ఏబీ-పీఎంజేఏఈని అమలు చేస్తున్న రాష్ట్రాలు, కేంద్ర పాలిత ప్రాంతాలలో తెలంగాణ ఒకటిగా జాబితా చేయబడింది. మీ కుటుంబం కవర్ చేయబడిందో లేదో నిర్ధారించుకోవడానికి, PM-JAY లబ్ధిదారుల పోర్టల్ చూడండి లేదా జాబితాలో ఉన్న ఆసుపత్రిలో అడగండి."
+    }
+  },
+  {
+    "id": "A15",
+    "topic": "schemes",
+    "category": "schemes",
+    "organization": "PIB (Ministry of Labour and Employment)",
+    "source_url": "https://static.pib.gov.in/WriteReadData/userfiles/file/e-ShramPortal3NCD.pdf",
+    "section": "e-SHRAM eligibility",
+    "verified_level": "A",
+    "en": {
+      "title": "What is e-Shram and who can register?",
+      "content_text": "e-Shram is the national database of unorganised workers. Anyone aged 16 to 59 who is not a member of EPFO, ESIC or the government National Pension System can register. A registered worker who meets with an accident gets accident insurance of Rs 2 lakh for death or permanent disability and Rs 1 lakh for partial disability."
+    },
+    "hi": {
+      "title": "ई-श्रम क्या है और कौन पंजीकरण कर सकता है?",
+      "content_text": "ई-श्रम असंगठित श्रमिकों का राष्ट्रीय डेटाबेस है। 16 से 59 वर्ष की आयु का कोई भी व्यक्ति जो ईपीएफओ, ईएसआईसी या सरकार की राष्ट्रीय पेंशन प्रणाली का सदस्य नहीं है, पंजीकरण कर सकता है। पंजीकृत कर्मचारी जो दुर्घटना का शिकार होता है, उसे मृत्यु या स्थायी विकलांगता के लिए 2 लाख रुपये का दुर्घटना बीमा और आंशिक विकलांगता के लिए 1 लाख रुपये का बीमा प्राप्त होता है।"
+    },
+    "te": {
+      "title": "ఈ-శ్రమ్ అంటే ఏమిటి, ఎవరు నమోదు చేసుకోవచ్చు?",
+      "content_text": "ఇ-శ్రమ్ అనేది అసంఘటిత కార్మికుల జాతీయ డేటాబేస్. 16 నుండి 59 సంవత్సరాల వయస్సు గల ఎవరైనా, ఈపిఎఫ్ఓ, ఈఎస్ఐసి లేదా ప్రభుత్వ జాతీయ పెన్షన్ వ్యవస్థలో సభ్యులు కానట్లయితే, నమోదు చేసుకోవచ్చు. ప్రమాదానికి గురైన నమోదు చేసుకున్న కార్మికులకు మరణానికి లేదా శాశ్వత వైకల్యానికి రెండు లక్షల రూపాయల ప్రమాద బీమా, పాక్షిక వైకల్యానికి ఒక లక్ష రూపాయల బీమా లభిస్తుంది."
+    }
+  },
+  {
+    "id": "A16",
+    "topic": "schemes",
+    "category": "schemes",
+    "organization": "Dept. of Financial Services (via Vikaspedia, Govt. of India)",
+    "source_url": "https://en.vikaspedia.in/social-welfare/financial-inclusion/pradhan-mantri-jan-dhan-yojana",
+    "section": "PMJDY features",
+    "verified_level": "A",
+    "en": {
+      "title": "What do you get with a Pradhan Mantri Jan Dhan Yojana (PMJDY) account?",
+      "content_text": "PMJDY accounts open with zero balance and come with a free RuPay debit card. New RuPay card holders whose accounts were opened after 28 August 2018 get accident insurance of Rs 2 lakh. Eligible account holders aged 18 to 65 can get an overdraft of up to Rs 10,000. A minor above 10 years can open a savings account."
+    },
+    "hi": {
+      "title": "प्रधानमंत्री जनधन योजना (PMJDY) खाते के साथ आपको क्या प्राप्त होता है?",
+      "content_text": "पीएमजेडीवाई खाते शून्य शेष राशि के साथ खुलते हैं और एक निःशुल्क रूपे डेबिट कार्ड के साथ आते हैं। 28 अगस्त 2018 के बाद जिन नए रुपे कार्ड धारकों के खाते खोले गए थे, उन्हें 2 लाख रुपये का दुर्घटना बीमा प्राप्त होता है। 18 से 65 वर्ष की आयु के पात्र खाताधारक 10,000 रुपये तक का ओवरड्राफ्ट प्राप्त कर सकते हैं। 10 वर्ष से अधिक उम्र का कोई भी व्यक्ति बचत खाता खोल सकता है।"
+    },
+    "te": {
+      "title": "ప్రధాన్ మంత్రి జన ధన్ యోజన (పిఎంజెడివై) ఖాతాతో మీకు ఏమి లభిస్తుంది?",
+      "content_text": "పీఎంజేడీవై ఖాతాలు సున్నా నిలవతోనే తెరుచుకుంటాయి మరియు ఉచిత రూపే డెబిట్ కార్డుతో వస్తాయి. కొత్త రూపే కార్డు హోల్డర్లు, వారి ఖాతాలు 2018 ఆగస్టు 28 తర్వాత తెరవబడితే, వారికి రెండు లక్షల రూపాయల ప్రమాద బీమా లభిస్తుంది. 18 నుండి 65 సంవత్సరాల వయస్సు గల అర్హత కలిగిన ఖాతాదారులు రూ.10,000 వరకు ఓవర్ డ్రాఫ్ట్ పొందవచ్చు. 10 సంవత్సరాల కంటే ఎక్కువ వయస్సు ఉన్నవారు పొదుపు ఖాతాను తెరవవచ్చు."
+    }
+  },
+  {
+    "id": "B01",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "Dept. of Financial Services (Jan Suraksha)",
+    "source_url": "https://limbasi.bank.in/?p=1820",
+    "section": "PMJJBY",
+    "verified_level": "B",
+    "en": {
+      "title": "What is PMJJBY (Pradhan Mantri Jeevan Jyoti Bima Yojana)?",
+      "content_text": "PMJJBY is life insurance for bank account holders aged 18 to 50. The yearly premium is Rs 436, auto-debited from the account, and the cover is Rs 2 lakh if the person dies for any reason. Someone who joins before 50 can continue the cover up to age 55 by paying the premium."
+    },
+    "hi": {
+      "title": "पीएमजेजेबीवाई (प्रधानमंत्री जीवन ज्योति बीमा योजना) क्या है?",
+      "content_text": "पीएमजेजेबीवाई 18 से 50 वर्ष की आयु के बैंक खाताधारकों के लिए जीवन बीमा है। वार्षिक प्रीमियम 436 रुपये है, जो खाते से स्वतः काट लिया जाता है और यदि व्यक्ति किसी भी कारण से मर जाता है तो 2 लाख रुपये का कवर है। 50 वर्ष से पहले जो कोई भी शामिल होता है, वह प्रीमियम का भुगतान करके 55 वर्ष की आयु तक कवर जारी रख सकता है।"
+    },
+    "te": {
+      "title": "పీఎంజేజేబీవై (ప్రధాన మంత్రి జీవిత జ్యోతి బీమా యోజన) అంటే ఏమిటి?",
+      "content_text": "పిఎమ్జెజెబివై అనేది 18 నుండి 50 సంవత్సరాల వయస్సు గల బ్యాంకు ఖాతాదారులకు జీవిత బీమా. వార్షిక ప్రీమియం 436 రూపాయలు, ఖాతా నుండి స్వయంచాలకంగా డిடகేట్ అవుతుంది, మరియు ఆ వ్యక్తి ఏదైనా కారణం చేత మరణిస్తే 2 లక్షల రూపాయల కవరేజ్ ఉంటుంది. 50 సంవత్సరాల కంటే ముందు చేరి, ప్రీమియం చెల్లించే వారు 55 సంవత్సరాల వరకు కవరేజీని కొనసాగించవచ్చు."
+    }
+  },
+  {
+    "id": "B02",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "Dept. of Financial Services (Jan Suraksha)",
+    "source_url": "https://limbasi.bank.in/?p=1820",
+    "section": "PMSBY",
+    "verified_level": "B",
+    "en": {
+      "title": "What is PMSBY (Pradhan Mantri Suraksha Bima Yojana)?",
+      "content_text": "PMSBY is accident insurance for bank account holders aged 18 to 70. The yearly premium is Rs 20, auto-debited from the account. It pays Rs 2 lakh for accidental death or full disability and Rs 1 lakh for partial disability."
+    },
+    "hi": {
+      "title": "पी.एम.एस.बी.वाई. (प्रधानमंत्री सुरक्षा बीमा योजना) क्या है?",
+      "content_text": "पी.एम.एस.बी.वाई. 18 से 70 वर्ष की आयु के बैंक खाताधारकों के लिए दुर्घटना बीमा है। वार्षिक प्रीमियम 20 रुपये है, जो खाते से स्वतः काट लिया जाता है। यह दुर्घटनावश मृत्यु या पूर्ण विकलांगता के लिए 2 लाख रुपये और आंशिक विकलांगता के लिए 1 लाख रुपये का भुगतान करता है।"
+    },
+    "te": {
+      "title": "పిఎంఎస్‌బివై (ప్రధాన మంత్రి భద్రత బీమా యోజన) అంటే ఏమిటి?",
+      "content_text": "పిఎంఎస్‌బివై అనేది 18 నుండి 70 సంవత్సరాల వయస్సు గల బ్యాంకు ఖాతాదారులకు ప్రమాద బీమా. వార్షిక ప్రీమియం 20 రూపాయలు, అది మీ ఖాతా నుండి స్వయంచాలకంగా జమ అవుతుంది. ప్రమాదవశాత్తు మరణానికి రెండు లక్షల రూపాయలు, పూర్తి వైకల్యానికి ఒక లక్ష రూపాయలు, పాక్షిక వైకల్యానికి పది లక్షల రూపాయలు చెల్లిస్తారు."
+    }
+  },
+  {
+    "id": "B03",
+    "topic": "insurance",
+    "category": "insurance",
+    "organization": "Dept. of Financial Services (Jan Suraksha)",
+    "source_url": "https://limbasi.bank.in/?p=1820",
+    "section": "How to join",
+    "verified_level": "B",
+    "en": {
+      "title": "How do I join PMJJBY and PMSBY?",
+      "content_text": "Give your bank or post office a simple form with your consent for auto-debit. The account must be linked to Aadhaar and you must name a nominee. Banks usually ask people to join before 1 June each year. Ask your bank for the exact deadline."
+    },
+    "hi": {
+      "title": "मैं पीएमजेजेबीवाई और पीएमएसबीवाई में कैसे शामिल हो सकती हूँ?",
+      "content_text": "अपनी सहमति से अपने बैंक या डाकघर को एक सरल प्रपत्र दें जिसमें स्वतः-डेबिट के लिए लिखा हो। खाते को आधार से लिंक करना होगा और आपको एक नामित अभिदाता नियुक्त करना होगा। बैंक आम तौर पर लोगों को प्रत्येक वर्ष 1 जून से पहले शामिल होने के लिए कहते हैं। सटीक समय सीमा के लिए अपने बैंक से पूछें।"
+    },
+    "te": {
+      "title": "పీఎంజేజేబీవై మరియు పీఎంఎస్‌బీవైలో ఎలా చేరాలి?",
+      "content_text": "మీ బ్యాంకు లేదా పోస్టాఫీసుకు మీ సమ్మతితో ఆటో-డెబిట్ కోసం ఒక సాధారణ ఫారాన్ని ఇవ్వండి. ఖాతాను ఆధార్ కార్డుతో అనుసంధానించబడి ఉండాలి మరియు మీరు ఒక నామినీని పేర్కొనవలసి ఉంటుంది. బ్యాంకులు సాధారణంగా ప్రతి సంవత్సరం జూన్ 1వ తేదీ లోపు చేరమని ప్రజలను కోరుతాయి. ఖచ్చితమైన గడువు గురించి మీ బ్యాంకును అడగండి."
+    }
+  },
+  {
+    "id": "B04",
+    "topic": "schemes",
+    "category": "schemes",
+    "organization": "Ministry of Labour and Employment",
+    "source_url": "https://officerspulse.com/?p=29474",
+    "section": "PM-SYM eligibility",
+    "verified_level": "B",
+    "en": {
+      "title": "Who is eligible for PM-SYM (Shram Yogi Maan-dhan)?",
+      "content_text": "PM-SYM is a pension scheme for unorganised workers. To join you must be aged 18 to 40, earn Rs 15,000 a month or less, and not be covered by EPFO, ESIC or NPS. You should also not be an income-tax payer. After age 60 you receive a pension of Rs 3,000 a month."
+    },
+    "hi": {
+      "title": "पीएम-एसवाईएम (श्रमिक योगी मान-धन) के लिए कौन पात्र है?",
+      "content_text": "पीएम-एसवाईएम असंगठित श्रमिकों के लिए एक पेंशन योजना है। आपके साथ जुड़ने के लिए आपकी आयु 18 से 40 वर्ष होनी चाहिए, आपको 15,000 रुपये प्रति माह या उससे कम वेतन मिलना चाहिए, और आप ईपीएफओ, ईएसआईसी या एनपीएस के अंतर्गत नहीं आना चाहिए। आपको आयकर देयकर्ता भी नहीं होना चाहिए। 60 वर्ष की आयु के बाद आपको 3,000 रुपये की मासिक पेंशन प्राप्त होती है।"
+    },
+    "te": {
+      "title": "పీఎం-ఎస్వైఎం (శ్రమ్ యోగి మాన్-ధన్) కి ఎవరు అర్హులు?",
+      "content_text": "పిఎం-ఎస్వైఎం అనేది అసంఘటిత కార్మికుల కోసం ఒక పింఛను పథకం. మీరు చేరడానికి మీకు 18 నుండి 40 సంవత్సరాల వయస్సు ఉండాలి, నెలకు 15,000 రూపాయలు లేదా అంతకంటే తక్కువ సంపాదించాలి మరియు ఈపీఎఫ్ఓ, ఈఎస్ఐసీ లేదా ఎన్‌పీఎస్ పరిధిలోకి రాకూడదు. మీరు ఆదాయపు పన్ను చెల్లింపుదారు కూడా కాకూడదు. 60 సంవత్సరాల వయస్సు తర్వాత మీకు నెలకు 3,000 రూపాయల పింఛను లభిస్తుంది."
+    }
+  },
+  {
+    "id": "B05",
+    "topic": "schemes",
+    "category": "schemes",
+    "organization": "Ministry of Labour and Employment",
+    "source_url": "https://visionias.in/current-affairs/news-today/2025-03-05/schemes-in-news/six-years-of-pradhan-mantri-shram-yogi-maandhan-yojana-pm-sym-completed",
+    "section": "PM-SYM contribution",
+    "verified_level": "B",
+    "en": {
+      "title": "PM-SYM contributions and family pension",
+      "content_text": "In PM-SYM the member pays Rs 55 to Rs 200 a month depending on age at joining, and the Central Government adds the same amount. The payment is auto-debited from a savings or Jan Dhan account. If the member dies while receiving the pension, the spouse gets 50% of it as family pension. LIC is the pension fund manager."
+    },
+    "hi": {
+      "title": "प्रधानमंत्री-सिम योगदान और पारिवारिक पेंशन",
+      "content_text": "पीएम-एसवाईएम में सदस्य joining की आयु के आधार पर 55 रुपये से 200 रुपये प्रति माह का भुगतान करते हैं, और केंद्र सरकार उसी राशि को जोड़ती है। भुगतान बचत या जन धन खाते से स्वतः-डेबिट हो जाता है। यदि सदस्य पेंशन प्राप्त करते समय मृत्यु हो जाती है, तो उनके जीवनसाथी को इसका 50% पारिवारिक पेंशन के रूप में प्राप्त होता है। एल.आई.सी. पेंशन कोष प्रबंधक है।"
+    },
+    "te": {
+      "title": "పీఎం-ఎస్వైఎం సహకారం మరియు కుటుంబ పింఛను.",
+      "content_text": "పీఎం-SYM లో సభ్యుడు చేరినప్పుడు వయస్సును బట్టి నెలకు 55 రూపాయల నుండి 200 రూపాయల వరకు చెల్లిస్తారు, కేంద్ర ప్రభుత్వం అదే మొత్తాన్ని జతచేస్తుంది. చెల్లింపు మీ పొదుపు లేదా జన్ ధన్ ఖాతా నుండి స్వయంచాలకంగా తీసివేయబడుతుంది. పెన్షన్ పొందుతున్నప్పుడు సభ్యుడు మరణిస్తే, ఆ కుటుంబ సభ్యుడు పెన్షన్‌లో 50% పొందుతారు. ఎల్ఐసీ పెన్షన్ నిధి నిర్వాహకులు."
+    }
+  },
+  {
+    "id": "B06",
+    "topic": "loans",
+    "category": "loans",
+    "organization": "Cabinet decision, Aug 2025 (PM SVANidhi)",
+    "source_url": "https://www.drishtiias.com/daily-updates/daily-news-analysis/pm-street-vendors-atmanirbhar-nidhi/print_manually",
+    "section": "Restructured scheme",
+    "verified_level": "B",
+    "en": {
+      "title": "How much can street vendors borrow under PM SVANidhi?",
+      "content_text": "PM SVANidhi gives street vendors loans with no collateral: up to Rs 15,000 first, then up to Rs 25,000 and then up to Rs 50,000, each after repaying the earlier loan on time. The restructured scheme lends until 31 March 2030. Vendors also get cashback for digital transactions."
+    },
+    "hi": {
+      "title": "प्रधानमंत्री स्वनिधि योजना के अंतर्गत स्ट्रीट वेंडर कितना उधार ले सकते हैं?",
+      "content_text": "प्रधानमंत्री स्वनिधि योजना के अंतर्गत बिना किसी संपार्श्विक के सड़क विक्रेताओं को ऋण प्रदान किया जाता है। पहले 15,000 रुपये तक, फिर 25,000 रुपये तक और उसके बाद 50,000 रुपये तक, प्रत्येक पूर्व ऋण का पुनर्भुगतान करने के पश्चात। पुनर्गठित योजना 31 मार्च 2030 तक ऋण प्रदान करती है। विक्रेताओं को डिजिटल लेनदेन के लिए कैशबैक भी प्राप्त होता है।"
+    },
+    "te": {
+      "title": "పీఎం స్వనిధి కింద వీధి వ్యాపారులు ఎంత రుణం పొందవచ్చు?",
+      "content_text": "ప్రధానమంత్రి స్వనిధి వీధి వ్యాపారులకు ఎటువంటి హామీ లేకుండా రుణాలు అందిస్తారు: మొదట 15,000 రూపాయల వరకు, తరువాత 25,000 రూపాయల వరకు, తరువాత 50,000 రూపాయల వరకు, ప్రతి మునుపటి రుణాన్ని సకాలంలో తిరిగి చెల్లించిన తరువాత. పునర్నిర్మించిన పథకం 2030 మార్చి 31 వరకు రుణాలను అందిస్తుంది. విక్రేతలు కూడా డిజిటల్ లావాదేవీలకు నగదు తిరిగి పొందుతారు."
+    }
+  },
+  {
+    "id": "B07",
+    "topic": "loans",
+    "category": "loans",
+    "organization": "Cabinet decision, Aug 2025 (PM SVANidhi)",
+    "source_url": "https://www.drishtiias.com/daily-updates/daily-news-analysis/pm-street-vendors-atmanirbhar-nidhi/print_manually",
+    "section": "Eligibility and credit card",
+    "verified_level": "B",
+    "en": {
+      "title": "PM SVANidhi: eligibility and credit card",
+      "content_text": "For PM SVANidhi you need a certificate of vending or an identity card issued by an urban local body (ULB). Vendors who repay the second loan can get a UPI-linked RuPay credit card with an initial limit of Rs 10,000, which can rise to Rs 30,000."
+    },
+    "hi": {
+      "title": "प्रधानमंत्री स्वनिधि: पात्रता और क्रेडिट कार्ड",
+      "content_text": "प्रधानमंत्री स्वनिधि योजना के लिए आपको एक विक्रय प्रमाण पत्र या एक शहरी स्थानीय निकाय (यू.एल.बी.) द्वारा जारी एक पहचान पत्र की आवश्यकता होगी। दूसरे ऋण का भुगतान करने वाले विक्रेता 10,000 रुपये की प्रारंभिक सीमा वाले यू.पी.आई. लिंक वाले आर.यू.पी. क्रेडिट कार्ड प्राप्त कर सकते हैं, जो बढ़कर 30,000 रुपये हो सकता है।"
+    },
+    "te": {
+      "title": "ప్రధానమంత్రి స్వనిధి: అర్హత మరియు క్రెడిట్ కార్డు",
+      "content_text": "పిఎం స్వనిధికి మీకు ఒక సర్టిఫికేట్ ఆఫ్ వెండింగ్ లేదా పట్టణ స్థానిక సంస్థ (యుఎల్బి) జారీ చేసిన గుర్తింపు కార్డు అవసరం. రెండవ రుణాన్ని తిరిగి చెల్లించే విక్రేతలు UPI అనుసంధానం చేయబడిన RuPay క్రెడిట్ కార్డును పొందవచ్చు, దీని ప్రారంభ పరిమితి 10,000 రూపాయలు, ఇది 30,000 రూపాయలకు పెరగవచ్చు."
+    }
+  },
+  {
+    "id": "B08",
+    "topic": "loans",
+    "category": "loans",
+    "organization": "Ministry of MSME (PM Vishwakarma)",
+    "source_url": "https://drishtiias.com/pdf/1741616720.pdf",
+    "section": "Benefits",
+    "verified_level": "B",
+    "en": {
+      "title": "What does the PM Vishwakarma scheme give?",
+      "content_text": "PM Vishwakarma supports traditional artisans. It gives a recognition certificate and ID card, a training stipend of Rs 500 a day, toolkit support of up to Rs 15,000, and collateral-free loans at 5% interest: up to Rs 1 lakh first and up to Rs 2 lakh in the second tranche."
+    },
+    "hi": {
+      "title": "प्रधानमंत्री विश्वकर्मा योजना क्या प्रदान करती है?",
+      "content_text": "प्रधानमंत्री विश्वकर्मा पारंपरिक कारीगरों का समर्थन करते हैं। यह एक मान्यता प्रमाणपत्र और पहचान पत्र, 500 रुपये का दैनिक प्रशिक्षण वजीफा, 15,000 रुपये तक के उपकरण किट सहायता और 5% ब्याज पर संपार्श्विक-मुक्त ऋण प्रदान करता हैः पहले किस्त के रूप में 1 लाख रुपये तक और दूसरे किस्त के रूप में 2 लाख रुपये तक।"
+    },
+    "te": {
+      "title": "ప్రధానమంత్రి విశ్వకర్మ పథకం ఏమి అందిస్తుంది?",
+      "content_text": "ప్రధానమంత్రి విశ్వకర్మ సాంప్రదాయ హస్తకళాకారులకు మద్దతు ఇస్తున్నారు. ఇది గుర్తింపు సర్టిఫికెట్ మరియు ఐడీ కార్డును, రోజుకు 500 రూపాయల శిక్షణ స్టైపెండ్, 15,000 రూపాయల వరకు టూల్ కిట్ సపోర్ట్ మరియు 5% వడ్డీతో అదుపులేని రుణాలను అందిస్తుంది: మొదటి దశలో 1 లక్ష రూపాయల వరకు, రెండవ దశలో 2 లక్షల రూపాయల వరకు."
+    }
+  },
+  {
+    "id": "B09",
+    "topic": "schemes",
+    "category": "schemes",
+    "organization": "Ministry of MSME (PM Vishwakarma)",
+    "source_url": "https://drishtiias.com/pdf/1741616720.pdf",
+    "section": "Eligibility",
+    "verified_level": "B",
+    "en": {
+      "title": "Who is eligible for the PM Vishwakarma scheme?",
+      "content_text": "The applicant must be at least 18 years old at registration and work in the unorganised sector in one of the 18 traditional trades listed in the scheme. Only one member of a family (husband, wife and unmarried children) can benefit."
+    },
+    "hi": {
+      "title": "प्रधानमंत्री विश्वकर्मा योजना के लिए कौन पात्र है?",
+      "content_text": "आवेदक को पंजीकरण के समय कम से कम 18 वर्ष का होना चाहिए और योजना में सूचीबद्ध 18 पारंपरिक व्यवसायों में से किसी एक में असंगठित क्षेत्र में काम करना चाहिए। परिवार के केवल एक सदस्य (पति, पत्नी और अविवाहित बच्चे) को ही लाभ मिल सकता है।"
+    },
+    "te": {
+      "title": "పీఎం విశ్వకర్మ పథకానికి ఎవరు అర్హులు?",
+      "content_text": "దరఖాస్తుదారుడు నమోదు సమయంలో కనీసం 18 సంవత్సరాల వయస్సు గలవాడై ఉండాలి మరియు ఈ పథకంలో జాబితా చేయబడిన 18 సాంప్రదాయ వృత్తులలో ఒకదానిలో అసంఘటిత రంగంలో పని చేయాలి. ఒక కుటుంబంలో ఒక సభ్యుడు (భర్త, భార్య మరియు అవివాహిత పిల్లలు) మాత్రమే ప్రయోజనం పొందవచ్చు."
+    }
+  },
+  {
+    "id": "B10",
+    "topic": "savings",
+    "category": "savings",
+    "organization": "DICGC (subsidiary of RBI)",
+    "source_url": "https://www.outlookmoney.com/personal-finance/how-does-rbis-dicgc-secure-your-bank-deposits-all-you-need-to-know",
+    "section": "Deposit insurance",
+    "verified_level": "B",
+    "en": {
+      "title": "DICGC deposit insurance: how safe is money in a bank?",
+      "content_text": "DICGC, a subsidiary of RBI, insures bank deposits up to Rs 5 lakh per depositor per bank, principal and interest together. Savings, current, fixed and recurring deposits are covered. The bank pays the premium, not the depositor. Deposits in different banks are insured separately. Deposits with NBFCs are not covered."
+    },
+    "hi": {
+      "title": "डी.आई.सी.जी.सी. जमा बीमाः बैंक में पैसा कितना सुरक्षित है?",
+      "content_text": "डी.आई.सी.जी.सी., आर.बी.आई. की एक सहायक संस्था, प्रत्येक बैंक में प्रत्येक जमाकर्ता के लिए 5 लाख रुपये तक के जमा पर, मूलधन और ब्याज दोनों पर बीमा प्रदान करती है। बचत, चालू, स्थावर और आवर्ती जमाएँ इसमें शामिल हैं। बैंक प्रीमियम का भुगतान करता है, जमाकर्ता नहीं। विभिन्न बैंकों में जमा राशि का अलग से बीमा होता है। एन.बी.एफ.सी. के साथ जमा शामिल नहीं हैं।"
+    },
+    "te": {
+      "title": "డిఐసిజిసి డిపాజిట్ బీమాః బ్యాంకులో డబ్బు ఎంత సురక్షితం?",
+      "content_text": "ఆర్బీఐ యొక్క అనుబంధ సంస్థ అయిన డిఐసిజిసి, ప్రతి బ్యాంకుకు ప్రతి డిపాజిటర్‌కు రూ. 5 లక్షల వరకు, అసలు మరియు వడ్డీని కలిపి బీమా కల్పిస్తుంది. పొదుపు, చర, స్థిర మరియు పునరావృత డిపాజిట్లు ఇందులో చేర్చబడ్డాయి. ప్రీమియం బ్యాంకు చెల్లిస్తుంది, డిపాజిటర్ కాదు. వివిధ బ్యాంకులలోని డిపాజిట్లకు వేర్వేరుగా బీమా ఉంటుంది. NBFCలలో డిపాజిట్లకు వర్తించవు."
+    }
+  },
+  {
+    "id": "B11",
+    "topic": "upi",
+    "category": "rights",
+    "organization": "RBI circular of 6 July 2017 (consumer awareness copy)",
+    "source_url": "https://www.cag.org.in/sites/default/files/database/Final%20Digital%20Finance.pdf",
+    "section": "Customer liability",
+    "verified_level": "B",
+    "en": {
+      "title": "When is my liability zero for an unauthorised online transaction?",
+      "content_text": "Under RBI's rules of 6 July 2017, your liability is zero if the fault is the bank's, or if a third party caused the breach and you tell the bank within three working days of the bank's message. If you were careless, for example by sharing your PIN or OTP, you may bear the loss until you report it."
+    },
+    "hi": {
+      "title": "अनधिकृत ऑनलाइन लेनदेन के लिए मेरी देयता शून्य कब होती है?",
+      "content_text": "6 जुलाई 2017 के आर.बी.आई. के नियमों के तहत, यदि दोष बैंक का है, या यदि किसी तीसरे पक्ष ने उल्लंघन किया है और आप बैंक को बैंक के संदेश के तीन कार्यदिवसों के भीतर सूचित करते हैं, तो आपकी देयता शून्य है। यदि आप लापरवाह थे, उदाहरण के लिए अपना पिन या ओ.टी.पी. साझा करके, तो आपको नुकसान वहन करना पड़ सकता है जब तक कि आप इसकी रिपोर्ट नहीं करते।"
+    },
+    "te": {
+      "title": "అనధికార ఆన్లైన్ లావాదేవీకి నా బాధ్యత సున్నా ఎప్పుడు అవుతుంది?",
+      "content_text": "ఆర్బీఐ 2017 జూలై 6వ తేదీన నిర్దేశించిన నిబంధనల ప్రకారం, బ్యాంకు తప్పు అయితే లేదా మూడవ పక్షం ఉల్లంఘనకు కారణమైతే మీ బాధ్యత సున్నా. బ్యాంకు సందేశం వచ్చిన మూడు పని దినాలలోపు మీరు బ్యాంకుకు తెలియజేస్తే సరిపోతుంది. మీరు నిర్లక్ష్యంగా ఉంటే, ఉదాహరణకు మీ పిన్ లేదా ఓటిపిని పంచుకోవడం ద్వారా, మీరు నివేదించే వరకు మీరు నష్టాన్ని భరించవలసి ఉంటుంది."
+    }
+  },
+  {
+    "id": "B12",
+    "topic": "upi",
+    "category": "rights",
+    "organization": "RBI circular of 6 July 2017 (explainer copy)",
+    "source_url": "https://cybermithra.in/2024/05/29/how-can-i-get-my-lost-lost-money-back/?amp=1",
+    "section": "Late reporting and bank duties",
+    "verified_level": "B",
+    "en": {
+      "title": "What happens if I report a fraud late?",
+      "content_text": "If you report a third-party breach after four to seven working days, your liability is limited and depends on the account type. After seven days it follows the bank's policy. The bank must credit the disputed amount within 10 working days and settle the complaint within 90 days. The burden of proving customer liability lies with the bank."
+    },
+    "hi": {
+      "title": "अगर मैं धोखाधड़ी की रिपोर्ट देर से करूँ तो क्या होगा?",
+      "content_text": "यदि आप चार से सात कार्य दिवसों के बाद किसी तृतीय-पक्ष उल्लंघन की रिपोर्ट करते हैं, तो आपकी देयता सीमित है और यह खाते के प्रकार पर निर्भर करता है। सात दिनों के बाद यह बैंक की नीति का अनुसरण करता है। बैंक को 10 कार्य दिवसों के भीतर विवादित राशि का क्रेडिट करना होगा और 90 दिनों के भीतर शिकायत का निपटारा करना होगा। ग्राहक देयता साबित करने का बोझ बैंक पर है।"
+    },
+    "te": {
+      "title": "నేను మోసం గురించి ఆలస్యంగా నివేదించినట్లయితే ఏమి జరుగుతుంది?",
+      "content_text": "మీరు నాలుగు నుండి ఏడు పని దినాల తర్వాత మూడవ పక్ష ఉల్లంఘనను నివేదించినట్లయితే, మీ బాధ్యత పరిమితం అయి ఉంటుంది మరియు అది ఖాతా రకాన్ని బట్టి ఉంటుంది. ఏడు రోజుల తర్వాత అది ఆ బ్యాంకు విధానాన్ని అనుసరిస్తుంది. బ్యాంకు 10 పని దినాలలో వివాదాస్పద మొత్తాన్ని జమ చేసి, 90 పని దినాలలో ఫిర్యాదును పరిష్కరించాలి. వినియోగదారుల బాధ్యతను నిరూపించే భారం బ్యాంకుదే."
+    }
+  },
+  {
+    "id": "B13",
+    "topic": "upi",
+    "category": "rights",
+    "organization": "National cybercrime reporting / RBI consumer awareness",
+    "source_url": "https://www.cag.org.in/sites/default/files/database/Final%20Digital%20Finance.pdf",
+    "section": "How to report",
+    "verified_level": "B",
+    "en": {
+      "title": "How do I report a cyber fraud?",
+      "content_text": "Call 1930 or file a complaint on cybercrime.gov.in straight away, and also tell your bank or UPI app. Never share your PIN, password, CVV or OTP with anyone, even someone who says they are from your bank."
+    },
+    "hi": {
+      "title": "साइबर धोखाधड़ी की रिपोर्ट कैसे करूँ?",
+      "content_text": "1930 पर कॉल करें या cybercrime.gov.in पर तुरंत शिकायत दर्ज करें, और अपने बैंक या UPI ऐप को भी सूचित करें। अपना पिन, पासवर्ड, सीवीवी या ओटीपी किसी के साथ साझा न करें, यहाँ तक कि ऐसा कोई भी व्यक्ति जिसके बारे में आपको लगता है कि वह आपके बैंक से है।"
+    },
+    "te": {
+      "title": "సైబర్ మోసం గురించి ఎలా నివేదించాలి?",
+      "content_text": "1930కి కాల్ చేయండి లేదా cybercrime.gov.in లో ఫిర్యాదు చేయండి, మీ బ్యాంకుకు లేదా UPI యాప్‌కు కూడా తెలియజేయండి. మీ పిన్, పాస్ వర్డ్, సీవీవీ లేదా ఓటీపీ ఎవరితోనూ పంచుకోకండి, మీ బ్యాంకుకు చెందిన వారు అని చెప్పుకునే వారితో కూడా."
+    }
+  },
+  {
+    "id": "B14",
+    "topic": "general",
+    "category": "rights",
+    "organization": "RBI (Integrated Ombudsman Scheme, 2026)",
+    "source_url": "https://www.bandhan.bank.in/sites/default/files/2026-07/Annexure-Salient_features_of_the_Integrated_Ombudsman_Scheme_2026.pdf",
+    "section": "Salient features",
+    "verified_level": "B",
+    "en": {
+      "title": "What can I do if my bank does not solve my complaint?",
+      "content_text": "Under the RBI Integrated Ombudsman Scheme, 2026 (effective 1 July 2026), first complain to your bank or NBFC and wait 30 days. If you are not satisfied or get no reply, you can complain to the RBI Ombudsman within 90 days at cms.rbi.org.in or on the toll-free number 14448. Filing a complaint is free."
+    },
+    "hi": {
+      "title": "अगर मेरी शिकायत का समाधान मेरे बैंक द्वारा नहीं किया जाता है तो मैं क्या कर सकती हूँ?",
+      "content_text": "आर.बी.आई. एकीकृत लोकपाल योजना, 2026 (1 जुलाई 2026) के तहत, पहले अपने बैंक या एन.बी.एफ.सी. को शिकायत करें और 30 दिन प्रतीक्षा करें। यदि आप संतुष्ट नहीं हैं या कोई जवाब नहीं मिलता है, तो आप cms.rbi.org.in पर 90 दिनों के भीतर या टोल-फ्री नंबर 14448 पर आर.बी.आई. लोकपाल से शिकायत कर सकते हैं। शिकायत दर्ज करना निःशुल्क है।"
+    },
+    "te": {
+      "title": "నా బ్యాంకు నా ఫిర్యాదును పరిష్కరించకపోతే నేను ఏమి చేయాలి?",
+      "content_text": "ఆర్బీఐ ఇంటిగ్రేటెడ్ ఓంబుడ్స్‌మన్ పథకం కింద, 2026 (2026 జూలై 1 నుండి అమలులోకి) నాటికి, మీ బ్యాంకు లేదా ఎన్‌బీఎఫ్‌సీకి మొదట ఫిర్యాదు చేసి, 30 రోజులు వేచి ఉండండి. మీరు సంతృప్తి చెందకపోతే లేదా సమాధానం రాకపోతే, మీరు cms.rbi.org.in లో 90 రోజుల్లోపు ఆర్బీఐ ప్రజాక్షేత్ర న్యాయాధికారికి లేదా టోల్-ఫ్రీ నంబర్ 14448కి ఫిర్యాదు చేయవచ్చు. ఫిర్యాదు చేయడం ఉచితం."
+    }
+  },
+  {
+    "id": "B15",
+    "topic": "loans",
+    "category": "loans",
+    "organization": "RBI (Pre-payment Charges on Loans Directions, 2025)",
+    "source_url": "https://hdfcsky.com/news/rbi-bans-pre-payment-charges-on-floating-rate-loans-for-individual-borrowers",
+    "section": "Foreclosure and pre-payment",
+    "verified_level": "B",
+    "en": {
+      "title": "Do I pay a fee if I repay a loan early?",
+      "content_text": "Under RBI's Pre-payment Charges on Loans Directions, 2025, regulated lenders cannot charge foreclosure or pre-payment fees on floating-rate loans that individuals take for non-business purposes. Any charge on other loans must be stated in the loan agreement and the Key Facts Statement. Check whether your loan is fixed-rate or floating-rate."
+    },
+    "hi": {
+      "title": "क्या मैं ऋण जल्दी चुका दूँ तो क्या मुझे शुल्क देना होगा?",
+      "content_text": "आर.बी.आई. के ऋण पर पूर्व-भुगतान शुल्क दिशा-निर्देशों के तहत, 2025, विनियमित ऋणदाता गैर-व्यावसायिक उद्देश्यों के लिए व्यक्तियों द्वारा लिए गए फ्लोटिंग-रेट ऋण पर पूर्व-भुगतान शुल्क या ऋण-पुनर्भुगतान शुल्क नहीं लगा सकते हैं। अन्य ऋणों पर किसी भी शुल्क का उल्लेख ऋण समझौते और प्रमुख तथ्यों के कथन में किया जाना चाहिए। देखें कि आपका ऋण निश्चित दर वाला है या परिवर्तनीय दर वाला।"
+    },
+    "te": {
+      "title": "నేను రుణాన్ని ముందుగానే తిరిగి చెల్లించినట్లయితే, నేను రుసుము చెల్లించాలా?",
+      "content_text": "ఆర్బీఐ యొక్క రుణాలపై ముందస్తు చెల్లింపుల ఆదేశాల ప్రకారం, 2025లో, నియంత్రిత రుణదాతలు వ్యక్తులు వ్యాపారేతర ప్రయోజనాల కోసం తీసుకునే ఫ్లోటింగ్-రేట్ రుణాలపై ఫోర్క్లోజర్ లేదా ముందస్తు చెల్లింపు రుసుములను వసూలు చేయలేరు. ఇతర రుణాలపై ఏదైనా రుసుము రుణ ఒప్పందం మరియు కీ ఫాక్ట్స్ స్టేట్‌మెంట్‌లో పేర్కొనాలి. మీ రుణం స్థిర-రేటు లేదా చలామణి-రేటు అనేది చూసుకోండి."
+    }
+  },
+  {
+    "id": "B16",
+    "topic": "loans",
+    "category": "loans",
+    "organization": "RBI (recovery agent instructions, Aug 2022)",
+    "source_url": "https://www.business-standard.com/amp/article/finance/rbi-directs-loan-recovery-agents-not-to-intimidate-borrowers-no-calling-before-8am-after-7pm-122081201144_1.html",
+    "section": "Recovery agents",
+    "verified_level": "B",
+    "en": {
+      "title": "When can loan recovery agents contact me?",
+      "content_text": "RBI instructions of August 2022 bar banks, NBFCs and their recovery agents from calling borrowers about overdue loans before 8 am or after 7 pm. They also cannot make threatening or anonymous calls or send misleading messages."
+    },
+    "hi": {
+      "title": "ऋण वसूली एजेंट मुझे कब संपर्क कर सकते हैं?",
+      "content_text": "आर.बी.आई. के अगस्त 2022 के निर्देशों के अनुसार, बैंक, एन.बी.एफ.सी. और उनके पुनर्प्राप्ति एजेंटों को 8 बजे से पहले या 7 बजे के बाद उधारकर्ताओं को बकाया ऋण के बारे में कॉल करने से मना किया गया है। वे धमकी भरे या गुमनाम कॉल भी नहीं कर सकते हैं या भ्रामक संदेश नहीं भेज सकते हैं।"
+    },
+    "te": {
+      "title": "రుణ ఉపశమన ప్రతినిధులు నన్ను ఎప్పుడు సంప్రదించవచ్చు?",
+      "content_text": "ఆర్బీఐ ఆగస్టు 2022 ఆదేశాల ప్రకారం, బ్యాంకులు, ఎన్‌బీఎఫ్‌సీలు మరియు వారి రికవరీ ఏజెంట్లు ఉదయం 8 గంటల ముందు లేదా సాయంత్రం 7 గంటల తర్వాత రుణగ్రహీతలను కాల్ చేయడాన్ని నిషేధించింది. వారు బెదిరింపు లేదా అనామక కాల్స్ చేయలేరు లేదా తప్పుదోవ పట్టించే సందేశాలను పంపలేరు."
+    }
+  }
+];
+
+export const LITERACY_CATEGORIES = [
+  { id: 'all', en: 'All Topics', hi: 'सभी विषय', te: 'అన్ని అంశాలు' },
+  { id: 'savings', en: 'Savings & Accounts', hi: 'बचत व बैंक खाते', te: 'పొదుపు & ఖాతాలు' },
+  { id: 'insurance', en: 'Insurance & Health', hi: 'बीमा व स्वास्थ्य', te: 'బీమా & ఆరోగ్యం' },
+  { id: 'schemes', en: 'Pensions & Welfare', hi: 'पेंशन व कल्याण', te: 'పింఛన్లు & సంక్షేమం' },
+  { id: 'loans', en: 'Loans & Credit', hi: 'ऋण व मुद्रा', te: 'రుణాలు & ముద్ర' },
+  { id: 'rights', en: 'Rights & Anti-Fraud', hi: 'अधिकार व सुरक्षा', te: 'హక్కులు & రక్షణ' }
+];
+
+export function getLocalizedChunk(chunk, lang = 'en') {
+  if (!chunk) return null;
+  const loc = chunk[lang] || chunk['en'] || {};
+  return {
+    ...chunk,
+    title: loc.title || chunk.en?.title || '',
+    content_text: loc.content_text || chunk.en?.content_text || '',
+  };
+}

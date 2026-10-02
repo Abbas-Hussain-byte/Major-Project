@@ -1,10 +1,15 @@
 import express from 'express';
-import { protect } from '../middleware/auth.js';
-import { askQuestion } from '../controllers/literacy.controller.js';
+import { 
+  askQuestion, 
+  getLiteracyChunks, 
+  getLiteracyChunkById 
+} from '../controllers/literacy.controller.js';
 
 const router = express.Router();
 
-router.use(protect);
+router.get('/chunks', getLiteracyChunks);
+router.get('/chunks/:id', getLiteracyChunkById);
+router.get('/modules', getLiteracyChunks);
 router.post('/ask', askQuestion);
 
 export default router;

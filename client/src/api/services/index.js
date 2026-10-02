@@ -32,6 +32,7 @@ export const documentsService = {
 // Literacy Services
 export const literacyService = {
   getModules: async () => apiClient.get('/literacy/modules'),
+  getChunks: async (params) => apiClient.get('/literacy/chunks', { params }),
 };
 
 // Voice Services

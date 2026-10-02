@@ -1,0 +1,300 @@
+[
+  {
+    "chunk_id": "B01",
+    "organization": "Dept. of Financial Services (Jan Suraksha)",
+    "source_url": "https://limbasi.bank.in/?p=1820",
+    "source_type": "bank_page_quoting_scheme",
+    "topic": "insurance",
+    "title": "What is PMJJBY (Pradhan Mantri Jeevan Jyoti Bima Yojana)?",
+    "content_text": "PMJJBY is life insurance for bank account holders aged 18 to 50. The yearly premium is Rs 436, auto-debited from the account, and the cover is Rs 2 lakh if the person dies for any reason. Someone who joins before 50 can continue the cover up to age 55 by paying the premium.",
+    "section": "PMJJBY",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "jansuraksha.gov.in",
+    "also_read_via": [
+      "https://shirpurbank.bank.in/page/8",
+      "https://saurashtra.bank.in/?p=1070",
+      "https://hmcbl.bank.in/?p=861"
+    ]
+  },
+  {
+    "chunk_id": "B02",
+    "organization": "Dept. of Financial Services (Jan Suraksha)",
+    "source_url": "https://limbasi.bank.in/?p=1820",
+    "source_type": "bank_page_quoting_scheme",
+    "topic": "insurance",
+    "title": "What is PMSBY (Pradhan Mantri Suraksha Bima Yojana)?",
+    "content_text": "PMSBY is accident insurance for bank account holders aged 18 to 70. The yearly premium is Rs 20, auto-debited from the account. It pays Rs 2 lakh for accidental death or full disability and Rs 1 lakh for partial disability.",
+    "section": "PMSBY",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "jansuraksha.gov.in",
+    "also_read_via": [
+      "https://shirpurbank.bank.in/page/8",
+      "https://saurashtra.bank.in/?p=1070",
+      "https://hmcbl.bank.in/?p=861"
+    ]
+  },
+  {
+    "chunk_id": "B03",
+    "organization": "Dept. of Financial Services (Jan Suraksha)",
+    "source_url": "https://limbasi.bank.in/?p=1820",
+    "source_type": "bank_page_quoting_scheme",
+    "topic": "insurance",
+    "title": "How do I join PMJJBY and PMSBY?",
+    "content_text": "Give your bank or post office a simple form with your consent for auto-debit. The account must be linked to Aadhaar and you must name a nominee. Banks usually ask people to join before 1 June each year. Ask your bank for the exact deadline.",
+    "section": "How to join",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "jansuraksha.gov.in",
+    "also_read_via": [
+      "https://basodanagrik.bank.in/PMJBY_PMSBY.aspx",
+      "https://saurashtra.bank.in/?p=1070"
+    ]
+  },
+  {
+    "chunk_id": "B04",
+    "organization": "Ministry of Labour and Employment",
+    "source_url": "https://officerspulse.com/?p=29474",
+    "source_type": "explainer_quoting_ministry",
+    "topic": "schemes",
+    "title": "Who is eligible for PM-SYM (Shram Yogi Maan-dhan)?",
+    "content_text": "PM-SYM is a pension scheme for unorganised workers. To join you must be aged 18 to 40, earn Rs 15,000 a month or less, and not be covered by EPFO, ESIC or NPS. You should also not be an income-tax payer. After age 60 you receive a pension of Rs 3,000 a month.",
+    "section": "PM-SYM eligibility",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "maandhan.in / labour.gov.in",
+    "also_read_via": [
+      "https://bankbazaar.com/saving-schemes/pradhan-mantri-shram-yogi-maan-dhan.html",
+      "https://visionias.in/current-affairs/news-today/2025-03-05/schemes-in-news/six-years-of-pradhan-mantri-shram-yogi-maandhan-yojana-pm-sym-completed"
+    ]
+  },
+  {
+    "chunk_id": "B05",
+    "organization": "Ministry of Labour and Employment",
+    "source_url": "https://visionias.in/current-affairs/news-today/2025-03-05/schemes-in-news/six-years-of-pradhan-mantri-shram-yogi-maandhan-yojana-pm-sym-completed",
+    "source_type": "explainer_quoting_ministry",
+    "topic": "schemes",
+    "title": "PM-SYM contributions and family pension",
+    "content_text": "In PM-SYM the member pays Rs 55 to Rs 200 a month depending on age at joining, and the Central Government adds the same amount. The payment is auto-debited from a savings or Jan Dhan account. If the member dies while receiving the pension, the spouse gets 50% of it as family pension. LIC is the pension fund manager.",
+    "section": "PM-SYM contribution",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "maandhan.in / labour.gov.in",
+    "also_read_via": [
+      "https://officerspulse.com/?p=29474"
+    ]
+  },
+  {
+    "chunk_id": "B06",
+    "organization": "Cabinet decision, Aug 2025 (PM SVANidhi)",
+    "source_url": "https://www.drishtiias.com/daily-updates/daily-news-analysis/pm-street-vendors-atmanirbhar-nidhi/print_manually",
+    "source_type": "explainer_quoting_cabinet",
+    "topic": "loans",
+    "title": "How much can street vendors borrow under PM SVANidhi?",
+    "content_text": "PM SVANidhi gives street vendors loans with no collateral: up to Rs 15,000 first, then up to Rs 25,000 and then up to Rs 50,000, each after repaying the earlier loan on time. The restructured scheme lends until 31 March 2030. Vendors also get cashback for digital transactions.",
+    "section": "Restructured scheme",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "pmsvanidhi.mohua.gov.in / pib.gov.in",
+    "also_read_via": [
+      "https://www.tribuneindia.com/news/business/cabinet-approves-restructuring-extension-of-pm-svanidhi-scheme-till-2030/amp",
+      "https://mail.morungexpress.com/cabinet-okays-restructuring-extension-of-pms-street-vendors-scheme-till-2030"
+    ]
+  },
+  {
+    "chunk_id": "B07",
+    "organization": "Cabinet decision, Aug 2025 (PM SVANidhi)",
+    "source_url": "https://www.drishtiias.com/daily-updates/daily-news-analysis/pm-street-vendors-atmanirbhar-nidhi/print_manually",
+    "source_type": "explainer_quoting_cabinet",
+    "topic": "loans",
+    "title": "PM SVANidhi: eligibility and credit card",
+    "content_text": "For PM SVANidhi you need a certificate of vending or an identity card issued by an urban local body (ULB). Vendors who repay the second loan can get a UPI-linked RuPay credit card with an initial limit of Rs 10,000, which can rise to Rs 30,000.",
+    "section": "Eligibility and credit card",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "pmsvanidhi.mohua.gov.in / pib.gov.in",
+    "also_read_via": [
+      "https://www.tribuneindia.com/news/business/cabinet-approves-restructuring-extension-of-pm-svanidhi-scheme-till-2030/amp"
+    ]
+  },
+  {
+    "chunk_id": "B08",
+    "organization": "Ministry of MSME (PM Vishwakarma)",
+    "source_url": "https://drishtiias.com/pdf/1741616720.pdf",
+    "source_type": "explainer_quoting_ministry",
+    "topic": "loans",
+    "title": "What does the PM Vishwakarma scheme give?",
+    "content_text": "PM Vishwakarma supports traditional artisans. It gives a recognition certificate and ID card, a training stipend of Rs 500 a day, toolkit support of up to Rs 15,000, and collateral-free loans at 5% interest: up to Rs 1 lakh first and up to Rs 2 lakh in the second tranche.",
+    "section": "Benefits",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "pmvishwakarma.gov.in",
+    "also_read_via": [
+      "https://www.drishtiias.com/state-pcs-current-affairs/pm-vishwakarma-scheme-3/print_manually",
+      "https://vajiramandravi.com/pm-vishwakarma-scheme"
+    ]
+  },
+  {
+    "chunk_id": "B09",
+    "organization": "Ministry of MSME (PM Vishwakarma)",
+    "source_url": "https://drishtiias.com/pdf/1741616720.pdf",
+    "source_type": "explainer_quoting_ministry",
+    "topic": "schemes",
+    "title": "Who is eligible for the PM Vishwakarma scheme?",
+    "content_text": "The applicant must be at least 18 years old at registration and work in the unorganised sector in one of the 18 traditional trades listed in the scheme. Only one member of a family (husband, wife and unmarried children) can benefit.",
+    "section": "Eligibility",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "pmvishwakarma.gov.in",
+    "also_read_via": [
+      "https://vajiramandravi.com/pm-vishwakarma-scheme"
+    ]
+  },
+  {
+    "chunk_id": "B10",
+    "organization": "DICGC (subsidiary of RBI)",
+    "source_url": "https://www.outlookmoney.com/personal-finance/how-does-rbis-dicgc-secure-your-bank-deposits-all-you-need-to-know",
+    "source_type": "media_explainer",
+    "topic": "savings",
+    "title": "DICGC deposit insurance: how safe is money in a bank?",
+    "content_text": "DICGC, a subsidiary of RBI, insures bank deposits up to Rs 5 lakh per depositor per bank, principal and interest together. Savings, current, fixed and recurring deposits are covered. The bank pays the premium, not the depositor. Deposits in different banks are insured separately. Deposits with NBFCs are not covered.",
+    "section": "Deposit insurance",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "dicgc.org.in",
+    "also_read_via": [
+      "https://warangaldccb.bank.in/?page=dicgc",
+      "https://paisabazaar.com/fixed-deposit/budget-2020-fd-insurance-coverage-hikes-to-5-lakh/comment-page-3"
+    ]
+  },
+  {
+    "chunk_id": "B11",
+    "organization": "RBI circular of 6 July 2017 (consumer awareness copy)",
+    "source_url": "https://www.cag.org.in/sites/default/files/database/Final%20Digital%20Finance.pdf",
+    "source_type": "consumer_org_quoting_rbi",
+    "topic": "upi",
+    "title": "When is my liability zero for an unauthorised online transaction?",
+    "content_text": "Under RBI's rules of 6 July 2017, your liability is zero if the fault is the bank's, or if a third party caused the breach and you tell the bank within three working days of the bank's message. If you were careless, for example by sharing your PIN or OTP, you may bear the loss until you report it.",
+    "section": "Customer liability",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "rbi.org.in (circular: Limiting Liability of Customers in Unauthorised Electronic Banking Transactions)",
+    "also_read_via": [
+      "https://www.shareindia.com/knowledge-center/market-insight/rbi-guidelines-on-unauthorised-transactions-customer-liability-refund-rules-safety-measures",
+      "https://law.asia/india-digital-banking-regulation/"
+    ]
+  },
+  {
+    "chunk_id": "B12",
+    "organization": "RBI circular of 6 July 2017 (explainer copy)",
+    "source_url": "https://cybermithra.in/2024/05/29/how-can-i-get-my-lost-lost-money-back/?amp=1",
+    "source_type": "explainer_quoting_rbi",
+    "topic": "upi",
+    "title": "What happens if I report a fraud late?",
+    "content_text": "If you report a third-party breach after four to seven working days, your liability is limited and depends on the account type. After seven days it follows the bank's policy. The bank must credit the disputed amount within 10 working days and settle the complaint within 90 days. The burden of proving customer liability lies with the bank.",
+    "section": "Late reporting and bank duties",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "rbi.org.in (same circular)",
+    "also_read_via": [
+      "https://www.sansalegal.com/post/how-to-report-an-unauthorised-bank-transaction-and-get-a-refund-under-rbi-rules",
+      "https://www.shareindia.com/knowledge-center/market-insight/rbi-guidelines-on-unauthorised-transactions-customer-liability-refund-rules-safety-measures"
+    ]
+  },
+  {
+    "chunk_id": "B13",
+    "organization": "National cybercrime reporting / RBI consumer awareness",
+    "source_url": "https://www.cag.org.in/sites/default/files/database/Final%20Digital%20Finance.pdf",
+    "source_type": "consumer_org_quoting_rbi",
+    "topic": "upi",
+    "title": "How do I report a cyber fraud?",
+    "content_text": "Call 1930 or file a complaint on cybercrime.gov.in straight away, and also tell your bank or UPI app. Never share your PIN, password, CVV or OTP with anyone, even someone who says they are from your bank.",
+    "section": "How to report",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "cybercrime.gov.in",
+    "also_read_via": [
+      "https://law.asia/india-digital-banking-regulation/"
+    ]
+  },
+  {
+    "chunk_id": "B14",
+    "organization": "RBI (Integrated Ombudsman Scheme, 2026)",
+    "source_url": "https://www.bandhan.bank.in/sites/default/files/2026-07/Annexure-Salient_features_of_the_Integrated_Ombudsman_Scheme_2026.pdf",
+    "source_type": "bank_hosted_rbi_annexure",
+    "topic": "general",
+    "title": "What can I do if my bank does not solve my complaint?",
+    "content_text": "Under the RBI Integrated Ombudsman Scheme, 2026 (effective 1 July 2026), first complain to your bank or NBFC and wait 30 days. If you are not satisfied or get no reply, you can complain to the RBI Ombudsman within 90 days at cms.rbi.org.in or on the toll-free number 14448. Filing a complaint is free.",
+    "section": "Salient features",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "cms.rbi.org.in / rbi.org.in",
+    "also_read_via": []
+  },
+  {
+    "chunk_id": "B15",
+    "organization": "RBI (Pre-payment Charges on Loans Directions, 2025)",
+    "source_url": "https://hdfcsky.com/news/rbi-bans-pre-payment-charges-on-floating-rate-loans-for-individual-borrowers",
+    "source_type": "media_explainer",
+    "topic": "loans",
+    "title": "Do I pay a fee if I repay a loan early?",
+    "content_text": "Under RBI's Pre-payment Charges on Loans Directions, 2025, regulated lenders cannot charge foreclosure or pre-payment fees on floating-rate loans that individuals take for non-business purposes. Any charge on other loans must be stated in the loan agreement and the Key Facts Statement. Check whether your loan is fixed-rate or floating-rate.",
+    "section": "Foreclosure and pre-payment",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "rbi.org.in",
+    "also_read_via": [
+      "https://poonawallafincorp.com/blogs/financial-insights/rbi-loan-rules-and-borrower-compliance",
+      "https://ksandk.com/banking/rbi-foreclosure-charges-loans-individuals/"
+    ]
+  },
+  {
+    "chunk_id": "B16",
+    "organization": "RBI (recovery agent instructions, Aug 2022)",
+    "source_url": "https://www.business-standard.com/amp/article/finance/rbi-directs-loan-recovery-agents-not-to-intimidate-borrowers-no-calling-before-8am-after-7pm-122081201144_1.html",
+    "source_type": "news_report",
+    "topic": "loans",
+    "title": "When can loan recovery agents contact me?",
+    "content_text": "RBI instructions of August 2022 bar banks, NBFCs and their recovery agents from calling borrowers about overdue loans before 8 am or after 7 pm. They also cannot make threatening or anonymous calls or send misleading messages.",
+    "section": "Recovery agents",
+    "retrieved_on": "2026-10-02",
+    "verified_level": "B",
+    "verified": false,
+    "language": "en",
+    "official_site_to_verify": "rbi.org.in",
+    "also_read_via": [
+      "https://www.ltfinance.com/blog/personal-loan/rbi-guidelines-for-loan-recovery"
+    ]
+  }
+]

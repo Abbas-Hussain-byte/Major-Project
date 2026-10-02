@@ -124,3 +124,35 @@ Rules:
     });
   }
 };
+
+export const deleteDocument = async (req, res) => {
+  try {
+    const docId = req.params.id;
+    if (!docId) {
+      return res.status(400).json({ message: 'Document ID is required' });
+    }
+
+    const doc = await DocumentModel.findOne({ _id: docId, user_id: req.user._id });
+    if (!doc) {
+      return res.status(404).json({ message: 'Document not found' });
+    }
+
+    if (doc.file_path) {
+      try {
+        const fs = await import('fs');
+        if (fs.existsSync(doc.file_path)) {
+          fs.unlinkSync(doc.file_path);
+        }
+      } catch (fileErr) {
+        console.warn('[DocumentController] Could not remove physical file from disk:', fileErr.message);
+      }
+    }
+
+    await DocumentModel.deleteOne({ _id: docId, user_id: req.user._id });
+    res.json({ success: true, message: 'Document and associated data removed successfully' });
+  } catch (err) {
+    console.error('[DocumentController] deleteDocument error:', err.message);
+    res.status(500).json({ message: 'Failed to delete document', error: err.message });
+  }
+};
+

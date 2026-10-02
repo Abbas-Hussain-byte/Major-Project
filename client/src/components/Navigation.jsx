@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   Shield, Sparkles, FileText, Coins, User, MessageSquare, 
-  Globe, Sun, Moon, ChevronDown, ShieldCheck, Mic 
+  Globe, Sun, Moon, ChevronDown, ShieldCheck, Mic, BookOpen 
 } from 'lucide-react';
 import MicButton from './MicButton';
 import VoiceProfileWizard from './VoiceProfileWizard';
@@ -92,6 +92,14 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
             </NavLink>
 
             <NavLink 
+              to="/literacy" 
+              className={({ isActive }) => `header-nav-item ${isActive ? 'active' : ''}`}
+            >
+              <BookOpen size={16} />
+              <span>{t('nav_literacy')}</span>
+            </NavLink>
+
+            <NavLink 
               to="/documents" 
               className={({ isActive }) => `header-nav-item ${isActive ? 'active' : ''}`}
             >
@@ -159,6 +167,12 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
               >
                 EN
               </button>
+            </div>
+
+            {/* AI Status */}
+            <div className="ai-status-indicator" title="Gemini 2.5 Multi-Lingual AI Online">
+              <span className="status-ping"></span>
+              <span className="status-label">{t('nav_ai_online')}</span>
             </div>
 
             {/* Citizen Account Chip & Dropdown Drawer (Top Right Navbar) */}
@@ -248,12 +262,6 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
                   </div>
                 </div>
               )}
-            </div>
-
-            {/* AI Status */}
-            <div className="ai-status-indicator" title="Gemini 2.5 Multi-Lingual AI Online">
-              <span className="status-ping"></span>
-              <span className="status-label">{t('nav_ai_online')}</span>
             </div>
           </div>
         </div>

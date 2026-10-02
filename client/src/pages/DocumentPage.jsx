@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   FileText, Upload, Camera, AlertTriangle, CheckCircle2, 
   Sparkles, Volume2, ArrowRight, ShieldAlert, FileCheck, RefreshCw,
-  Send, Mic, ShieldCheck
+  Send, Mic, ShieldCheck, Trash2
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import './DocumentPage.css';
@@ -369,6 +369,54 @@ export default function DocumentPage() {
     ? (validCurrentTrans.checklist || [])
     : (sourceLang === language ? rawChecklist : []);
 
+  const handleDeleteDocument = async () => {
+    // Stop any active speech
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    setIsSpeaking(false);
+    setRagSpeaking(false);
+
+    // Call server delete endpoint if result has an ID
+    const docId = result?._id || result?.id;
+    if (docId) {
+      try {
+        const token = localStorage.getItem('token');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        await fetch(`${apiUrl}/documents/${docId}`, {
+          method: 'DELETE',
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+      } catch (e) {
+        console.warn('Backend document delete error (safe to ignore):', e);
+      }
+    }
+
+    // Reset all document and analysis state
+    setResult(null);
+    setSelectedFile(null);
+    setDocTranslations({});
+    setRagAnswer(null);
+    setLastAskedQuery('');
+    setRagQuery('');
+    setRagError(null);
+    setError(null);
+    setLoading(false);
+    setIsTranslatingDoc(false);
+
+    // Clear file input so the same file or a new file can be re-selected
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+
+    // Clear persisted document from localStorage
+    try {
+      localStorage.removeItem('benefitlens_analyzed_doc');
+    } catch (e) {
+      console.warn('LocalStorage clear error:', e);
+    }
+  };
+
   const handleReadAloud = () => {
     if (!currentSummary) return;
 
@@ -616,10 +664,54 @@ export default function DocumentPage() {
         {/* Analysis Results */}
         {result && (
           <section className="results-container" aria-live="polite">
-            {/* File Tag */}
-            <div className="result-file-tag">
-              <FileCheck size={16} />
-              <span>{t('doc_analyzed')}: {selectedFile || 'Uploaded Document'}</span>
+            {/* Enlarged Analyzed Document Banner Card */}
+            <div className="analyzed-doc-banner">
+              <div className="analyzed-doc-left">
+                <div className="analyzed-doc-icon-pod">
+                  <FileText className="analyzed-doc-icon" size={28} />
+                  <span className="analyzed-doc-status-dot" title="Verified">
+                    <CheckCircle2 size={13} />
+                  </span>
+                </div>
+                <div className="analyzed-doc-info">
+                  <div className="analyzed-doc-badges">
+                    <span className="badge-analyzed-tag">
+                      <Sparkles size={12} className="glow-cyan" />
+                      <span>{t('doc_analyzed')}</span>
+                    </span>
+                    <span className="badge-doc-category">
+                      {docCategories.find(c => c.id === (result?.document_type || selectedCategory))?.label || selectedCategory}
+                    </span>
+                    <span className="badge-verified-status">
+                      <CheckCircle2 size={12} />
+                      <span>{t('doc_verified_status')}</span>
+                    </span>
+                  </div>
+                  <h2 className="analyzed-doc-title" title={selectedFile || 'Uploaded Document'}>
+                    {selectedFile || 'Uploaded Document'}
+                  </h2>
+                  <p className="analyzed-doc-description">
+                    {language === 'te' 
+                      ? 'ఈ పత్రం విజయవంతంగా స్కాన్ చేయబడింది. నిబంధనలు, క్లెయిమ్ ప్రక్రియ మరియు మినహాయింపులు క్రింద అందుబాటులో ఉన్నాయి.' 
+                      : language === 'hi' 
+                      ? 'यह दस्तावेज़ सफलतापूर्वक स्कैन किया गया है। नियम, क्लेम प्रक्रिया और जोखिम विवरण नीचे उपलब्ध हैं।' 
+                      : 'Document successfully verified against welfare & protection guidelines. Key clauses, checklists & RAG Q&A active.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="analyzed-doc-actions">
+                <button
+                  type="button"
+                  className="btn-delete-doc"
+                  onClick={handleDeleteDocument}
+                  title={t('doc_delete_tooltip')}
+                  aria-label={t('doc_delete_btn')}
+                >
+                  <Trash2 size={18} />
+                  <span>{t('doc_delete_btn')}</span>
+                </button>
+              </div>
             </div>
 
             {/* Plain Language Summary */}
@@ -855,21 +947,12 @@ export default function DocumentPage() {
               )}
             </section>
 
-            {/* Scan Another Document Action Button (Glowing High-Contrast, Never Invisible) */}
+            {/* Scan Another Document Action Button */}
             <div className="scan-another-wrapper">
               <button 
                 type="button" 
                 className="btn-primary btn-scan-another" 
-                onClick={() => {
-                  setResult(null);
-                  setSelectedFile(null);
-                  setDocTranslations({});
-                  setRagAnswer(null);
-                  setLastAskedQuery('');
-                  try {
-                    localStorage.removeItem('benefitlens_analyzed_doc');
-                  } catch {}
-                }}
+                onClick={handleDeleteDocument}
               >
                 <Upload size={18} />
                 <span>{t('doc_scan_another')}</span>
