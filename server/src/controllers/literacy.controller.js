@@ -2,10 +2,10 @@ import { answerQuestion } from '../services/literacyTutor/literacyService.js';
 import { translateToEnglish, translateFromEnglish } from '../services/voiceGateway/bhashiniService.js';
 
 export const askQuestion = async (req, res) => {
-  const { question, language } = req.body;
+  const { question, language, lang } = req.body;
   if (!question) return res.status(400).json({ message: 'question is required' });
 
-  const userLang = language || req.user.preferred_language || 'hi';
+  const userLang = language || lang || req.user?.preferred_language || 'en';
 
   // Translation sandwich: native → EN → answer → native
   const englishQuestion = userLang !== 'en'

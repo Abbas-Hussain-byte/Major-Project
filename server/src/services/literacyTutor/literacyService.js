@@ -27,35 +27,63 @@ Provide a comprehensive, clear, and highly informative answer:
  */
 export const answerQuestion = async (question) => {
   const topK = ENV.RETRIEVAL_TOP_K ? parseInt(ENV.RETRIEVAL_TOP_K, 10) : 3;
-  let chunks = await retrieveLiteracyChunks(question, topK);
+  const qLower = question.toLowerCase();
 
-  // If no literacy chunks retrieved, search active schemes in MongoDB
-  let schemeSources = [];
-  if (chunks.length === 0) {
-    const qLower = question.toLowerCase();
+  // 1. Search active Central Government schemes by acronyms and keywords
+  let schemeChunks = [];
+  try {
     const allSchemes = await Scheme.find({ is_active: true }).lean();
     const matchedSchemes = allSchemes.filter(s => {
       const sName = (s.name || '').toLowerCase();
       const sDesc = (s.benefit_description || '').toLowerCase();
-      const sType = (s.type || '').toLowerCase();
-      
-      const keywords = qLower.split(/\s+/).filter(w => w.length > 2);
-      return keywords.some(k => sName.includes(k) || sDesc.includes(k) || sType.includes(k));
+      const sApply = (s.how_to_apply || '').toLowerCase();
+
+      // Direct acronym and keyword matching
+      const keywords = [
+        'pmsby', 'suraksha', 'pmjjby', 'jeevan jyoti', 'pmjay', 'pm-jay', 'ayushman', 'arogya',
+        'apy', 'atal pension', 'pmsym', 'pm-sym', 'maan-dhan', 'pmjdy', 'jan dhan',
+        'svanidhi', 'street vendor', 'vishwakarma', 'artisan', 'nfsa', 'antyodaya', 'ration',
+        'eshram', 'e-shram', 'mudra', 'pmmy', 'pmay', 'awas', 'bima', 'life insurance',
+        'accidental', 'disability', 'pension', 'hospital', 'cashless', 'food grains', 'micro loan'
+      ];
+
+      for (const kw of keywords) {
+        if (qLower.includes(kw) && (sName.includes(kw) || sDesc.includes(kw) || kw.includes(sName.split(' ')[0].toLowerCase()))) {
+          return true;
+        }
+      }
+
+      // Check if words in question overlap with scheme name
+      const qWords = qLower.split(/[\s,?.!]+/).filter(w => w.length >= 3 && !['what', 'how', 'when', 'does', 'work', 'tell', 'about', 'this', 'that', 'from', 'with'].includes(w));
+      return qWords.some(w => sName.includes(w) || sDesc.includes(w));
     });
 
     if (matchedSchemes.length > 0) {
-      chunks = matchedSchemes.slice(0, 3).map(s => ({
+      schemeChunks = matchedSchemes.slice(0, 3).map(s => ({
         content: {
           _id: s._id,
           title: s.name,
-          topic: s.type,
-          source_id: s.source_document_ref || 'Central Gazette',
-          content_text: `Benefit: ${s.benefit_description}. Annual Cost: Rs. ${s.premium_annual_inr}. Maximum Coverage: Rs. ${s.coverage_inr || 200000}. Eligibility: Age ${s.eligibility_criteria?.age_min || 18} to ${s.eligibility_criteria?.age_max || 70} years. How to Apply: ${s.how_to_apply || 'Contact bank branch or Common Service Centre'}.`
+          topic: s.type || 'Government Scheme',
+          source_id: s.source_document_ref || 'Central Government Gazette',
+          content_text: `Benefit: ${s.benefit_description}. Annual Cost: ${s.premium_annual_inr === 0 ? 'FREE (₹0)' : 'Rs. ' + s.premium_annual_inr}. Maximum Coverage: Rs. ${s.coverage_inr || 200000}. Eligibility: Age ${s.eligibility_criteria?.age_min || 18} to ${s.eligibility_criteria?.age_max || 70} years. How to Apply: ${s.how_to_apply || 'Contact bank branch or Common Service Centre'}.`
         },
-        score: 0.95
+        score: 1.0
       }));
     }
+  } catch (err) {
+    console.warn('[LiteracyService] Scheme search warning:', err.message);
   }
+
+  // 2. Retrieve LiteracyContent vector chunks
+  let literacyChunks = [];
+  try {
+    literacyChunks = await retrieveLiteracyChunks(question, topK);
+  } catch (err) {
+    console.warn('[LiteracyService] Vector retrieval warning:', err.message);
+  }
+
+  // Merge scheme chunks first (highest priority) with literacy chunks
+  const chunks = [...schemeChunks, ...literacyChunks].slice(0, 4);
 
   if (chunks.length === 0) {
     return {

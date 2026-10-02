@@ -17,6 +17,43 @@ html[data-theme='light'] {
   color-scheme: light;
 }
 
+/* Indic Low-Literacy Typography Enhancements */
+html[lang='te'] {
+  font-family: 'Noto Sans Telugu', 'Plus Jakarta Sans', sans-serif;
+  font-size: 16.5px;
+}
+
+html[lang='te'] body {
+  line-height: 1.78;
+  letter-spacing: 0.01em;
+}
+
+html[lang='te'] h1, 
+html[lang='te'] h2, 
+html[lang='te'] h3, 
+html[lang='te'] h4 {
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+html[lang='hi'] {
+  font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+  font-size: 16.5px;
+}
+
+html[lang='hi'] body {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+html[lang='hi'] h1, 
+html[lang='hi'] h2, 
+html[lang='hi'] h3, 
+html[lang='hi'] h4 {
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
 body {
   font-family: var(--font-primary);
   background-color: var(--color-bg-secondary);

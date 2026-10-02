@@ -15,32 +15,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 32px;
+  padding: 0 24px;
   transition: all 0.3s ease;
 }
 
 .header-inner {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1520px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 12px;
 }
 
 /* Brand */
 .brand-group {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   user-select: none;
+  flex-shrink: 0;
 }
 
 .brand-logo-pod {
   position: relative;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(59, 130, 246, 0.2));
   border: 1px solid rgba(99, 102, 241, 0.4);
@@ -48,6 +49,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  flex-shrink: 0;
 }
 
 .brand-icon {
@@ -56,8 +58,8 @@
 
 .brand-sparkle {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 5px;
+  right: 5px;
   color: #38bdf8;
   animation: pulseSparkle 2s infinite ease-in-out;
 }
@@ -69,43 +71,48 @@
 
 .brand-title {
   font-family: var(--font-display);
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  white-space: nowrap;
 }
 
 .brand-badge {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   color: #38bdf8;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* Desktop Nav Links */
 .header-nav-links {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background: rgba(255, 255, 255, 0.03);
-  padding: 4px;
+  padding: 4px 6px;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
 }
 
 .header-nav-item {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 7px;
+  padding: 6px 12px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: #94a3b8;
   text-decoration: none;
+  white-space: nowrap !important;
+  flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
@@ -125,22 +132,25 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Theme Toggle Button */
 .theme-toggle-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: 9999px;
   color: #cbd5e1;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
@@ -162,21 +172,22 @@
 .header-lang-switcher {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   background: rgba(255, 255, 255, 0.04);
-  padding: 4px 6px;
+  padding: 3px 5px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
 }
 
 .globe-icon {
   color: #64748b;
-  margin-left: 4px;
+  margin-left: 3px;
   margin-right: 2px;
 }
 
 .lang-btn-pill {
-  padding: 4px 10px;
+  padding: 4px 8px;
   border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
@@ -184,6 +195,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  white-space: nowrap;
   transition: all 0.2s;
 }
 
@@ -199,17 +211,20 @@
 /* Citizen Account Chip & Dropdown Drawer */
 .account-dropdown-wrapper {
   position: relative;
+  flex-shrink: 0;
 }
 
 .citizen-account-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 5px 12px;
   border-radius: 9999px;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
@@ -563,6 +578,55 @@
 [data-theme='light'] .lang-btn-pill.active {
   background: #090d16;
   color: #ffffff;
+}
+
+[data-theme='light'] .citizen-account-btn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .citizen-account-btn:hover,
+[data-theme='light'] .citizen-account-btn.open {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+[data-theme='light'] .account-name-mini {
+  color: #090d16;
+}
+
+[data-theme='light'] .account-sub-mini {
+  color: #64748b;
+}
+
+[data-theme='light'] .citizen-account-dropdown {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 25px rgba(99, 102, 241, 0.1);
+}
+
+[data-theme='light'] .dropdown-title-info h4 {
+  color: #090d16;
+}
+
+[data-theme='light'] .dropdown-stats-grid {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] .dropdown-stat .label {
+  color: #64748b;
+}
+
+[data-theme='light'] .dropdown-stat .val {
+  color: #090d16;
+}
+
+[data-theme='light'] .btn-dropdown-action.view-profile {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #090d16;
 }
 
 [data-theme='light'] .ai-status-indicator {

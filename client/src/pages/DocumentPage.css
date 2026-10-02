@@ -4,8 +4,9 @@
 
 .document-page {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1440px;
   margin: 0 auto;
+  padding: 24px 32px 140px;
 }
 
 /* Category Pills Bar */
@@ -320,7 +321,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 860px;
+  width: 100%;
+  max-width: 1080px;
   margin: 0 auto;
   animation: pageFadeIn 0.35s ease-out;
 }
@@ -639,6 +641,27 @@
   background: #fff1f2;
   border-color: #fecdd3;
   color: #9f1239; /* Dark Pink / Crimson */
+}
+
+.doc-translating-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #818cf8;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  animation: pulse 1.5s infinite;
+}
+
+[data-theme='light'] .doc-translating-pill {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #4338ca;
 }
 
 [data-theme='light'] .btn-scan-another {

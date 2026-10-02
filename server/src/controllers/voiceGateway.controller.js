@@ -11,8 +11,8 @@ export const getCapabilities = (req, res) => {
 
 export const translate = async (req, res) => {
   const { text, from, to } = req.body;
-  if (!text || typeof text !== 'string' || text.length > 1000) {
-    return res.status(400).json({ error: 'text must be a non-empty string under 1000 characters' });
+  if (!text || typeof text !== 'string' || text.length > 4000) {
+    return res.status(400).json({ error: 'text must be a non-empty string under 4000 characters' });
   }
   if (!ALLOWED_LANGS.includes(from) || !ALLOWED_LANGS.includes(to)) {
     return res.status(400).json({ error: 'from and to must be te, hi, or en' });

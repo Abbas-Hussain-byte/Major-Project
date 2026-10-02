@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   FileText, Upload, Camera, AlertTriangle, CheckCircle2, 
   Sparkles, Volume2, ArrowRight, ShieldAlert, FileCheck, RefreshCw,
@@ -32,15 +32,74 @@ const getDocQuestionChips = (lang) => {
   ];
 };
 
+const detectScriptLang = (text) => {
+  if (!text || typeof text !== 'string') return 'en';
+  if (/[\u0C00-\u0C7F]/.test(text)) return 'te';
+  if (/[\u0900-\u097F]/.test(text)) return 'hi';
+  return 'en';
+};
+
+const isLangMatch = (text, targetLang) => {
+  if (!text) return false;
+  const sample = Array.isArray(text) ? text.join(' ') : String(text);
+  const script = detectScriptLang(sample);
+  if (targetLang === 'te') return script === 'te';
+  if (targetLang === 'hi') return script === 'hi';
+  if (targetLang === 'en') return script === 'en'; // Must be Latin script (not Telugu, not Devanagari)
+  return true;
+};
+
+const getValidTranslation = (translations, lang) => {
+  const entry = translations?.[lang];
+  if (!entry || !entry.summary) return null;
+  if (!isLangMatch(entry.summary, lang)) return null;
+  return entry;
+};
+
+const cleanStoredDocTranslations = (rawTrans) => {
+  if (!rawTrans || typeof rawTrans !== 'object') return {};
+  const cleaned = {};
+  for (const [langKey, entry] of Object.entries(rawTrans)) {
+    if (entry?.summary && isLangMatch(entry.summary, langKey)) {
+      cleaned[langKey] = entry;
+    }
+  }
+  return cleaned;
+};
+
 export default function DocumentPage() {
   const { language, t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('government_scheme');
-  const [selectedFile, setSelectedFile] = useState(null);
+  
+  // Restore persisted analyzed document from localStorage if available
+  const [selectedFile, setSelectedFile] = useState(() => {
+    try {
+      const saved = localStorage.getItem('benefitlens_analyzed_doc');
+      return saved ? JSON.parse(saved).selectedFile : null;
+    } catch { return null; }
+  });
+  
+  const [result, setResult] = useState(() => {
+    try {
+      const saved = localStorage.getItem('benefitlens_analyzed_doc');
+      return saved ? JSON.parse(saved).result : null;
+    } catch { return null; }
+  });
+
+  const [docTranslations, setDocTranslations] = useState(() => {
+    try {
+      const saved = localStorage.getItem('benefitlens_analyzed_doc');
+      if (!saved) return {};
+      const parsed = JSON.parse(saved);
+      return cleanStoredDocTranslations(parsed.docTranslations);
+    } catch { return {}; }
+  });
+
   const [loading, setLoading] = useState(false);
   const [processingStep, setProcessingStep] = useState(1);
-  const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isTranslatingDoc, setIsTranslatingDoc] = useState(false);
 
   // Document RAG Q&A State
   const [ragQuery, setRagQuery] = useState('');
@@ -52,6 +111,147 @@ export default function DocumentPage() {
   const [ragError, setRagError] = useState(null);
 
   const fileInputRef = useRef(null);
+
+  // Save to localStorage whenever result or translations change (only persist clean translations)
+  useEffect(() => {
+    if (result) {
+      try {
+        localStorage.setItem('benefitlens_analyzed_doc', JSON.stringify({
+          result,
+          selectedFile,
+          docTranslations: cleanStoredDocTranslations(docTranslations)
+        }));
+      } catch (e) {
+        console.warn('LocalStorage save failed:', e);
+      }
+    }
+  }, [result, selectedFile, docTranslations]);
+
+  // Extract raw fields from result
+  const rawSummary = result?.plain_language_summary || result?.explanation || result?.summary || '';
+  const rawRisks = result?.risk_flags || result?.risks || [];
+  const rawChecklist = (result?.claim_checklist || result?.checklist || []).map(c => c.item || c);
+  const sourceLang = detectScriptLang(rawSummary);
+
+  // On-the-fly multilingual translation strictly aligned with active header language
+  useEffect(() => {
+    if (!result || !rawSummary) return;
+
+    // Check if we already have a valid translation matching the active header language
+    const existing = getValidTranslation(docTranslations, language);
+    if (existing) return;
+
+    // If active language is the source language of the analyzed document, cache it directly
+    if (language === sourceLang) {
+      setDocTranslations(prev => {
+        const updated = {
+          ...prev,
+          [sourceLang]: {
+            summary: rawSummary,
+            risks: rawRisks,
+            checklist: rawChecklist
+          }
+        };
+        try {
+          localStorage.setItem('benefitlens_analyzed_doc', JSON.stringify({
+            result,
+            selectedFile,
+            docTranslations: updated
+          }));
+        } catch {}
+        return updated;
+      });
+      return;
+    }
+
+    let isMounted = true;
+    const translateDocContent = async () => {
+      setIsTranslatingDoc(true);
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+        // 1. Translate summary from sourceLang to target language
+        let transSummary = '';
+        if (rawSummary) {
+          const res = await fetch(`${apiUrl}/voice/translate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: rawSummary, from: sourceLang, to: language })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.translated && isLangMatch(data.translated, language)) {
+              transSummary = data.translated;
+            }
+          }
+        }
+
+        // 2. Translate risks
+        let transRisks = [];
+        if (rawRisks.length > 0) {
+          const joinedRisks = rawRisks.join(' ||| ');
+          const res = await fetch(`${apiUrl}/voice/translate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: joinedRisks, from: sourceLang, to: language })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.translated) {
+              const split = data.translated.split(/\s*\|\|\|\s*/).map(s => s.trim()).filter(Boolean);
+              if (split.length > 0) transRisks = split;
+            }
+          }
+        }
+
+        // 3. Translate checklist
+        let transChecklist = [];
+        if (rawChecklist.length > 0) {
+          const joinedChecklist = rawChecklist.join(' ||| ');
+          const res = await fetch(`${apiUrl}/voice/translate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: joinedChecklist, from: sourceLang, to: language })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.translated) {
+              const split = data.translated.split(/\s*\|\|\|\s*/).map(s => s.trim()).filter(Boolean);
+              if (split.length > 0) transChecklist = split;
+            }
+          }
+        }
+
+        if (isMounted && transSummary) {
+          setDocTranslations(prev => {
+            const updated = {
+              ...prev,
+              [language]: {
+                summary: transSummary,
+                risks: transRisks.length > 0 ? transRisks : (language === sourceLang ? rawRisks : []),
+                checklist: transChecklist.length > 0 ? transChecklist : (language === sourceLang ? rawChecklist : [])
+              }
+            };
+            try {
+              localStorage.setItem('benefitlens_analyzed_doc', JSON.stringify({
+                result,
+                selectedFile,
+                docTranslations: cleanStoredDocTranslations(updated)
+              }));
+            } catch {}
+            return updated;
+          });
+        }
+      } catch (err) {
+        console.warn('Doc translation error:', err);
+      } finally {
+        if (isMounted) setIsTranslatingDoc(false);
+      }
+    };
+
+    translateDocContent();
+    return () => { isMounted = false; };
+  }, [language, result, rawSummary, sourceLang]);
 
   const docCategories = [
     { id: 'government_scheme', label: t('doc_cat_scheme') },
@@ -100,6 +300,7 @@ export default function DocumentPage() {
     setProcessingStep(1);
     setError(null);
     setResult(null);
+    setDocTranslations({});
 
     const stepInterval = setInterval(() => {
       setProcessingStep(prev => (prev < 3 ? prev + 1 : prev));
@@ -110,7 +311,7 @@ export default function DocumentPage() {
       const formData = new FormData();
       formData.append('document', file);
       formData.append('document_type', category);
-      formData.append('lang', language); // CRITICAL: pass user selected language
+      formData.append('lang', language);
 
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
       const response = await fetch(`${apiUrl}/documents/upload`, {
@@ -127,6 +328,24 @@ export default function DocumentPage() {
       }
 
       setResult(data);
+      const newSourceLang = detectScriptLang(data.plain_language_summary || data.summary || '');
+      const initialTrans = {
+        [newSourceLang]: {
+          summary: data.plain_language_summary || data.summary || '',
+          risks: data.risk_flags || data.risks || [],
+          checklist: (data.claim_checklist || data.checklist || []).map(c => c.item || c)
+        }
+      };
+      setDocTranslations(initialTrans);
+
+      // Persist to localStorage
+      try {
+        localStorage.setItem('benefitlens_analyzed_doc', JSON.stringify({
+          result: data,
+          selectedFile: file.name,
+          docTranslations: initialTrans
+        }));
+      } catch {}
     } catch (err) {
       clearInterval(stepInterval);
       setError(err.message || 'Could not analyze document. Please verify your connection.');
@@ -135,12 +354,23 @@ export default function DocumentPage() {
     }
   };
 
-  const summaryText = result?.plain_language_summary || result?.explanation || result?.summary || '';
-  const risksList = result?.risk_flags || result?.risks || [];
-  const checklistList = result?.claim_checklist || result?.checklist || [];
+  // Localized values strictly aligned with active header language and validated by script
+  const validCurrentTrans = getValidTranslation(docTranslations, language);
+
+  const currentSummary = validCurrentTrans
+    ? validCurrentTrans.summary
+    : (sourceLang === language ? rawSummary : '');
+
+  const currentRisks = validCurrentTrans
+    ? (validCurrentTrans.risks || [])
+    : (sourceLang === language ? rawRisks : []);
+
+  const currentChecklist = validCurrentTrans
+    ? (validCurrentTrans.checklist || [])
+    : (sourceLang === language ? rawChecklist : []);
 
   const handleReadAloud = () => {
-    if (!summaryText) return;
+    if (!currentSummary) return;
 
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
@@ -148,7 +378,7 @@ export default function DocumentPage() {
         setIsSpeaking(false);
         return;
       }
-      const utterance = new SpeechSynthesisUtterance(summaryText);
+      const utterance = new SpeechSynthesisUtterance(currentSummary);
       utterance.lang = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
       utterance.onend = () => setIsSpeaking(false);
       utterance.onerror = () => setIsSpeaking(false);
@@ -180,7 +410,7 @@ export default function DocumentPage() {
           document_id: docId,
           question: q,
           lang: language,
-          context_text: `Document Summary: ${summaryText}. Hidden clauses / risks: ${risksList.join('; ')}. Claim checklist: ${checklistList.map(c => c.item || c).join('; ')}`
+          context_text: `Document Summary: ${currentSummary}. Hidden clauses / risks: ${currentRisks.join('; ')}. Claim checklist: ${currentChecklist.map(c => c.item || c).join('; ')}`
         })
       });
 
@@ -357,7 +587,13 @@ export default function DocumentPage() {
               </div>
             </div>
 
-            <p className="processing-subtext">Translating complex legal jargon into plain language...</p>
+            <p className="processing-subtext">
+              {language === 'te' 
+                ? 'క్లిష్టమైన చట్టపరమైన నిబంధనలను సరళమైన భాషలోకి మారుస్తోంది...' 
+                : language === 'hi' 
+                ? 'कठिन कानूनी शर्तों को सरल भाषा में बदला जा रहा है...' 
+                : 'Translating complex legal jargon into plain language...'}
+            </p>
           </section>
         )}
 
@@ -368,10 +604,10 @@ export default function DocumentPage() {
               <AlertTriangle size={24} />
             </div>
             <div className="error-body">
-              <h4>Analysis Could Not Be Completed</h4>
+              <h4>{language === 'te' ? 'విశ్లేషణ పూర్తి కాలేదు' : language === 'hi' ? 'विश्लेषण पूरा नहीं हो सका' : 'Analysis Could Not Be Completed'}</h4>
               <p>{error}</p>
               <button type="button" className="btn-retry" onClick={handleTriggerUpload}>
-                <RefreshCw size={14} /> Try Another Document
+                <RefreshCw size={14} /> {language === 'te' ? 'మరొక పత్రం ప్రయత్నించండి' : language === 'hi' ? 'दूसरा दस्तावेज़ आज़माएं' : 'Try Another Document'}
               </button>
             </div>
           </section>
@@ -406,12 +642,28 @@ export default function DocumentPage() {
               </div>
 
               <div className="result-card-body">
-                <p>{summaryText || 'Document content successfully extracted and verified against safety net parameters.'}</p>
+                {isTranslatingDoc && (
+                  <div className="doc-translating-pill">
+                    <Sparkles size={14} className="glow-cyan" />
+                    <span>
+                      {language === 'te' 
+                        ? 'తెలుగులోకి అనువదిస్తోంది...' 
+                        : language === 'hi' 
+                        ? 'हिन्दी में अनुवाद हो रहा है...' 
+                        : 'Translating content into English...'}
+                    </span>
+                  </div>
+                )}
+                <p>
+                  {currentSummary || (isTranslatingDoc 
+                    ? (language === 'te' ? 'విశ్లేషణను తెలుగులోకి అనువదిస్తోంది...' : language === 'hi' ? 'विश्लेषण का अनुवाद हो रहा है...' : 'Translating analysis into English...')
+                    : 'Document content successfully extracted and verified against safety net parameters.')}
+                </p>
               </div>
             </div>
 
             {/* Risk & Limitations Flags */}
-            {risksList.length > 0 && (
+            {(currentRisks.length > 0 || isTranslatingDoc) && (
               <div className="result-card risk-card">
                 <div className="result-card-header">
                   <div className="title-with-icon">
@@ -420,19 +672,32 @@ export default function DocumentPage() {
                   </div>
                 </div>
 
-                <ul className="risks-list">
-                  {risksList.map((risk, idx) => (
-                    <li key={idx} className="risk-item">
-                      <span className="risk-bullet">⚠</span>
-                      <span>{risk}</span>
-                    </li>
-                  ))}
-                </ul>
+                {isTranslatingDoc && currentRisks.length === 0 ? (
+                  <div className="doc-translating-pill">
+                    <Sparkles size={14} className="glow-cyan" />
+                    <span>
+                      {language === 'te' 
+                        ? 'రిస్క్ క్లాజులను తెలుగులోకి అనువదిస్తోంది...' 
+                        : language === 'hi' 
+                        ? 'जोखिम शर्तों का अनुवाद हो रहा है...' 
+                        : 'Translating risk clauses into English...'}
+                    </span>
+                  </div>
+                ) : (
+                  <ul className="risks-list">
+                    {currentRisks.map((risk, idx) => (
+                      <li key={idx} className="risk-item">
+                        <span className="risk-bullet">⚠</span>
+                        <span>{risk}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             )}
 
             {/* Claim Checklist */}
-            {checklistList.length > 0 && (
+            {(currentChecklist.length > 0 || isTranslatingDoc) && (
               <div className="result-card checklist-card">
                 <div className="result-card-header">
                   <div className="title-with-icon">
@@ -441,18 +706,31 @@ export default function DocumentPage() {
                   </div>
                 </div>
 
-                <ul className="checklist-list">
-                  {checklistList.map((item, idx) => (
-                    <li key={idx} className="checklist-item">
-                      <input 
-                        type="checkbox" 
-                        id={`check-${idx}`} 
-                        className="custom-checkbox"
-                      />
-                      <label htmlFor={`check-${idx}`}>{item.item || item}</label>
-                    </li>
-                  ))}
-                </ul>
+                {isTranslatingDoc && currentChecklist.length === 0 ? (
+                  <div className="doc-translating-pill">
+                    <Sparkles size={14} className="glow-cyan" />
+                    <span>
+                      {language === 'te' 
+                        ? 'చెక్-లిస్ట్‌ను తెలుగులోకి అనువదిస్తోంది...' 
+                        : language === 'hi' 
+                        ? 'चेकलिस्ट का अनुवाद हो रहा है...' 
+                        : 'Translating claim checklist into English...'}
+                    </span>
+                  </div>
+                ) : (
+                  <ul className="checklist-list">
+                    {currentChecklist.map((item, idx) => (
+                      <li key={idx} className="checklist-item">
+                        <input 
+                          type="checkbox" 
+                          id={`check-${idx}`} 
+                          className="custom-checkbox"
+                        />
+                        <label htmlFor={`check-${idx}`}>{item.item || item}</label>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             )}
 
@@ -525,7 +803,13 @@ export default function DocumentPage() {
               {ragLoading && (
                 <div className="rag-loading-box" role="status" aria-live="polite">
                   <div className="rag-loading-spinner"></div>
-                  <p>Searching document clauses and fine print in {language === 'te' ? 'Telugu' : language === 'hi' ? 'Hindi' : 'English'}...</p>
+                  <p>
+                    {language === 'te' 
+                      ? 'పత్రం వివరాలు మరియు నిబంధనలను శోధిస్తోంది...' 
+                      : language === 'hi' 
+                      ? 'दस्तावेज़ की बारीक शर्तों और नियमों की खोज की जा रही है...' 
+                      : 'Searching document clauses and fine print in English...'}
+                  </p>
                 </div>
               )}
 
@@ -579,8 +863,12 @@ export default function DocumentPage() {
                 onClick={() => {
                   setResult(null);
                   setSelectedFile(null);
+                  setDocTranslations({});
                   setRagAnswer(null);
                   setLastAskedQuery('');
+                  try {
+                    localStorage.removeItem('benefitlens_analyzed_doc');
+                  } catch {}
                 }}
               >
                 <Upload size={18} />
