@@ -21,6 +21,7 @@ vi.mock('fs');
 describe('seedLiteracy', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    process.env.MONGO_URI = 'mock_uri';
   });
 
   it('is idempotent and skips embedding if length is already 256', async () => {

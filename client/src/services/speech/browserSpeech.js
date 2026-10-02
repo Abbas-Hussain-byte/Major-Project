@@ -1,4 +1,4 @@
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+import { voiceService } from '../../api/services';
 
 const langMap = {
   te: 'te-IN',
@@ -6,8 +6,8 @@ const langMap = {
   en: 'en-IN',
 };
 
-let currentRecognition = null;
-let silenceTimer = null;
+let mediaRecorder = null;
+let audioChunks = [];
 let currentUtterance = null;
 
 const waitForVoices = () => {
@@ -22,7 +22,7 @@ const waitForVoices = () => {
 };
 
 export const speechProvider = {
-  isSupported: () => !!SpeechRecognition && !!window.speechSynthesis,
+  isSupported: () => !!navigator.mediaDevices && !!navigator.mediaDevices.getUserMedia,
 
   hasVoice: async (lang) => {
     if (!window.speechSynthesis) return false;
@@ -32,54 +32,87 @@ export const speechProvider = {
   },
 
   listen: (lang) => {
-    return new Promise((resolve, reject) => {
-      if (!SpeechRecognition) {
-        return reject(new Error('unsupported'));
-      }
-
-      speechProvider.stop();
-
-      const recognition = new SpeechRecognition();
-      recognition.lang = langMap[lang] || 'hi-IN';
-      recognition.continuous = false;
-      recognition.interimResults = false;
-
-      currentRecognition = recognition;
-      let isSettled = false;
-
-      const settle = (action) => {
-        if (isSettled) return;
-        isSettled = true;
-        clearTimeout(silenceTimer);
-        action();
-      };
-
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        settle(() => resolve(transcript));
-      };
-
-      recognition.onerror = (event) => {
-        // map errors distinctly
-        let errMsg = event.error;
-        if (errMsg === 'not-allowed' || errMsg === 'no-speech' || errMsg === 'network' || errMsg === 'audio-capture') {
-            // keep as is
-        }
-        settle(() => reject(new Error(errMsg)));
-      };
-
-      recognition.onend = () => {
-        settle(() => reject(new Error('no-speech')));
-      };
-
+    return new Promise(async (resolve, reject) => {
       try {
-        recognition.start();
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          return reject(new Error('unsupported'));
+        }
+
+        speechProvider.stop();
+        audioChunks = [];
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        let silenceTimer = null;
+        let isSettled = false;
+
+        const settle = (action) => {
+          if (isSettled) return;
+          isSettled = true;
+          if (silenceTimer) clearTimeout(silenceTimer);
+          stream.getTracks().forEach(track => track.stop());
+          action();
+        };
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = async () => {
+          if (audioChunks.length === 0) {
+            return settle(() => reject(new Error('no-speech')));
+          }
+          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          try {
+            // Send to backend STT (Sarvam)
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'speech.wav');
+            formData.append('language', lang);
+            
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const response = await fetch(`${apiUrl}/voice/transcribe`, {
+              method: 'POST',
+              body: formData
+            });
+
+            if (!response.ok) {
+              throw new Error('Transcription failed');
+            }
+            
+            const data = await response.json();
+            if (data && data.text) {
+              settle(() => resolve(data.text));
+            } else {
+              settle(() => reject(new Error('no-speech')));
+            }
+          } catch (error) {
+            console.error('STT Error:', error);
+            settle(() => reject(new Error('network')));
+          }
+        };
+
+        mediaRecorder.onerror = () => {
+          settle(() => reject(new Error('audio-capture')));
+        };
+
+        mediaRecorder.start();
+        
+        // Stop automatically after 10 seconds
         silenceTimer = setTimeout(() => {
-          recognition.stop();
-          settle(() => reject(new Error('no-speech'))); // 10s silence timeout
+          if (mediaRecorder && mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+          }
         }, 10000);
+
       } catch (err) {
-        settle(() => reject(new Error('audio-capture')));
+        if (err.name === 'NotAllowedError') {
+          reject(new Error('not-allowed'));
+        } else {
+          reject(new Error('audio-capture'));
+        }
       }
     });
   },
@@ -109,13 +142,9 @@ export const speechProvider = {
   },
 
   stop: () => {
-    if (currentRecognition) {
-      currentRecognition.stop();
-      currentRecognition = null;
-    }
-    if (silenceTimer) {
-      clearTimeout(silenceTimer);
-      silenceTimer = null;
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      mediaRecorder.stop();
+      mediaRecorder = null;
     }
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();

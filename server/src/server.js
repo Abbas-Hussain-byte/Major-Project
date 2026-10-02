@@ -18,10 +18,12 @@ import incomeExpenseRoutes from './routes/incomeExpense.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 
 import rateLimit from 'express-rate-limit';
+import { startTiming } from './middleware/evalTiming.js';
 
 const app = express();
 app.set('trust proxy', 1);
 
+app.use(startTiming);
 app.use(express.json());
 const allowedOrigins = [
   ENV.CLIENT_ORIGIN,

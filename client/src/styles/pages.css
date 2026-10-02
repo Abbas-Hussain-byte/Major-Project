@@ -1,28 +1,6 @@
-.page-container {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  min-height: calc(100vh - 80px); /* 80px for bottom nav */
-}
-
-.page-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.page-header h1 {
-  font-size: var(--text-2xl);
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.page-header p {
-  color: #666666;
-  font-size: var(--text-base);
-}
+/* ==========================================================================
+   pages.css — Module utilities and helpers
+   ========================================================================== */
 
 .page-content {
   display: flex;
@@ -37,65 +15,15 @@
   width: 100%;
   padding: 0 16px;
   font-size: var(--text-base);
-  border: 2px solid var(--color-border);
-  border-radius: 12px;
-  background-color: var(--color-bg);
-  color: var(--color-text-dark);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-input);
+  color: var(--color-text-primary);
 }
 
 .input-control:focus-visible {
-  outline: 3px solid var(--color-focus-ring);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
-}
-
-.field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-align: left;
-}
-
-.field-label {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text-dark);
-}
-
-/* Module Buttons */
-.btn-primary {
-  min-height: var(--touch-target);
-  min-width: var(--touch-target);
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: var(--text-lg);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-}
-
-.btn-eligibility {
-  background-color: var(--color-eligibility-bg);
-  color: var(--color-eligibility-text);
-}
-
-.btn-documents {
-  background-color: var(--color-documents-bg);
-  color: var(--color-documents-text);
-}
-
-.btn-literacy {
-  background-color: var(--color-literacy-bg);
-  color: var(--color-literacy-text);
-}
-
-.btn-income {
-  background-color: var(--color-income-bg);
-  color: var(--color-income-text);
 }
 
 /* Empty State / Box */
@@ -104,7 +32,7 @@
   border-radius: 16px;
   padding: 32px 16px;
   text-align: center;
-  color: #666666;
+  color: var(--color-text-muted);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,12 +49,12 @@
 .toggle-btn {
   flex: 1;
   min-height: var(--touch-target);
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   font-weight: 600;
-  background-color: var(--color-bg);
-  color: var(--color-text-dark);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,7 +62,7 @@
 }
 
 .toggle-btn.active {
-  background-color: var(--color-income-bg);
-  color: var(--color-income-text);
-  border-color: var(--color-income-bg);
+  background-color: var(--color-accent-primary);
+  color: #ffffff;
+  border-color: var(--color-accent-primary);
 }

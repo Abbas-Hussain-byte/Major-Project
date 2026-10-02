@@ -1,0 +1,170 @@
+/* ==========================================================================
+   ProfilePage.css — Modern Desktop Worker Profile
+   ========================================================================== */
+
+.profile-page {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.profile-main-card {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 36px 32px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.profile-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* Banner Header */
+.profile-top-banner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 28px;
+}
+
+.profile-avatar-pod {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(59, 130, 246, 0.25));
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  color: #818cf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
+  flex-shrink: 0;
+}
+
+.profile-banner-info h3 {
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.profile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Form Grid */
+.profile-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+}
+
+.form-submit-full {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
+
+/* Prominent Glowing Save Profile Button */
+.btn-save-profile {
+  width: 100%;
+  padding: 16px 24px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45) !important;
+  border: none !important;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-save-profile:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.65) !important;
+  filter: brightness(1.1);
+}
+
+.btn-save-profile.success {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  box-shadow: 0 8px 25px rgba(5, 150, 105, 0.5) !important;
+}
+
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 20px;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   ProfilePage: ClaimBrain Light Mode Overrides
+   ========================================================================== */
+[data-theme='light'] .profile-main-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .profile-top-banner {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] .profile-banner-info h3 {
+  color: #090d16;
+}
+
+[data-theme='light'] .profile-avatar-pod {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #4f46e5;
+  box-shadow: none;
+}
+
+[data-theme='light'] .profile-badge {
+  background: rgba(5, 150, 105, 0.1);
+  border-color: rgba(5, 150, 105, 0.25);
+  color: #059669;
+}
+
+[data-theme='light'] .btn-save-profile {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.35) !important;
+}
+
+[data-theme='light'] .btn-save-profile:hover:not(:disabled) {
+  box-shadow: 0 12px 30px rgba(5, 150, 105, 0.5) !important;
+}
+
+@media (max-width: 640px) {
+  .profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

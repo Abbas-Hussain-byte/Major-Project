@@ -152,7 +152,7 @@ export const checkEligibility = (profile, criteria) => {
   // Priority 3: Custom rules or unrecognised keys -> unknown
   const unknownReasons = [];
   if (criteria.custom_rules) {
-    const unhandledCustomRules = Object.keys(criteria.custom_rules).filter(k => k !== 'bank_account');
+    const unhandledCustomRules = Object.keys(criteria.custom_rules).filter(k => k !== 'requires_bank_account');
     if (unhandledCustomRules.length > 0) {
       unknownReasons.push(`Contains custom rules that require manual evaluation: ${unhandledCustomRules.join(', ')}.`);
     }

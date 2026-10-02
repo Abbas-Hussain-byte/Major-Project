@@ -1,4 +1,10 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const required = [
   'MONGO_URI',
@@ -9,7 +15,7 @@ const required = [
 ];
 
 for (const key of required) {
-  if (!process.env[key]) {
+  if (!process.env[key] && !process.env.VITEST) {
     console.warn(`⚠️  Missing env var: ${key} — some features will be stubbed`);
   }
 }

@@ -1,0 +1,11 @@
+{
+  "threshold": 0.7,
+  "hit1": 1,
+  "hit3": 1,
+  "mrr": 1,
+  "metadata": {
+    "embeddingModel": "gemini-embedding-2",
+    "dims": 256,
+    "chunkCount": 21
+  }
+}

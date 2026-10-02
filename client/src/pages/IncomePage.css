@@ -1,0 +1,380 @@
+/* ==========================================================================
+   IncomePage.css — Modern Desktop Cashflow & Ledger
+   ========================================================================== */
+
+.income-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Summary Grid */
+.cashflow-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.cashflow-stat-card {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.cashflow-stat-card.income .stat-icon-pod {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.cashflow-stat-card.expense .stat-icon-pod {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.cashflow-stat-card.balance .stat-icon-pod {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.stat-icon-pod {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.stat-value.positive {
+  color: #34d399;
+}
+
+.stat-value.negative {
+  color: #f87171;
+}
+
+/* Main Content Split: Form (Left) & Recent List (Right) */
+.income-main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.income-form-card, .transactions-list-card {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+/* Toggle Group */
+.toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  color: #ffffff;
+}
+
+.toggle-btn.income-btn.active {
+  background: #10b981;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
+}
+
+.toggle-btn.expense-btn.active {
+  background: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.4);
+}
+
+.entry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-with-prefix {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.input-control.has-prefix {
+  padding-left: 36px;
+}
+
+.btn-save-income {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+}
+
+.btn-save-income:hover {
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.55);
+}
+
+.btn-save-expense {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+}
+
+.btn-save-expense:hover {
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.55);
+}
+
+/* Recent Transactions List */
+.empty-tx-box {
+  padding: 32px 16px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.tx-items-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.tx-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 12px 16px;
+  transition: all 0.2s;
+}
+
+.tx-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.tx-type-indicator {
+  flex-shrink: 0;
+}
+
+.tx-item.income .tx-type-indicator {
+  color: #34d399;
+}
+
+.tx-item.expense .tx-type-indicator {
+  color: #f87171;
+}
+
+.tx-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tx-category {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.tx-date {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.tx-amount-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tx-amount {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.tx-item.income .tx-amount {
+  color: #34d399;
+}
+
+.tx-item.expense .tx-amount {
+  color: #f87171;
+}
+
+.btn-delete-tx {
+  color: #64748b;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.btn-delete-tx:hover {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+@media (max-width: 860px) {
+  .income-main-content {
+    grid-template-columns: 1fr;
+  }
+  .cashflow-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   IncomePage: ClaimBrain Light Mode Overrides
+   ========================================================================== */
+[data-theme='light'] .cashflow-stat-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .stat-value {
+  color: #090d16;
+}
+
+[data-theme='light'] .stat-value.positive {
+  color: #059669; /* Emerald Green */
+}
+
+[data-theme='light'] .stat-value.negative {
+  color: #db2777; /* Dark Pink */
+}
+
+[data-theme='light'] .income-form-card, 
+[data-theme='light'] .transactions-list-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .card-title {
+  color: #090d16;
+}
+
+[data-theme='light'] .toggle-btn {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+[data-theme='light'] .toggle-btn.income-btn.active {
+  background: #059669;
+  border-color: #059669;
+  color: #ffffff;
+}
+
+[data-theme='light'] .toggle-btn.expense-btn.active {
+  background: #db2777;
+  border-color: #db2777;
+  color: #ffffff;
+}
+
+[data-theme='light'] .input-with-prefix {
+  border-color: #cbd5e1;
+  background: #ffffff;
+}
+
+[data-theme='light'] .input-prefix {
+  color: #64748b;
+  border-color: #e2e8f0;
+}
+
+[data-theme='light'] .tx-item {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme='light'] .tx-item:hover {
+  background: #f1f5f9;
+}
+
+[data-theme='light'] .tx-category {
+  color: #090d16;
+}
+
+[data-theme='light'] .tx-item.income .tx-amount {
+  color: #059669;
+}
+
+[data-theme='light'] .tx-item.expense .tx-amount {
+  color: #db2777;
+}
+

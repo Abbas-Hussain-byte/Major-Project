@@ -64,6 +64,14 @@ export const processQuery = async (text, lang, moduleName) => {
       finalStatus = handlerResult.status || 'grounded';
       sources = handlerResult.sources || [];
     }
+
+    if (!englishAnswer) {
+      if (finalStatus === 'not_grounded') {
+        englishAnswer = 'I could not find verified information for this question in our government scheme database. Please try asking about schemes such as PMJJBY, PMSBY, APY, or PMJDY.';
+      } else if (finalStatus === 'llm_unavailable') {
+        englishAnswer = 'The AI assistant is temporarily busy or updating. Please try your question again in a moment.';
+      }
+    }
     
     if (lang === 'en') {
       return {
@@ -86,7 +94,7 @@ export const processQuery = async (text, lang, moduleName) => {
         nativeAnswer = resultOut.translated;
         usedFallback = usedFallback || resultOut.usedFallback;
       } catch (err) {
-        console.error('[VoiceGateway] Translate-out failed:', err.message);
+        if (!process.env.VITEST) console.error('[VoiceGateway] Translate-out failed:', err.message);
         nativeAnswer = englishAnswer;
         translationFailed = true;
       }

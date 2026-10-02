@@ -6,7 +6,19 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "vitest run"
+    "test": "vitest run",
+    "eval:unit": "node src/eval/eval-unit.js",
+    "eval:eligibility": "node src/eval/eval-eligibility.js",
+    "eval:retrieval": "node src/eval/eval-retrieval.js",
+    "eval:grounding": "node src/eval/eval-grounding.js",
+    "eval:baseline-sheet": "node src/eval/eval-baseline-sheet.js",
+    "eval:baseline-score": "node src/eval/eval-baseline-score.js",
+    "eval:latency": "node src/eval/eval-latency.js",
+    "eval:fallback": "node src/eval/eval-fallback.js",
+    "eval:report": "node src/eval/eval-report.js",
+    "eval:rag-card": "node src/eval/eval-rag-card.js",
+    "eval:charts": "node src/eval/eval-charts.js",
+    "eval:all": "npm run eval:unit && npm run eval:eligibility && npm run eval:retrieval && npm run eval:grounding && npm run eval:baseline-sheet && npm run eval:latency && npm run eval:fallback && npm run eval:report && npm run eval:rag-card && npm run eval:charts"
   },
   "type": "module",
   "dependencies": {
@@ -21,10 +33,16 @@
     "mongoose": "^8.4.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^2.4.5",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.0",
+    "chalk": "^6.0.1",
+    "chart.js": "^4.5.1",
     "nodemon": "^3.1.4",
+    "papaparse": "^5.7.0",
+    "playwright": "^1.63.0",
     "vitest": "^1.6.0"
   },
   "engines": {

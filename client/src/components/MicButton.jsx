@@ -1,39 +1,64 @@
 import React from 'react';
-import { Mic, Loader2, AlertCircle } from 'lucide-react';
+import { Mic, Loader2, AlertCircle, Volume2 } from 'lucide-react';
 import './MicButton.css';
 
 /**
- * 
- * @param {string} state - 'idle', 'listening', or 'error'
- * @param {function} onClick - handler
+ * Aesthetic Glowing Mic Button
+ * @param {string} state - 'idle' | 'listening' | 'processing' | 'speaking' | 'error'
+ * @param {function} onClick - click handler
+ * @param {string} size - 'hero' | 'nav' | 'compact'
+ * @param {string} label - accessible label
  */
-export default function MicButton({ state = 'idle', onClick }) {
+export default function MicButton({ 
+  state = 'idle', 
+  onClick, 
+  size = 'hero',
+  label = ''
+}) {
   let Icon = Mic;
-  let statusText = 'Ready to listen. Tap to speak.';
-  
+  let statusText = label || 'Tap to speak';
+
   if (state === 'listening') {
+    Icon = Mic;
+    statusText = 'Listening... Speak now';
+  } else if (state === 'processing') {
     Icon = Loader2;
-    statusText = 'Listening... Please speak now.';
+    statusText = 'Analyzing query...';
+  } else if (state === 'speaking') {
+    Icon = Volume2;
+    statusText = 'Explaining answer...';
   } else if (state === 'error') {
     Icon = AlertCircle;
-    statusText = 'Error understanding audio. Please tap to try again.';
+    statusText = 'Tap to retry';
   }
 
   return (
-    <div className="mic-container">
-      {/* Live region for screen readers to announce status changes */}
-      <div aria-live="polite" className="sr-only">
-        {statusText}
-      </div>
-      
+    <div className={`mic-container ${size}-size state-${state}`}>
+      {/* Visual Ripple Waves when listening or idle */}
+      <div className={`mic-aura-ring ring-1 ${state}`}></div>
+      <div className={`mic-aura-ring ring-2 ${state}`}></div>
+      {state === 'listening' && <div className="mic-aura-ring ring-3 listening"></div>}
+
       <button 
-        className={`mic-button ${state}`}
+        type="button"
+        className={`mic-button ${state} ${size}`}
         onClick={onClick}
         aria-label={statusText}
+        title={statusText}
       >
-        <Icon className={state === 'listening' ? 'icon-spin' : ''} />
+        <span className="mic-inner-gloss"></span>
+        <Icon className={`mic-icon ${state === 'processing' ? 'icon-spin' : ''} ${state === 'listening' ? 'icon-pulse' : ''}`} />
       </button>
-      <div className="mic-waves"></div>
+
+      {/* Audio Soundwaves visualization when speaking */}
+      {state === 'speaking' && (
+        <div className="mic-audio-bars">
+          <span className="bar bar-1"></span>
+          <span className="bar bar-2"></span>
+          <span className="bar bar-3"></span>
+          <span className="bar bar-4"></span>
+        </div>
+      )}
     </div>
   );
 }

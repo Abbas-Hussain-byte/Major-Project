@@ -5,7 +5,7 @@ import { processDocument } from '../services/documentExplainer/documentService.j
 export const uploadDocument = async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'Document file required' });
 
-  const { document_type } = req.body;
+  const { document_type, lang = 'en' } = req.body;
   const validTypes = ['insurance_policy', 'government_scheme', 'KYC', 'loan_agreement', 'card_tnc'];
   if (!validTypes.includes(document_type))
     return res.status(400).json({ message: `document_type must be one of: ${validTypes.join(', ')}` });
@@ -19,11 +19,17 @@ export const uploadDocument = async (req, res) => {
     mime_type: req.file.mimetype,
   });
 
-  // Process asynchronously but await for now (move to queue in production)
-  const processed = await processDocument(String(doc._id), String(req.user._id));
+  // Process document
+  const processed = await processDocument(String(doc._id), String(req.user._id), lang);
 
-  // Never expose raw file path to client
-  const response = processed.toObject();
+  // Return response with all field aliases for client resilience
+  const response = {
+    ...processed.toObject(),
+    summary: processed.plain_language_summary,
+    explanation: processed.plain_language_summary,
+    risks: processed.risk_flags,
+    checklist: processed.claim_checklist,
+  };
   delete response.file_path;
 
   res.status(201).json(response);

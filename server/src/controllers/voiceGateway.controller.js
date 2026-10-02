@@ -2,7 +2,7 @@ import * as voiceService from '../services/voiceGateway/voiceService.js';
 import { TranslationUnavailableError } from '../services/voiceGateway/errors.js';
 
 const ALLOWED_LANGS = ['te', 'hi', 'en'];
-const ALLOWED_MODULES = ['echo', 'literacy'];
+const ALLOWED_MODULES = ['echo', 'literacy', 'home'];
 
 export const getCapabilities = (req, res) => {
   const caps = voiceService.getCapabilities();
@@ -45,9 +45,10 @@ export const query = async (req, res) => {
   }
 
   try {
+    const targetModule = module === 'home' ? 'literacy' : module;
     const start = Date.now();
-    const result = await voiceService.processQuery(text, lang, module);
-    console.log(`[Controller] query module=${module} lang=${lang} latency=${Date.now() - start}ms`);
+    const result = await voiceService.processQuery(text, lang, targetModule);
+    console.log(`[Controller] query module=${targetModule} lang=${lang} latency=${Date.now() - start}ms`);
     res.json(result);
   } catch (err) {
     if (err.message.includes('timed out')) {

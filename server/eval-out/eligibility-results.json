@@ -1,0 +1,42 @@
+{
+  "matrix": {
+    "eligible": {
+      "eligible": 5,
+      "ineligible": 0,
+      "unknown": 0
+    },
+    "ineligible": {
+      "eligible": 0,
+      "ineligible": 6,
+      "unknown": 0
+    },
+    "unknown": {
+      "eligible": 0,
+      "ineligible": 0,
+      "unknown": 3
+    }
+  },
+  "stats": {
+    "eligible": {
+      "precision": 1,
+      "recall": 1
+    },
+    "ineligible": {
+      "precision": 1,
+      "recall": 1
+    },
+    "unknown": {
+      "precision": 1,
+      "recall": 1
+    }
+  },
+  "failedCases": [],
+  "bucketCases": [
+    {
+      "id": "E15",
+      "expected": "enrolled",
+      "actual": "enrolled",
+      "pass": true
+    }
+  ]
+}

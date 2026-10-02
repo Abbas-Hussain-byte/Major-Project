@@ -83,7 +83,7 @@ describe('Rule Engine - checkEligibility', () => {
 
   it('returns eligible for bank_account custom rule when has_bank_account is true', () => {
     const profile = { age: 30, has_bank_account: true };
-    const criteria = { age_min: 18, age_max: 50, custom_rules: { bank_account: true } };
+    const criteria = { age_min: 18, age_max: 50, custom_rules: { requires_bank_account: true } };
     const result = checkEligibility(profile, criteria);
     expect(result.status).toBe('eligible');
   });

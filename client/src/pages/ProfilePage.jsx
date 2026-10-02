@@ -1,42 +1,123 @@
-import React, { useState } from 'react';
-import { User, Save } from 'lucide-react';
-import MicButton from '../components/MicButton';
+import React, { useState, useEffect } from 'react';
+import { User, Save, Check, Shield, AlertCircle } from 'lucide-react';
+import { profileService } from '../api/services';
+import { useLanguage } from '../contexts/LanguageContext';
+import './ProfilePage.css';
 
 export default function ProfilePage() {
-  const [micState, setMicState] = useState('idle');
+  const { t } = useLanguage();
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [error, setError] = useState(null);
+  
   const [formData, setFormData] = useState({
     age: '',
     occupation: '',
     employment_type: 'daily_wage',
     income_band: 'below_1L',
     dependents: '0',
-    has_bank_account: ''
+    has_bank_account: 'true'
   });
 
-  const handleMicClick = () => {
-    if (micState === 'idle') setMicState('listening');
-    else if (micState === 'listening') setMicState('error');
-    else setMicState('idle');
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await profileService.getProfile();
+        if (response.data) {
+          setFormData({
+            age: response.data.age || '',
+            occupation: response.data.occupation || '',
+            employment_type: response.data.employment_type || 'daily_wage',
+            income_band: response.data.income_band || 'below_1L',
+            dependents: response.data.dependents?.toString() || '0',
+            has_bank_account: response.data.has_bank_account !== undefined ? response.data.has_bank_account.toString() : 'true'
+          });
+        }
+      } catch (err) {
+        console.error("Failed to load profile", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    setSaveSuccess(false);
+    setError(null);
+    
+    try {
+      const dataToSave = {
+        ...formData,
+        age: formData.age ? parseInt(formData.age, 10) : undefined,
+        dependents: formData.dependents ? parseInt(formData.dependents, 10) : 0,
+        has_bank_account: formData.has_bank_account === 'true'
+      };
+      
+      await profileService.updateProfile(dataToSave);
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
+    } catch (err) {
+      console.error("Failed to update profile", err);
+      setError("Failed to save changes. Please verify server connection.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="page-container profile-page">
+        <div className="loading-card">
+          <div className="spinner-large"></div>
+          <p>Loading worker profile...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="page-container">
+    <div className="page-container profile-page">
+      {/* Header — Tagline badge removed as requested */}
       <header className="page-header">
         <h1>
-          <User size={32} color="#111111" aria-hidden="true" />
-          <span>Profile</span>
+          <User size={36} className="glow-cyan" aria-hidden="true" />
+          <span>{t('profile_title')}</span>
         </h1>
-        <p>Tell us about yourself for tailored schemes</p>
+        <p>{t('profile_subtitle')}</p>
       </header>
 
-      <main className="page-content">
-        <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <main className="profile-main-card">
+        {error && (
+          <div className="profile-error-banner">
+            <AlertCircle size={18} />
+            <span>{error}</span>
+          </div>
+        )}
+
+        <div className="profile-top-banner">
+          <div className="profile-avatar-pod">
+            <User size={32} />
+          </div>
+          <div className="profile-banner-info">
+            <h3>{formData.occupation || 'Unorganised Worker'}</h3>
+            <span className="profile-badge">
+              <Shield size={13} />
+              <span>{t('profile_worker_tag')}</span>
+            </span>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="profile-form-grid">
           <div className="field-group">
-            <label htmlFor="profile-age" className="field-label">Age</label>
+            <label htmlFor="profile-age" className="field-label">{t('profile_age_label')}</label>
             <input 
               id="profile-age"
               name="age"
@@ -46,24 +127,28 @@ export default function ProfilePage() {
               placeholder="e.g. 35"
               value={formData.age}
               onChange={handleChange}
+              min="18"
+              max="100"
+              required
             />
           </div>
 
           <div className="field-group">
-            <label htmlFor="profile-occupation" className="field-label">Occupation</label>
+            <label htmlFor="profile-occupation" className="field-label">{t('profile_occupation_label')}</label>
             <input 
               id="profile-occupation"
               name="occupation"
               type="text" 
               className="input-control" 
-              placeholder="e.g. Construction worker, Farmer"
+              placeholder="e.g. Construction worker, Street vendor, Auto driver"
               value={formData.occupation}
               onChange={handleChange}
+              required
             />
           </div>
 
           <div className="field-group">
-            <label htmlFor="profile-employment" className="field-label">Employment Type</label>
+            <label htmlFor="profile-employment" className="field-label">{t('profile_employment_label')}</label>
             <select 
               id="profile-employment"
               name="employment_type"
@@ -71,16 +156,17 @@ export default function ProfilePage() {
               value={formData.employment_type}
               onChange={handleChange}
             >
-              <option value="daily_wage">Daily Wage Worker</option>
-              <option value="salaried">Salaried</option>
-              <option value="self_employed">Self Employed / Vendor</option>
-              <option value="agricultural">Agricultural Laborer</option>
-              <option value="unemployed">Unemployed</option>
+              <option value="daily_wage">{t('emp_daily_wage')}</option>
+              <option value="salaried">{t('emp_salaried')}</option>
+              <option value="self_employed">{t('emp_self_employed')}</option>
+              <option value="agricultural">{t('emp_agricultural')}</option>
+              <option value="domestic">{t('emp_domestic')}</option>
+              <option value="unemployed">{t('emp_unemployed')}</option>
             </select>
           </div>
 
           <div className="field-group">
-            <label htmlFor="profile-income-band" className="field-label">Annual Income Band</label>
+            <label htmlFor="profile-income-band" className="field-label">{t('profile_income_label')}</label>
             <select 
               id="profile-income-band"
               name="income_band"
@@ -88,15 +174,15 @@ export default function ProfilePage() {
               value={formData.income_band}
               onChange={handleChange}
             >
-              <option value="below_1L">Below ₹1,00,000</option>
-              <option value="1L_to_2.5L">₹1,00,000 – ₹2,50,000</option>
-              <option value="2.5L_to_5L">₹2,50,000 – ₹5,00,000</option>
-              <option value="above_5L">Above ₹5,00,000</option>
+              <option value="below_1L">{t('inc_below_1L')}</option>
+              <option value="1L_to_2.5L">{t('inc_1L_25L')}</option>
+              <option value="2.5L_to_5L">{t('inc_25L_5L')}</option>
+              <option value="above_5L">{t('inc_above_5L')}</option>
             </select>
           </div>
 
           <div className="field-group">
-            <label htmlFor="profile-dependents" className="field-label">Number of Dependents</label>
+            <label htmlFor="profile-dependents" className="field-label">{t('profile_dependents_label')}</label>
             <input 
               id="profile-dependents"
               name="dependents"
@@ -106,11 +192,13 @@ export default function ProfilePage() {
               placeholder="e.g. 3"
               value={formData.dependents}
               onChange={handleChange}
+              min="0"
+              max="20"
             />
           </div>
 
           <div className="field-group">
-            <label htmlFor="profile-bank" className="field-label">Do you have an active bank account?</label>
+            <label htmlFor="profile-bank" className="field-label">{t('profile_bank_label')}</label>
             <select 
               id="profile-bank"
               name="has_bank_account"
@@ -118,27 +206,32 @@ export default function ProfilePage() {
               value={formData.has_bank_account}
               onChange={handleChange}
             >
-              <option value="" disabled>-- Select Yes or No --</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+              <option value="true">{t('profile_bank_yes')}</option>
+              <option value="false">{t('profile_bank_no')}</option>
             </select>
           </div>
 
-          <button 
-            type="submit" 
-            className="btn-primary"
-            style={{ backgroundColor: '#111111', color: '#ffffff' }}
-            aria-label="Save profile details"
-          >
-            <Save size={24} aria-hidden="true" />
-            <span>Save Profile</span>
-          </button>
+          <div className="form-submit-full">
+            <button 
+              type="submit" 
+              className={`btn-primary btn-save-profile ${saveSuccess ? 'success' : ''}`}
+              disabled={saving}
+            >
+              {saveSuccess ? (
+                <>
+                  <Check size={20} />
+                  <span>{t('profile_saved')}</span>
+                </>
+              ) : (
+                <>
+                  <Save size={20} />
+                  <span>{saving ? t('profile_saving') : t('profile_save_btn')}</span>
+                </>
+              )}
+            </button>
+          </div>
         </form>
       </main>
-
-      <footer className="mic-section">
-        <MicButton state={micState} onClick={handleMicClick} />
-      </footer>
     </div>
   );
 }

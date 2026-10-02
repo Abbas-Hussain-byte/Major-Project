@@ -1,35 +1,17 @@
 [
-  {
-    "description": "User meets all criteria for PMSBY",
-    "profile": {
-      "age": 35,
-      "income_band": "1L_3L",
-      "occupation": "daily_wage",
-      "has_bank_account": true
-    },
-    "scheme": "PMSBY",
-    "expected_status": "eligible"
-  },
-  {
-    "description": "User is too old for PMJJBY",
-    "profile": {
-      "age": 55,
-      "income_band": "below_1L",
-      "occupation": "street_vendor",
-      "has_bank_account": true
-    },
-    "scheme": "PMJJBY",
-    "expected_status": "ineligible"
-  },
-  {
-    "description": "User is missing bank account information for PMJJBY",
-    "profile": {
-      "age": 35,
-      "income_band": "below_1L",
-      "occupation": "gig_worker"
-    },
-    "scheme": "PMJJBY",
-    "expected_status": "unknown",
-    "expected_missing_fields": ["has_bank_account"]
-  }
+  {"id":"E01","description":"PMSBY, typical eligible user","scheme":"PMSBY","profile":{"age":35,"employment_type":"daily_wage","income_band":"1L_3L","has_bank_account":true},"expected_status":"eligible","basis":"age 18-70, bank account"},
+  {"id":"E02","description":"PMSBY lower age boundary","scheme":"PMSBY","profile":{"age":18,"has_bank_account":true},"expected_status":"eligible","basis":"min age 18"},
+  {"id":"E03","description":"PMSBY upper age boundary","scheme":"PMSBY","profile":{"age":70,"has_bank_account":true},"expected_status":"eligible","basis":"max age 70"},
+  {"id":"E04","description":"PMSBY one year over max","scheme":"PMSBY","profile":{"age":71,"has_bank_account":true},"expected_status":"ineligible","basis":"max age 70"},
+  {"id":"E05","description":"PMSBY under minimum age","scheme":"PMSBY","profile":{"age":17,"has_bank_account":true},"expected_status":"ineligible","basis":"min age 18"},
+  {"id":"E06","description":"PMJJBY upper age boundary","scheme":"PMJJBY","profile":{"age":50,"has_bank_account":true},"expected_status":"eligible","basis":"max age 50"},
+  {"id":"E07","description":"PMJJBY one year over max","scheme":"PMJJBY","profile":{"age":51,"has_bank_account":true},"expected_status":"ineligible","basis":"max age 50"},
+  {"id":"E08","description":"PMJJBY too old","scheme":"PMJJBY","profile":{"age":55,"employment_type":"street_vendor","income_band":"below_1L","has_bank_account":true},"expected_status":"ineligible","basis":"max age 50"},
+  {"id":"E09","description":"PMJJBY, no bank account","scheme":"PMJJBY","profile":{"age":30,"has_bank_account":false},"expected_status":"ineligible","basis":"bank account required"},
+  {"id":"E10","description":"PMJJBY, bank account not answered","scheme":"PMJJBY","profile":{"age":35,"employment_type":"gig_worker","income_band":"below_1L"},"expected_status":"unknown","expected_missing_fields":["has_bank_account"],"basis":"missing required field"},
+  {"id":"E11","description":"PMJJBY, age not answered","scheme":"PMJJBY","profile":{"has_bank_account":true},"expected_status":"unknown","expected_missing_fields":["age"],"basis":"missing required field"},
+  {"id":"E12","description":"Violation wins over missing field","scheme":"PMJJBY","profile":{"age":60},"expected_status":"ineligible","basis":"max age 50 failed, so missing bank account does not matter"},
+  {"id":"E13","description":"PMSBY, two fields missing","scheme":"PMSBY","profile":{},"expected_status":"unknown","expected_missing_fields":["age","has_bank_account"],"basis":"both required fields absent"},
+  {"id":"E14","description":"Employment type does not affect PMSBY","scheme":"PMSBY","profile":{"age":40,"employment_type":"street_vendor","has_bank_account":true},"expected_status":"eligible","basis":"no employment criterion"},
+  {"id":"E15","description":"Already enrolled goes to the enrolled bucket","scheme":"PMSBY","profile":{"age":35,"has_bank_account":true},"existing_coverage_schemes":["PMSBY"],"expected_bucket":"enrolled","basis":"existing_coverage"}
 ]

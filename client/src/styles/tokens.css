@@ -1,38 +1,135 @@
 :root {
   /* Font Family */
-  --font-primary: 'Noto Sans', 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif;
+  --font-primary: 'Plus Jakarta Sans', 'Inter', 'Noto Sans Telugu', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
   
-  /* Typography Sizes */
+  /* Typography Scale */
+  --text-xs: 12px;
+  --text-sm: 14px;
   --text-base: 16px;
   --text-lg: 18px;
-  --text-xl: 24px;
-  --text-2xl: 32px;
-  
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 36px;
+  --text-4xl: 48px;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+  --space-10: 64px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+
   /* Touch Targets */
-  --touch-target: 56px;
+  --touch-target: 48px;
 
-  /* Colors */
-  --color-text-dark: #111111;
-  --color-text-light: #ffffff;
-  --color-bg: #ffffff;
-  
-  /* Module Colors (Minimum 7:1 contrast) */
-  --color-eligibility-bg: #FFC107; /* Gold */
-  --color-eligibility-text: #111111; /* Contrast > 14:1 */
-  
-  --color-documents-bg: #004488; /* Deep Blue */
-  --color-documents-text: #ffffff; /* Contrast > 7:1 */
-  
-  --color-literacy-bg: #993300; /* Burnt Orange */
-  --color-literacy-text: #ffffff; /* Contrast > 7:1 */
-  
-  --color-income-bg: #005522; /* Forest Green */
-  --color-income-text: #ffffff; /* Contrast > 7:1 */
+  /* DEFAULT: Modern Midnight Dark Palette */
+  --color-bg-primary: #0f172a;        /* Slate 900 */
+  --color-bg-secondary: #090d16;      /* Deep Midnight Background */
+  --color-bg-card: rgba(15, 23, 42, 0.75);
+  --color-bg-elevated: #1e293b;       /* Slate 800 */
+  --color-bg-input: #1e293b;
 
-  /* Utility Colors */
-  --color-focus-ring: #000000;
-  --color-border: #dddddd;
-  --color-mic-idle: #e0e0e0;
-  --color-mic-listening: #ff4444;
-  --color-mic-error: #ff9900;
+  --color-text-primary: #f8fafc;      /* Slate 50 (Pure Crisp White) */
+  --color-text-secondary: #cbd5e1;    /* Slate 300 (Secondary) */
+  --color-text-muted: #94a3b8;        /* Slate 400 */
+  
+  /* Accent Colors (ClaimBrain Harmonized) */
+  --color-accent-primary: #6366f1;    /* Indigo 500 */
+  --color-accent-secondary: #3b82f6;  /* Blue 500 */
+  --color-accent-emerald: #10b981;    /* Mint / Emerald */
+  --color-accent-pink: #ec4899;       /* Dark Pink / Fuchsia */
+  --color-accent-gradient: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  --color-focus-ring: #6366f1;
+
+  /* Module Colors */
+  --color-eligibility-bg: #fbbf24;
+  --color-eligibility-text: #0f172a;
+  
+  --color-documents-bg: #38bdf8;
+  --color-documents-text: #0f172a;
+  
+  --color-literacy-bg: #c084fc;
+  --color-literacy-text: #ffffff;
+  
+  --color-income-bg: #10b981;
+  --color-income-text: #ffffff;
+
+  /* State Colors */
+  --color-success-bg: #10b981;
+  --color-success-text: #ffffff;
+  
+  --color-warning-bg: #f59e0b;
+  --color-warning-text: #0f172a;
+  
+  --color-error-bg: #ef4444;
+  --color-error-text: #ffffff;
+
+  /* Borders & Shadows */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.18);
+  --color-border-active: rgba(99, 102, 241, 0.5);
+
+  --elevation-1: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --elevation-2: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --elevation-3: 0 16px 48px rgba(0, 0, 0, 0.45);
+  --glow-indigo: 0 0 30px rgba(99, 102, 241, 0.3);
+  --glow-cyan: 0 0 30px rgba(56, 189, 248, 0.25);
+  --glow-emerald: 0 0 30px rgba(16, 185, 129, 0.25);
+  --glow-pink: 0 0 30px rgba(236, 72, 153, 0.25);
+
+  /* Mic State Colors */
+  --color-mic-idle: linear-gradient(135deg, #6366f1, #3b82f6);
+  --color-mic-listening: #ef4444;
+  --color-mic-processing: #3b82f6;
+  --color-mic-speaking: #10b981;
+  --color-mic-error: #f59e0b;
+}
+
+/* ==========================================================================
+   ClaimBrain Style High-Contrast Light Mode
+   White, Deep Black, Emerald Green, Dark Pink, Crisp Borders
+   ========================================================================== */
+[data-theme='light'] {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-card: #ffffff;
+  --color-bg-elevated: #f1f5f9;
+  --color-bg-input: #ffffff;
+
+  --color-text-primary: #090d16;        /* Crisp Deep Black */
+  --color-text-secondary: #334155;      /* Slate 700 */
+  --color-text-muted: #64748b;          /* Slate 500 */
+
+  --color-accent-primary: #4f46e5;      /* Royal Indigo */
+  --color-accent-secondary: #2563eb;    /* Deep Blue */
+  --color-accent-emerald: #059669;      /* Crisp Emerald Green */
+  --color-accent-pink: #db2777;         /* Dark Pink / Rose */
+  --color-accent-gradient: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+  --color-focus-ring: #4f46e5;
+
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-border-active: #4f46e5;
+
+  --elevation-1: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --elevation-2: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --elevation-3: 0 12px 36px rgba(0, 0, 0, 0.12);
+  --glow-indigo: 0 0 20px rgba(79, 70, 229, 0.12);
+  --glow-cyan: 0 0 20px rgba(37, 99, 235, 0.12);
+  --glow-emerald: 0 0 20px rgba(5, 150, 105, 0.12);
+  --glow-pink: 0 0 20px rgba(219, 39, 119, 0.12);
+
+  --color-mic-idle: linear-gradient(135deg, #090d16 0%, #334155 100%);
 }

@@ -1,0 +1,113 @@
+{
+  "baseline": {
+    "threshold": 7,
+    "metrics": {
+      "hit1": 0.3,
+      "hit3": 0.3,
+      "mrr": 0.3,
+      "cr": 1,
+      "fg": 0,
+      "precision": 1,
+      "recall": 0.3,
+      "f05": 0.6818181818181818
+    }
+  },
+  "unit": {
+    "passed": 42,
+    "total": 42,
+    "files": 7,
+    "coverage": 31.37,
+    "modules": {
+      "literacy.controller.test.js": {
+        "passed": 3,
+        "total": 3
+      },
+      "seedLiteracy.test.js": {
+        "passed": 2,
+        "total": 2
+      },
+      "ruleEngine.test.js": {
+        "passed": 19,
+        "total": 19
+      },
+      "embeddingService.test.js": {
+        "passed": 5,
+        "total": 5
+      },
+      "retrievalService.test.js": {
+        "passed": 2,
+        "total": 2
+      },
+      "literacyService.test.js": {
+        "passed": 4,
+        "total": 4
+      },
+      "voiceService.test.js": {
+        "passed": 7,
+        "total": 7
+      }
+    },
+    "zeroCoverageFiles": [
+      "server.js",
+      "db.js",
+      "admin.controller.js",
+      "auth.controller.js",
+      "documents.controller.js",
+      "eligibility.controller.js",
+      "incomeExpense.controller.js",
+      "profile.controller.js",
+      "voice.controller.js",
+      "voiceGateway.controller.js",
+      "auth.js",
+      "errorHandler.js",
+      "evalTiming.js",
+      "uploadHandler.js",
+      "Document.js",
+      "EligibilityMatch.js",
+      "IncomeExpenseLog.js",
+      "KnowledgeSource.js",
+      "Profile.js",
+      "Scheme.js",
+      "User.js",
+      "admin.routes.js",
+      "auth.routes.js",
+      "documents.routes.js",
+      "eligibility.routes.js",
+      "incomeExpense.routes.js",
+      "literacy.routes.js",
+      "profile.routes.js",
+      "voice.routes.js",
+      "adminService.js",
+      "documentService.js",
+      "eligibilityService.js",
+      "incomeService.js"
+    ]
+  },
+  "retrieval": {
+    "threshold": 0.7,
+    "hit1": 1,
+    "hit3": 1,
+    "mrr": 1,
+    "metadata": {
+      "embeddingModel": "gemini-embedding-2",
+      "dims": 256,
+      "chunkCount": 21
+    }
+  },
+  "grounding": {
+    "precision": 0,
+    "recall": 0,
+    "f05": 0,
+    "cr": 0,
+    "fg": 0,
+    "outOfScopeBreakdown": {
+      "refused": 0,
+      "grounded": 0,
+      "llm_unavailable": 5,
+      "error": 0
+    },
+    "metadata": {
+      "chatModel": "gemini-2.5-flash"
+    }
+  }
+}
