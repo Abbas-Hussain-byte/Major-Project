@@ -15,6 +15,16 @@ export const translations = {
     theme_light: 'Light Mode',
     theme_dark: 'Dark Mode',
 
+    // Citizen Account Chip
+    account_citizen: 'Citizen Profile',
+    account_verified: 'Verified Safety Net ID',
+    account_setup_profile: 'Setup Profile (Voice/Text)',
+    account_schemes_eligible: 'Schemes Eligible',
+    account_edit_profile: 'View Full Profile',
+    account_relaunch_wizard: 'Voice Profile Wizard',
+    account_active_bank: 'Jan Dhan / Bank Active',
+    account_no_bank: 'No Bank Linked',
+
     // Home Page
     home_title: 'Talk to',
     home_subtitle: 'Ask in your mother tongue about life insurance, pensions, hospital cards, and banking rights',
@@ -39,11 +49,41 @@ export const translations = {
     home_verified_sources: 'Official References:',
     home_safety_net_source: 'Verified Government Safety Net Source',
     home_listen_again: 'Listen Again',
+    home_setup_cta_title: 'First Time Here? Build Your Profile by Voice or Text',
+    home_setup_cta_desc: 'Complete 5 quick questions to unlock all 12 Central Government safety nets tailored to your age and work.',
+    home_start_voice_setup: 'Start Voice Profile Setup',
 
-    // Schemes Page
+    // Conversational Profile Wizard
+    wizard_title: 'Citizen Voice & Text Profile Setup',
+    wizard_subtitle: 'Answer 5 simple questions by speaking or typing to unlock your exact government safety net entitlements',
+    wizard_step: 'Question',
+    wizard_of: 'of',
+    wizard_q1: 'What is your age in years?',
+    wizard_q1_sub: 'Central schemes like PMJJBY (18–50) and PMSBY (18–70) match based on age.',
+    wizard_q1_placeholder: 'e.g. 32',
+    wizard_q2: 'What is your primary work or occupation?',
+    wizard_q2_sub: 'Helps match unorganised sector programs (Construction, Street Vendor, Driver, Farm Worker, Domestic).',
+    wizard_q2_placeholder: 'e.g. Construction worker, Street vendor, Auto driver',
+    wizard_q3: 'What is your annual family income range?',
+    wizard_q3_sub: 'Matches BPL welfare tiers like Ayushman Bharat (PM-JAY) and NFSA free ration.',
+    wizard_q4: 'How many family members depend on your earnings?',
+    wizard_q4_sub: 'Children, spouse, or elderly parents who rely on your safety net.',
+    wizard_q4_placeholder: 'e.g. 3',
+    wizard_q5: 'Do you have an active savings bank or Jan Dhan account?',
+    wizard_q5_sub: 'Required for auto-debit insurance premiums (₹20/yr, ₹436/yr) and direct DBT welfare transfers.',
+    wizard_next: 'Next Question',
+    wizard_prev: 'Previous',
+    wizard_finish: 'Save Profile & View Eligible Schemes',
+    wizard_saving: 'Saving to Database...',
+    wizard_mic_listening: 'Listening... speak your answer now',
+    wizard_mic_tap: 'Tap to speak answer',
+    wizard_tap_to_read: 'Read question aloud',
+    wizard_close: 'Close',
+
+    // Schemes Page & Reviewer Evaluation
     schemes_title: 'Benefits & Schemes',
     schemes_subtitle: 'Verified central government safety nets matched to your unorganised worker profile',
-    schemes_count_summary: 'Verified Central Schemes Available for You',
+    schemes_count_summary: 'Central Safety Net Schemes Matched to Your Profile',
     schemes_refresh: 'Refresh',
     schemes_annual_cost: 'Annual Cost',
     schemes_financial_cover: 'Financial Cover',
@@ -57,6 +97,11 @@ export const translations = {
     schemes_empty_title: 'No Coverage Gaps Detected',
     schemes_empty_desc: 'Tap below to re-run eligibility check with your updated profile parameters.',
     schemes_run_engine: 'Run Eligibility Engine',
+    schemes_eval_heading: 'Rule-Based Eligibility Evaluation Engine (Project Reviewer View)',
+    schemes_eval_desc: '100% Deterministic Rule Matching: Profile parameters are cross-referenced with Central Gazette criteria. AI is strictly constrained to explanation downstream.',
+    schemes_precision_badge: '100% Deterministic Matching',
+    schemes_rules_checked: 'Rules Evaluated: Age Limits (18–70), Income Bands (BPL), Jan Dhan DBT Status, Informal Worker Classification',
+    schemes_why_qualified: 'Why you qualify:',
 
     // Document Explainer Page
     doc_title: 'Document Explainer',
@@ -81,6 +126,13 @@ export const translations = {
     doc_processing_step1: 'Uploading & scanning document text',
     doc_processing_step2: 'Extracting hidden clauses, exclusions & limits',
     doc_processing_step3: 'Verifying against worker profile for coverage gaps',
+
+    // Document RAG Q&A
+    doc_rag_title: 'Ask Questions About This Document (RAG Grounded)',
+    doc_rag_sub: 'Ask in your mother tongue about exclusions, waiting periods, or claim procedures',
+    doc_rag_placeholder: 'Ask about this document (e.g. Is suicide covered? What is the claim deadline?)...',
+    doc_rag_ask: 'Ask Document',
+    doc_rag_grounded: 'Answer strictly grounded in uploaded document clauses',
 
     // Cashflow Page
     cashflow_title: 'Income & Expenses',
@@ -148,6 +200,16 @@ export const translations = {
     theme_light: 'लाइट मोड',
     theme_dark: 'डार्क मोड',
 
+    // Citizen Account Chip
+    account_citizen: 'नागरिक प्रोफ़ाइल',
+    account_verified: 'सत्यापित सुरक्षा आईडी',
+    account_setup_profile: 'प्रोफ़ाइल बनाएं (बोलकर/लिखकर)',
+    account_schemes_eligible: 'उपलब्ध योजनाएं',
+    account_edit_profile: 'पूरी प्रोफ़ाइल देखें',
+    account_relaunch_wizard: 'बोलकर प्रोफ़ाइल सेट करें',
+    account_active_bank: 'जन धन / बैंक सक्रिय',
+    account_no_bank: 'बैंक खाता नहीं जुड़ा',
+
     // Home Page
     home_title: 'बात करें',
     home_subtitle: 'अपनी मातृभाषा में जीवन बीमा, पेंशन, अस्पताल कार्ड और बैंकिंग अधिकारों के बारे में पूछें',
@@ -172,8 +234,38 @@ export const translations = {
     home_verified_sources: 'सरकारी स्रोत:',
     home_safety_net_source: 'सत्यापित सरकारी कल्याण सुरक्षा स्रोत',
     home_listen_again: 'दोबारा सुनें',
+    home_setup_cta_title: 'पहली बार आए हैं? बोलकर या लिखकर प्रोफ़ाइल बनाएं',
+    home_setup_cta_desc: 'अपनी उम्र और काम के अनुसार सभी 12 केंद्र सरकारी योजनाओं का सटीक लाभ पाने के लिए 5 आसान सवालों के जवाब दें।',
+    home_start_voice_setup: 'बोलकर प्रोफ़ाइल शुरू करें',
 
-    // Schemes Page
+    // Conversational Profile Wizard
+    wizard_title: 'नागरिक वॉइस व टेक्स्ट प्रोफ़ाइल सेटअप',
+    wizard_subtitle: 'अपनी सटीक सरकारी सुरक्षा योजनाओं को जानने के लिए 5 आसान सवालों के बोलकर या लिखकर जवाब दें',
+    wizard_step: 'प्रश्न',
+    wizard_of: 'का',
+    wizard_q1: 'आपकी उम्र (वर्ष) कितनी है?',
+    wizard_q1_sub: 'केंद्रीय योजनाएं जैसे PMJJBY (18–50) और PMSBY (18–70) आयु के आधार पर मिलती हैं।',
+    wizard_q1_placeholder: 'जैसे 32',
+    wizard_q2: 'आपका मुख्य काम या पेशा क्या है?',
+    wizard_q2_sub: 'असंगठित क्षेत्र की योजनाओं (दिहाड़ी मजदूर, रेहड़ी-पटरी, चालक, कृषि कामगार आदि) के लिए आवश्यक।',
+    wizard_q2_placeholder: 'जैसे निर्माण मजदूर, रेहड़ी विक्रेता, ऑटो चालक',
+    wizard_q3: 'आपकी वार्षिक पारिवारिक आय कितनी है?',
+    wizard_q3_sub: 'आयुष्मान भारत (PM-JAY) और मुफ्त राशन जैसी बीपीएल योजनाओं की पात्रता के लिए।',
+    wizard_q4: 'आपके परिवार में कितने सदस्य आपकी कमाई पर आश्रित हैं?',
+    wizard_q4_sub: 'बच्चे, जीवनसाथी या बुजुर्ग माता-पिता।',
+    wizard_q4_placeholder: 'जैसे 3',
+    wizard_q5: 'क्या आपका सक्रिय बैंक या जन धन खाता है?',
+    wizard_q5_sub: 'सरकारी बीमा प्रीमियम (₹20/वर्ष, ₹436/वर्ष) और डीबीटी सब्सिडी सीधे खाते में पाने के लिए आवश्यक।',
+    wizard_next: 'अगला प्रश्न',
+    wizard_prev: 'पिछला',
+    wizard_finish: 'प्रोफ़ाइल सहेजें व योजनाएं देखें',
+    wizard_saving: 'डेटाबेस में सहेजा जा रहा है...',
+    wizard_mic_listening: 'सुन रहा हूँ... अब बोलें',
+    wizard_mic_tap: 'जवाब बोलने के लिए माइक दबाएं',
+    wizard_tap_to_read: 'प्रश्न बोलकर सुनें',
+    wizard_close: 'बंद करें',
+
+    // Schemes Page & Reviewer Evaluation
     schemes_title: 'सरकारी योजनाएं व लाभ',
     schemes_subtitle: 'आपके असंगठित मजदूर प्रोफ़ाइल के अनुसार सत्यापित केंद्र सरकारी योजनाएं',
     schemes_count_summary: 'सत्यापित केंद्र सरकार की योजनाएं उपलब्ध हैं',
@@ -190,6 +282,11 @@ export const translations = {
     schemes_empty_title: 'कोई सुरक्षा कमी नहीं मिली',
     schemes_empty_desc: 'अपनी प्रोफ़ाइल विवरण अपडेट करके पुनः पात्रता जांचें।',
     schemes_run_engine: 'पात्रता जांच चलाएं',
+    schemes_eval_heading: 'नियम-आधारित पात्रता मूल्यांकन इंजन (समीक्षक दृश्य)',
+    schemes_eval_desc: '100% सटीक नियम मिलान: प्रोफ़ाइल मापदंडों का केंद्र सरकार के आधिकारिक राजपत्र के नियमों से मिलान। एआई केवल सरल भाषा में समझाने के लिए सीमित है।',
+    schemes_precision_badge: '100% सटीक नियम मिलान',
+    schemes_rules_checked: 'जांचे गए नियम: आयु सीमा (18–70), आय स्तर (बीपीएल), जन धन खाता स्थिति, असंगठित कामगार वर्गीकरण',
+    schemes_why_qualified: 'आप क्यों पात्र हैं:',
 
     // Document Explainer Page
     doc_title: 'दस्तावेज विश्लेषक',
@@ -214,6 +311,13 @@ export const translations = {
     doc_processing_step1: 'दस्तावेज का पाठ अपलोड और स्कैन हो रहा है',
     doc_processing_step2: 'छिपी शर्तें, सीमाएं और अपवाद निकाले जा रहे हैं',
     doc_processing_step3: 'मजदूर प्रोफ़ाइल से सुरक्षा अंतर की जांच हो रही है',
+
+    // Document RAG Q&A
+    doc_rag_title: 'इस दस्तावेज से जुड़े सवाल पूछें (सत्यापित RAG)',
+    doc_rag_sub: 'अपवादों, दावों या समय सीमा के बारे में अपनी भाषा में पूछें',
+    doc_rag_placeholder: 'दस्तावेज के बारे में पूछें (जैसे क्या आत्महत्या पर क्लेम मिलेगा? क्लेम की अंतिम तारीख क्या है?)...',
+    doc_rag_ask: 'सवाल पूछें',
+    doc_rag_grounded: 'उत्तर पूरी तरह से अपलोड किए गए दस्तावेज पर आधारित है',
 
     // Cashflow Page
     cashflow_title: 'आय और व्यय खाता',
@@ -281,6 +385,16 @@ export const translations = {
     theme_light: 'లైట్ మోడ్',
     theme_dark: 'డార్క్ మోడ్',
 
+    // Citizen Account Chip
+    account_citizen: 'పౌరుడి ప్రొఫైల్',
+    account_verified: 'ధృవీకరించబడిన భద్రతా ఐడీ',
+    account_setup_profile: 'ప్రొఫైల్ నమోదు (వాయిస్/రాతపూర్వకం)',
+    account_schemes_eligible: 'అందుబాటులోని పథకాలు',
+    account_edit_profile: 'పూర్తి ప్రొఫైల్ చూడండి',
+    account_relaunch_wizard: 'వాయిస్ ప్రొఫైల్ విజార్డ్',
+    account_active_bank: 'జన్ ధన్ / బ్యాంక్ యాక్టివ్',
+    account_no_bank: 'బ్యాంక్ ఖాతా లేదు',
+
     // Home Page
     home_title: 'మాట్లాడండి',
     home_subtitle: 'జీవిత బీమా, పింఛన్లు, ఆసుపత్రి కార్డులు మరియు బ్యాంకింగ్ హక్కులపై మీ మాతృభాషలో అడగండి',
@@ -305,11 +419,41 @@ export const translations = {
     home_verified_sources: 'అధికారిక ఆధారాలు:',
     home_safety_net_source: 'ధృవీకరించబడిన ప్రభుత్వ సంక్షేమ రక్షణ ఆధారం',
     home_listen_again: 'మళ్లీ వినండి',
+    home_setup_cta_title: 'మొదటిసారి వచ్చారా? వాయిస్ లేదా టైపింగ్ ద్వారా ప్రొఫైల్ నమోదు చేయండి',
+    home_setup_cta_desc: 'మీ వయస్సు మరియు పనికి సరిపోయే మొత్తం 12 కేంద్ర ప్రభుత్వ సంక్షేమ పథకాలను అన్‌లాక్ చేయడానికి 5 సులభమైన ప్రశ్నలకు సమాధానం ఇవ్వండి.',
+    home_start_voice_setup: 'వాయిస్ ప్రొఫైల్ ప్రారంభించండి',
 
-    // Schemes Page
+    // Conversational Profile Wizard
+    wizard_title: 'సిటిజన్ వాయిస్ & టెక్స్ట్ ప్రొఫైల్ నమోదు',
+    wizard_subtitle: 'మీ ఖచ్చితమైన ప్రభుత్వ సంక్షేమ పథకాలను తెలుసుకోవడానికి మాట్లాడటం లేదా టైప్ చేయడం ద్వారా 5 ప్రశ్నలకు సమాధానం ఇవ్వండి',
+    wizard_step: 'ప్రశ్న',
+    wizard_of: '/',
+    wizard_q1: 'మీ వయస్సు ఎన్ని సంవత్సరాలు?',
+    wizard_q1_sub: 'PMJJBY (18–50) మరియు PMSBY (18–70) వంటి కేంద్ర పథకాలు వయస్సు ఆధారంగా సరిపోల్చబడతాయి.',
+    wizard_q1_placeholder: 'ఉదా: 32',
+    wizard_q2: 'మీ ప్రధాన పని లేదా వృత్తి ఏమిటి?',
+    wizard_q2_sub: 'అసంఘటిత రంగ పథకాలను సరిపోల్చడానికి అవసరం (కూలీ పని, వీధి విక్రేత, ఆటో డ్రైవర్, వ్యవసాయ కూలీ మొదలైనవి).',
+    wizard_q2_placeholder: 'ఉదా: భవన నిర్మాణ కార్మికుడు, వీధి విక్రేత, ఆటో డ్రైవర్',
+    wizard_q3: 'మీ వార్షిక కుటుంబ ఆదాయ పరిధి ఎంత?',
+    wizard_q3_sub: 'ఆయుష్మాన్ భారత్ (PM-JAY) మరియు ఉచిత రేషన్ వంటి BPL సంక్షేమ పథకాలకు సరిపోలుతుంది.',
+    wizard_q4: 'మీ సంపాదనపై ఎంతమంది కుటుంబ సభ్యులు ఆధారపడి ఉన్నారు?',
+    wizard_q4_sub: 'పిల్లలు, జీవిత భాగస్వామి లేదా వృద్ధ తల్లిదండ్రులు.',
+    wizard_q4_placeholder: 'ఉదా: 3',
+    wizard_q5: 'మీకు యాక్టివ్ బ్యాంక్ లేదా జన్ ధన్ ఖాతా ఉందా?',
+    wizard_q5_sub: 'ఆటో-డెబిట్ బీమా ప్రీమియంలు (సంవత్సరానికి ₹20, ₹436) మరియు నేరుగా ప్రభుత్వ నగదు జమ (DBT) కోసం తప్పనిసరి.',
+    wizard_next: 'తదుపరి ప్రశ్న',
+    wizard_prev: 'వెనుకకు',
+    wizard_finish: 'ప్రొఫైల్ సేవ్ చేసి పథకాలను చూడండి',
+    wizard_saving: 'డేటాబేస్‌లో భద్రపరచబడుతోంది...',
+    wizard_mic_listening: 'వింటోంది... ఇప్పుడు మాట్లాడండి',
+    wizard_mic_tap: 'సమాధానం చెప్పడానికి మైక్ నొక్కండి',
+    wizard_tap_to_read: 'ప్రశ్న వినండి',
+    wizard_close: 'మూసివేయి',
+
+    // Schemes Page & Reviewer Evaluation
     schemes_title: 'ప్రభుత్వ పథకాలు & ప్రయోజనాలు',
     schemes_subtitle: 'మీ అసంఘటిత కార్మిక ప్రొఫైల్‌కు తగిన కేంద్ర ప్రభుత్వ భద్రతా పథకాలు',
-    schemes_count_summary: 'ధృవీకరించబడిన కేంద్ర ప్రభుత్వ పథకాలు అందుబాటులో ఉన్నాయి',
+    schemes_count_summary: 'కేంద్ర ప్రభుత్వ సంక్షేమ పథకాలు అందుబాటులో ఉన్నాయి',
     schemes_refresh: 'రిఫ్రెష్',
     schemes_annual_cost: 'వార్షిక ఖర్చు',
     schemes_financial_cover: 'ఆర్థిక రక్షణ కవర్',
@@ -323,6 +467,11 @@ export const translations = {
     schemes_empty_title: 'ఎటువంటి రక్షణ లోపం కనుగొనబడలేదు',
     schemes_empty_desc: 'మీ నవీకరించబడిన వివరాలతో మళ్లీ తనిఖీ చేయడానికి క్రింద నొక్కండి.',
     schemes_run_engine: 'అర్హత ఇంజిన్ అమలు చేయండి',
+    schemes_eval_heading: 'రూల్-బేస్డ్ ఎలిజిబిలిటీ ఎవాల్యుయేషన్ ఇంజిన్ (ప్రాజెక్ట్ సమీక్షకుల వీక్షణ)',
+    schemes_eval_desc: '100% పారదర్శక నిబంధన సరిపోలిక: కేంద్ర ప్రభుత్వ గెజిట్ నిబంధనల ప్రకారం వయస్సు, ఆదాయం, జన్ ధన్ ఖాతా వివరాలు ఖచ్చితంగా సరిపోల్చబడ్డాయి. AI నిర్ణయాలు తీసుకోదు, వివరణ మాత్రమే ఇస్తుంది.',
+    schemes_precision_badge: '100% ఖచ్చితమైన నిబంధన సరిపోలిక',
+    schemes_rules_checked: 'పరిశీలించిన నిబంధనలు: వయస్సు పరిమితి (18–70), BPL ఆదాయ పరిమితి, జన్ ధన్ DBT ఖాతా, అసంఘటిత కార్మిక వర్గీకరణ',
+    schemes_why_qualified: 'మీరు ఎందుకు అర్హులంటే:',
 
     // Document Explainer Page
     doc_title: 'పత్ర విశ్లేషకం',
@@ -347,6 +496,13 @@ export const translations = {
     doc_processing_step1: 'పత్రం అప్‌లోడ్ మరియు స్కాన్ చేయబడుతోంది',
     doc_processing_step2: 'దాచిన నిబంధనలు మరియు మినహాయింపులు గుర్తించబడుతున్నాయి',
     doc_processing_step3: 'కార్మిక ప్రొఫైల్ ఆధారంగా ప్రయోజనాలు విశ్లేషించబడుతున్నాయి',
+
+    // Document RAG Q&A
+    doc_rag_title: 'ఈ పత్రంపై ప్రశ్నలు అడగండి (ధృవీకరించబడిన RAG)',
+    doc_rag_sub: 'మినహాయింపులు, వెయిటింగ్ పీరియడ్లు లేదా క్లెయిమ్ విధానాలపై మీ మాతృభాషలో అడగండి',
+    doc_rag_placeholder: 'ఈ పత్రంపై ప్రశ్న అడగండి (ఉదా: ఆత్మహత్య కవర్ అవుతుందా? క్లెయిమ్ చివరి తేదీ ఏమిటి?)...',
+    doc_rag_ask: 'ప్రశ్నించండి',
+    doc_rag_grounded: 'సమాధానం పూర్తిగా అప్‌లోడ్ చేసిన పత్రంలోని నిబంధనలపై ఆధారపడి ఉంటుంది',
 
     // Cashflow Page
     cashflow_title: 'ఆదాయం & ఖర్చుల లెక్క',

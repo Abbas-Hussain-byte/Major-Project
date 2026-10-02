@@ -1,11 +1,13 @@
 import { ENV } from '../../config/env.js';
 import * as bhashiniTranslation from './providers/bhashiniTranslation.js';
 import * as geminiTranslation from './providers/geminiTranslation.js';
+import * as sarvamTranslation from './providers/sarvamTranslation.js';
 import { ProviderNotConfiguredError, TranslationUnavailableError } from './errors.js';
 
 const providerMap = {
-  'bhashini': bhashiniTranslation,
+  'sarvam': sarvamTranslation,
   'browser_gemini': geminiTranslation,
+  'bhashini': bhashiniTranslation,
 };
 
 export const getOrderedProviders = () => {

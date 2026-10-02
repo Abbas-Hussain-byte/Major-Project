@@ -11,6 +11,7 @@
  *   transcribe() → translateToEnglish() → [LLM] → translateFromEnglish() → synthesize()
  */
 import { ENV } from '../../config/env.js';
+import { geminiChat } from '../llm/geminiService.js';
 
 const BHASHINI_INFERENCE_URL = 'https://dhruva-api.bhashini.gov.in/services/inference/pipeline';
 
@@ -82,36 +83,50 @@ export const transcribeAudio = async (audioBuffer, sourceLang = 'hi') => {
  * @returns {Promise<string>}
  */
 export const translateText = async (text, sourceLang, targetLang) => {
-  if (sourceLang === targetLang) return text;
+  if (!text || sourceLang === targetLang) return text;
 
-  if (!isConfigured()) {
-    console.warn('[Bhashini] Not configured — returning MT stub');
-    return `[STUB:${sourceLang}→${targetLang}] ${text}`;
+  if (isConfigured()) {
+    try {
+      const payload = {
+        pipelineTasks: [
+          {
+            taskType: 'translation',
+            config: {
+              language: { sourceLanguage: sourceLang, targetLanguage: targetLang },
+              serviceId: ENV.BHASHINI_PIPELINE_ID,
+            },
+          },
+        ],
+        inputData: { input: [{ source: text }] },
+      };
+
+      const res = await fetch(BHASHINI_INFERENCE_URL, {
+        method: 'POST',
+        headers: bhashiniHeaders(),
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const target = data?.pipelineResponse?.[0]?.output?.[0]?.target;
+        if (target) return target;
+      }
+    } catch (e) {
+      console.warn('[Bhashini] Translation failed, falling back to Gemini:', e.message);
+    }
   }
 
-  const payload = {
-    pipelineTasks: [
-      {
-        taskType: 'translation',
-        config: {
-          language: { sourceLanguage: sourceLang, targetLanguage: targetLang },
-          serviceId: ENV.BHASHINI_PIPELINE_ID,
-        },
-      },
-    ],
-    inputData: { input: [{ source: text }] },
-  };
-
-  const res = await fetch(BHASHINI_INFERENCE_URL, {
-    method: 'POST',
-    headers: bhashiniHeaders(),
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) throw new Error(`Bhashini MT error ${res.status}`);
-
-  const data = await res.json();
-  return data?.pipelineResponse?.[0]?.output?.[0]?.target ?? text;
+  // High-accuracy fallback using Gemini LLM
+  try {
+    const langNames = { te: 'Telugu', hi: 'Hindi', en: 'English' };
+    const targetName = langNames[targetLang] || targetLang;
+    const prompt = `Translate the following text accurately into ${targetName}. Maintain natural Indic colloquial phrasing for unorganised workers. Output ONLY the translated text without commentary, quotes, or markdown.`;
+    const translated = await geminiChat(prompt, text);
+    return translated.trim();
+  } catch (err) {
+    console.error('[Translation] Fallback failed:', err.message);
+    return text;
+  }
 };
 
 /** Convenience: native language → English */

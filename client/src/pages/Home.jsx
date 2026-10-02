@@ -5,8 +5,10 @@ import MicButton from '../components/MicButton';
 import { useVoice } from '../services/speech/useVoice';
 import { 
   User, Volume2, ArrowRight, CheckCircle2, 
-  Send, HelpCircle, BookOpen, AlertCircle, ShieldCheck, ChevronRight
+  Send, HelpCircle, BookOpen, AlertCircle, ShieldCheck, ChevronRight,
+  Sparkles, Mic
 } from 'lucide-react';
+import VoiceProfileWizard from '../components/VoiceProfileWizard';
 import { profileService } from '../api/services';
 import './Home.css';
 
@@ -37,6 +39,7 @@ export default function Home() {
   const [toast, setToast] = useState(null);
   const [textInput, setTextInput] = useState('');
   const [isGreetingSpeaking, setIsGreetingSpeaking] = useState(false);
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
 
   useEffect(() => {
     if (errorMsg) {
@@ -260,6 +263,27 @@ export default function Home() {
                 <span>{isGreetingSpeaking ? t('home_speaking') : t('home_read_aloud')}</span>
               </button>
             </div>
+
+            {/* Conversational Voice & Text Profile Setup Action Banner */}
+            <div className="home-profile-cta-banner">
+              <div className="cta-banner-content">
+                <div className="cta-badge">
+                  <Sparkles size={14} />
+                  <span>{t('account_citizen')}</span>
+                </div>
+                <h2 className="cta-title">{t('home_setup_cta_title')}</h2>
+                <p className="cta-description">{t('home_setup_cta_desc')}</p>
+              </div>
+              <button 
+                type="button" 
+                className="btn-start-wizard-cta"
+                onClick={() => setIsWizardOpen(true)}
+              >
+                <Mic size={18} />
+                <span>{t('home_start_voice_setup')}</span>
+                <ChevronRight size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Central Hero Voice Mic Arena (The Centerpiece!) */}
@@ -395,6 +419,12 @@ export default function Home() {
           </section>
         </div>
       )}
+
+      {/* Citizen Conversational Profile Setup Modal */}
+      <VoiceProfileWizard 
+        isOpen={isWizardOpen}
+        onClose={() => setIsWizardOpen(false)}
+      />
     </main>
   );
 }

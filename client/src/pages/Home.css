@@ -866,3 +866,118 @@
   }
 }
 
+/* ==========================================================================
+   Conversational Voice & Text Profile Setup Action Banner
+   ========================================================================== */
+.home-profile-cta-banner {
+  width: 100%;
+  max-width: 860px;
+  margin: 20px auto 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border: 1.5px solid rgba(99, 102, 241, 0.35);
+  border-radius: 20px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 25px rgba(99, 102, 241, 0.15);
+  transition: all 0.25s ease;
+}
+
+.home-profile-cta-banner:hover {
+  border-color: #818cf8;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4), 0 0 35px rgba(99, 102, 241, 0.25);
+}
+
+.cta-banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+}
+
+.cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99, 102, 241, 0.25);
+  color: #a5b4fc;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.cta-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.cta-description {
+  font-size: 13.5px;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.btn-start-wizard-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+  transition: all 0.2s ease;
+}
+
+.btn-start-wizard-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(99, 102, 241, 0.6);
+}
+
+/* Light Mode Overrides for Banner */
+[data-theme='light'] .home-profile-cta-banner {
+  background: linear-gradient(135deg, #eef2ff 0%, #f0fdf4 100%);
+  border-color: #c7d2fe;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .cta-badge {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+[data-theme='light'] .cta-title {
+  color: #090d16;
+}
+
+[data-theme='light'] .cta-description {
+  color: #475569;
+}
+
+[data-theme='light'] .btn-start-wizard-cta {
+  background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme='light'] .btn-start-wizard-cta:hover {
+  background: #090d16;
+}
+
+

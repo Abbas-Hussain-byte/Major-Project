@@ -72,6 +72,162 @@
   margin-bottom: 12px;
 }
 
+/* ==========================================================================
+   Project Reviewer & Engine Transparency Panel
+   ========================================================================== */
+.reviewer-eval-panel {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 20px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+.eval-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.eval-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.eval-tag-active {
+  font-size: 13px;
+  font-weight: 600;
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.12);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.eval-panel-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.eval-panel-desc {
+  margin: 0 0 18px;
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.5;
+  max-width: 900px;
+}
+
+.eval-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.eval-stat-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.eval-stat-box.highlight {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.eval-stat-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.eval-stat-box.highlight .eval-stat-num {
+  color: #34d399;
+}
+
+.eval-stat-label {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.eval-rules-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.check-icon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+/* Match Reasons in Scheme Card */
+.scheme-match-reasons-box {
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.match-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #34d399;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.match-reasons-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.match-reason-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #d1fae5;
+}
+
+.match-check-icon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
 /* Summary Bar */
 .schemes-summary-bar {
   grid-column: 1 / -1;
@@ -497,4 +653,56 @@
 [data-theme='light'] .empty-schemes-card h3 {
   color: #090d16;
 }
+
+[data-theme='light'] .reviewer-eval-panel {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .eval-panel-title {
+  color: #090d16;
+}
+
+[data-theme='light'] .eval-panel-desc {
+  color: #475569;
+}
+
+[data-theme='light'] .eval-stat-box {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme='light'] .eval-stat-num {
+  color: #090d16;
+}
+
+[data-theme='light'] .eval-stat-box.highlight {
+  background: rgba(5, 150, 105, 0.08);
+  border-color: rgba(5, 150, 105, 0.3);
+}
+
+[data-theme='light'] .eval-stat-box.highlight .eval-stat-num {
+  color: #059669;
+}
+
+[data-theme='light'] .eval-rules-bar {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #334155;
+}
+
+[data-theme='light'] .scheme-match-reasons-box {
+  background: rgba(5, 150, 105, 0.06);
+  border-color: rgba(5, 150, 105, 0.25);
+}
+
+[data-theme='light'] .match-title {
+  color: #059669;
+}
+
+[data-theme='light'] .match-reason-item {
+  color: #1e293b;
+}
+
 

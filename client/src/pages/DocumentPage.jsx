@@ -1,10 +1,36 @@
 import React, { useState, useRef } from 'react';
 import { 
   FileText, Upload, Camera, AlertTriangle, CheckCircle2, 
-  Sparkles, Volume2, ArrowRight, ShieldAlert, FileCheck, RefreshCw 
+  Sparkles, Volume2, ArrowRight, ShieldAlert, FileCheck, RefreshCw,
+  Send, Mic, ShieldCheck
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import './DocumentPage.css';
+
+const getDocQuestionChips = (lang) => {
+  if (lang === 'te') {
+    return [
+      'కవరేజ్ లేదా బెనిఫిట్ మొత్తం ఎంత?',
+      'ఈ పాలసీలో క్లెయిమ్ తిరస్కరణకు గల ప్రధాన కారణాలు ఏమిటి?',
+      'క్లెయిమ్ కోసం ఏయే డాక్యుమెంట్లు మరియు సమయ పరిమితి కావాలి?',
+      'దీనికి ఎలా దరఖాస్తు చేసుకోవాలి లేదా క్లెయిమ్ పొందాలి?'
+    ];
+  }
+  if (lang === 'hi') {
+    return [
+      'अधिकतम कवरेज या लाभ राशि कितनी है?',
+      'दावा खारिज होने के क्या मुख्य कारण या अपवाद हैं?',
+      'क्लेम पाने के लिए कौन-से कागजात और समय सीमा है?',
+      'इसके लिए आवेदन या क्लेम प्रक्रिया क्या है?'
+    ];
+  }
+  return [
+    'What is the maximum coverage or benefit amount?',
+    'What are the hidden exclusions or reasons for rejection?',
+    'What exact papers and deadlines are needed for claim?',
+    'How do I apply or file a claim?'
+  ];
+};
 
 export default function DocumentPage() {
   const { language, t } = useLanguage();
@@ -15,6 +41,16 @@ export default function DocumentPage() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // Document RAG Q&A State
+  const [ragQuery, setRagQuery] = useState('');
+  const [lastAskedQuery, setLastAskedQuery] = useState('');
+  const [ragAnswer, setRagAnswer] = useState(null);
+  const [ragLoading, setRagLoading] = useState(false);
+  const [ragListening, setRagListening] = useState(false);
+  const [ragSpeaking, setRagSpeaking] = useState(false);
+  const [ragError, setRagError] = useState(null);
+
   const fileInputRef = useRef(null);
 
   const docCategories = [
@@ -117,6 +153,104 @@ export default function DocumentPage() {
       utterance.onend = () => setIsSpeaking(false);
       utterance.onerror = () => setIsSpeaking(false);
       setIsSpeaking(true);
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const handleAskRagQuestion = async (queryText) => {
+    if (!queryText || !queryText.trim() || ragLoading) return;
+    const q = queryText.trim();
+    setLastAskedQuery(q);
+    setRagQuery('');
+    setRagLoading(true);
+    setRagError(null);
+
+    try {
+      const token = localStorage.getItem('token');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const docId = result?._id || result?.id;
+      
+      const res = await fetch(`${apiUrl}/documents/ask`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
+        body: JSON.stringify({
+          document_id: docId,
+          question: q,
+          lang: language,
+          context_text: `Document Summary: ${summaryText}. Hidden clauses / risks: ${risksList.join('; ')}. Claim checklist: ${checklistList.map(c => c.item || c).join('; ')}`
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to get answer from Document RAG');
+      }
+
+      const data = await res.json();
+      setRagAnswer(data.answer);
+    } catch (err) {
+      console.error('[DocumentPage] RAG question error:', err);
+      setRagError('Could not retrieve detailed answer. Please retry.');
+    } finally {
+      setRagLoading(false);
+    }
+  };
+
+  const handleStartRagVoice = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setRagError('Voice input not supported in this browser. Please type your question.');
+      return;
+    }
+
+    try {
+      window.speechSynthesis?.cancel();
+      setRagSpeaking(false);
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
+
+      setRagListening(true);
+      setRagError(null);
+
+      recognition.onresult = (event) => {
+        const spoken = event.results[0][0].transcript.trim();
+        setRagListening(false);
+        if (spoken) {
+          handleAskRagQuestion(spoken);
+        }
+      };
+
+      recognition.onerror = () => {
+        setRagListening(false);
+      };
+
+      recognition.onend = () => {
+        setRagListening(false);
+      };
+
+      recognition.start();
+    } catch {
+      setRagListening(false);
+    }
+  };
+
+  const handleSpeakRagAnswer = () => {
+    if (!ragAnswer) return;
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      if (ragSpeaking) {
+        setRagSpeaking(false);
+        return;
+      }
+      const utterance = new SpeechSynthesisUtterance(ragAnswer);
+      utterance.lang = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
+      utterance.onend = () => setRagSpeaking(false);
+      utterance.onerror = () => setRagSpeaking(false);
+      setRagSpeaking(true);
       window.speechSynthesis.speak(utterance);
     }
   };
@@ -322,6 +456,121 @@ export default function DocumentPage() {
               </div>
             )}
 
+            {/* Interactive Document RAG Q&A Arena */}
+            <section className="document-rag-arena" aria-label="Document Question and Answer">
+              <div className="rag-arena-header">
+                <div className="rag-title-row">
+                  <Sparkles size={22} className="glow-cyan" />
+                  <div>
+                    <h3 className="rag-title">{t('doc_rag_title')}</h3>
+                    <p className="rag-sub">{t('doc_rag_sub')}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Suggested Question Chips */}
+              <div className="rag-chips-row">
+                {getDocQuestionChips(language).map((chip, idx) => (
+                  <button 
+                    key={idx}
+                    type="button" 
+                    className="rag-chip-btn"
+                    onClick={() => handleAskRagQuestion(chip)}
+                    disabled={ragLoading}
+                  >
+                    <span>{chip}</span>
+                    <ArrowRight size={13} />
+                  </button>
+                ))}
+              </div>
+
+              {/* Question Input Box with Voice & Text */}
+              <form onSubmit={(e) => { e.preventDefault(); handleAskRagQuestion(ragQuery); }} className="rag-input-form">
+                <div className="rag-input-wrapper">
+                  <input 
+                    type="text" 
+                    className="rag-input-field"
+                    placeholder={t('doc_rag_placeholder')}
+                    value={ragQuery}
+                    onChange={(e) => setRagQuery(e.target.value)}
+                    disabled={ragLoading}
+                  />
+
+                  {/* Mic Button for Voice Question */}
+                  <button 
+                    type="button" 
+                    className={`btn-rag-mic ${ragListening ? 'listening' : ''}`}
+                    onClick={handleStartRagVoice}
+                    aria-label="Speak your question about this document"
+                    title="Speak question"
+                    disabled={ragLoading}
+                  >
+                    <Mic size={18} />
+                  </button>
+
+                  {/* Submit Button */}
+                  <button 
+                    type="submit" 
+                    className="btn-rag-submit"
+                    disabled={!ragQuery.trim() || ragLoading}
+                    aria-label="Submit question"
+                  >
+                    <Send size={18} />
+                    <span>{t('doc_rag_ask')}</span>
+                  </button>
+                </div>
+              </form>
+
+              {/* RAG Loading Radar */}
+              {ragLoading && (
+                <div className="rag-loading-box" role="status" aria-live="polite">
+                  <div className="rag-loading-spinner"></div>
+                  <p>Searching document clauses and fine print in {language === 'te' ? 'Telugu' : language === 'hi' ? 'Hindi' : 'English'}...</p>
+                </div>
+              )}
+
+              {/* RAG Error Alert */}
+              {ragError && (
+                <div className="rag-error-pill" role="alert">
+                  <AlertTriangle size={16} />
+                  <span>{ragError}</span>
+                </div>
+              )}
+
+              {/* RAG Detailed Answer Card */}
+              {ragAnswer && !ragLoading && (
+                <div className="rag-answer-card fade-in" aria-live="polite">
+                  {lastAskedQuery && (
+                    <div className="rag-query-pill">
+                      <span className="query-tag">{t('home_you_asked')}</span>
+                      <p className="query-content">"{lastAskedQuery}"</p>
+                    </div>
+                  )}
+
+                  <div className="rag-answer-text">
+                    <p>{ragAnswer}</p>
+                  </div>
+
+                  <div className="rag-answer-footer">
+                    <div className="rag-grounded-tag">
+                      <ShieldCheck size={16} />
+                      <span>{t('doc_rag_grounded')}</span>
+                    </div>
+
+                    <button 
+                      type="button" 
+                      className={`btn-listen-again ${ragSpeaking ? 'active' : ''}`}
+                      onClick={handleSpeakRagAnswer}
+                      aria-label="Listen to answer"
+                    >
+                      <Volume2 size={16} />
+                      <span>{ragSpeaking ? t('doc_speaking') : t('doc_read_aloud')}</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </section>
+
             {/* Scan Another Document Action Button (Glowing High-Contrast, Never Invisible) */}
             <div className="scan-another-wrapper">
               <button 
@@ -330,6 +579,8 @@ export default function DocumentPage() {
                 onClick={() => {
                   setResult(null);
                   setSelectedFile(null);
+                  setRagAnswer(null);
+                  setLastAskedQuery('');
                 }}
               >
                 <Upload size={18} />

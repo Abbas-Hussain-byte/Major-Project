@@ -91,7 +91,11 @@ export const processDocument = async (documentId, userId, lang = 'en') => {
     const raw = await geminiAnalyzeFile(systemPrompt, userMessage, fileBuffer, doc.mime_type);
     const cleanRaw = raw.replace(/^```json/m, '').replace(/^```/m, '').trim();
     parsed = JSON.parse(cleanRaw);
-    doc.extracted_text = '[Text successfully processed]';
+    if (doc.mime_type?.startsWith('text/') || doc.mime_type?.includes('plain')) {
+      doc.extracted_text = fileBuffer.toString('utf-8');
+    } else {
+      doc.extracted_text = `Document: ${doc.original_filename}. Type: ${doc.document_type}. Analyzed via Gemini Vision.`;
+    }
   } catch (err) {
     console.warn('Document LLM analysis had error, using structured fallback:', err.message);
     
