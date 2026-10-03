@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '../locales/translations';
 
+import { speechProvider } from '../services/speech/browserSpeech';
+
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
@@ -9,6 +11,7 @@ export const LanguageProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    speechProvider.stop();
     localStorage.setItem('language', language);
     document.documentElement.lang = language;
   }, [language]);

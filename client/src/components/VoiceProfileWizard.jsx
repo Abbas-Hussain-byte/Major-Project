@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { profileService } from '../api/services';
+import { speechProvider } from '../services/speech/browserSpeech';
 import './VoiceProfileWizard.css';
 
 export default function VoiceProfileWizard({ isOpen, onClose, onComplete }) {
@@ -48,19 +49,20 @@ export default function VoiceProfileWizard({ isOpen, onClose, onComplete }) {
   }, [isOpen]);
 
   // Read question aloud
-  const speakQuestion = (text) => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
+  const speakQuestion = async (text) => {
     if (isSpeakingQuestion) {
+      speechProvider.stop();
       setIsSpeakingQuestion(false);
       return;
     }
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-    utterance.onend = () => setIsSpeakingQuestion(false);
-    utterance.onerror = () => setIsSpeakingQuestion(false);
-    setIsSpeakingQuestion(true);
-    window.speechSynthesis.speak(utterance);
+    try {
+      setIsSpeakingQuestion(true);
+      await speechProvider.speak(text, language);
+    } catch {
+      // Ignored
+    } finally {
+      setIsSpeakingQuestion(false);
+    }
   };
 
   // Web Speech recognition for answering by voice
@@ -270,7 +272,7 @@ export default function VoiceProfileWizard({ isOpen, onClose, onComplete }) {
                     className={`preset-chip ${profileData.age === age ? 'active' : ''}`}
                     onClick={() => setProfileData({ ...profileData, age })}
                   >
-                    {age} yrs
+                    {age} {t('wizard_yrs')}
                   </button>
                 ))}
               </div>
@@ -316,21 +318,24 @@ export default function VoiceProfileWizard({ isOpen, onClose, onComplete }) {
               {/* Quick Occupation Presets */}
               <div className="preset-chips-row">
                 {[
-                  'Construction Worker',
-                  'Street Vendor',
-                  'Auto Driver',
-                  'Agricultural Laborer',
-                  'Domestic Helper'
-                ].map(occ => (
-                  <button 
-                    key={occ} 
-                    type="button" 
-                    className={`preset-chip ${profileData.occupation === occ ? 'active' : ''}`}
-                    onClick={() => setProfileData({ ...profileData, occupation: occ })}
-                  >
-                    {occ}
-                  </button>
-                ))}
+                  { key: 'wizard_occ_construction', def: 'Construction Worker' },
+                  { key: 'wizard_occ_vendor', def: 'Street Vendor' },
+                  { key: 'wizard_occ_driver', def: 'Auto Driver' },
+                  { key: 'wizard_occ_farmer', def: 'Agricultural Laborer' },
+                  { key: 'wizard_occ_domestic', def: 'Domestic Helper' }
+                ].map(occItem => {
+                  const label = t(occItem.key) || occItem.def;
+                  return (
+                    <button 
+                      key={occItem.key} 
+                      type="button" 
+                      className={`preset-chip ${profileData.occupation === label ? 'active' : ''}`}
+                      onClick={() => setProfileData({ ...profileData, occupation: label })}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

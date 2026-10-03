@@ -104,6 +104,14 @@ export const translations = {
     wizard_mic_tap: 'Tap to speak answer',
     wizard_tap_to_read: 'Read question aloud',
     wizard_close: 'Close',
+    wizard_yrs: 'yrs',
+    wizard_occ_construction: 'Construction Worker',
+    wizard_occ_vendor: 'Street Vendor',
+    wizard_occ_driver: 'Auto Driver',
+    wizard_occ_farmer: 'Agricultural Laborer',
+    wizard_occ_domestic: 'Domestic Helper',
+    profile_lang_label: 'Preferred Interface & Voice Language',
+    profile_lang_hint: 'Selects the language for all text, spoken answers, and AI voice responses.',
 
     // Schemes Page & Reviewer Evaluation
     schemes_title: 'Benefits & Schemes',
@@ -317,6 +325,14 @@ export const translations = {
     wizard_mic_tap: 'जवाब बोलने के लिए माइक दबाएं',
     wizard_tap_to_read: 'प्रश्न बोलकर सुनें',
     wizard_close: 'बंद करें',
+    wizard_yrs: 'वर्ष',
+    wizard_occ_construction: 'निर्माण मजदूर',
+    wizard_occ_vendor: 'रेहड़ी विक्रेता',
+    wizard_occ_driver: 'ऑटो चालक',
+    wizard_occ_farmer: 'कृषि मजदूर',
+    wizard_occ_domestic: 'घरेलू कामगार',
+    profile_lang_label: 'पसंदीदा भाषा व आवाज़',
+    profile_lang_hint: 'सभी पाठ, बोलकर उत्तर और एआई आवाज के लिए भाषा सेट करें।',
 
     // Schemes Page & Reviewer Evaluation
     schemes_title: 'सरकारी योजनाएं व लाभ',
@@ -530,6 +546,14 @@ export const translations = {
     wizard_mic_tap: 'సమాధానం చెప్పడానికి మైక్ నొక్కండి',
     wizard_tap_to_read: 'ప్రశ్న వినండి',
     wizard_close: 'మూసివేయి',
+    wizard_yrs: 'సంవత్సరాలు',
+    wizard_occ_construction: 'భవన నిర్మాణ కార్మికుడు',
+    wizard_occ_vendor: 'వీధి విక్రేత',
+    wizard_occ_driver: 'ఆటో డ్రైవర్',
+    wizard_occ_farmer: 'వ్యవసాయ కూలీ',
+    wizard_occ_domestic: 'గృహ కార్మికుడు',
+    profile_lang_label: 'ఇష్టపడే భాష & వాయిస్',
+    profile_lang_hint: 'మొత్తం సమాచారం, మాట్లాడే సమాధానాలు మరియు ఏఐ వాయిస్ కోసం భాషను ఎంచుకోండి.',
 
     // Schemes Page & Reviewer Evaluation
     schemes_title: 'ప్రభుత్వ పథకాలు & ప్రయోజనాలు',

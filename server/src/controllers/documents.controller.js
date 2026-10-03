@@ -22,13 +22,37 @@ export const uploadDocument = async (req, res) => {
   // Process document
   const processed = await processDocument(String(doc._id), String(req.user._id), lang);
 
+  let summary = processed.plain_language_summary || '';
+  let risks = processed.risk_flags || [];
+  let checklist = processed.claim_checklist || [];
+
+  // Enforce language: if lang is te or hi, but summary was generated in English, translate it to lang
+  if (lang === 'te' && summary && !/[\u0C00-\u0C7F]/.test(summary)) {
+    try {
+      const { translateWithFallback } = await import('../services/voiceGateway/factory.js');
+      const trSum = await translateWithFallback(summary, 'en', 'te');
+      if (trSum?.translated) summary = trSum.translated;
+    } catch (e) {
+      console.warn('[DocumentController] summary translation error:', e.message);
+    }
+  } else if (lang === 'hi' && summary && !/[\u0900-\u097F]/.test(summary)) {
+    try {
+      const { translateWithFallback } = await import('../services/voiceGateway/factory.js');
+      const trSum = await translateWithFallback(summary, 'en', 'hi');
+      if (trSum?.translated) summary = trSum.translated;
+    } catch (e) {
+      console.warn('[DocumentController] summary translation error:', e.message);
+    }
+  }
+
   // Return response with all field aliases for client resilience
   const response = {
     ...processed.toObject(),
-    summary: processed.plain_language_summary,
-    explanation: processed.plain_language_summary,
-    risks: processed.risk_flags,
-    checklist: processed.claim_checklist,
+    plain_language_summary: summary,
+    summary: summary,
+    explanation: summary,
+    risks: risks,
+    checklist: checklist,
   };
   delete response.file_path;
 
@@ -99,7 +123,26 @@ Rules:
     const userMessage = `Document Information:\n${documentContext || 'Standard Government Welfare / Insurance document'}\n\nUser Question:\n${question}`;
 
     const { geminiChatStrict } = await import('../services/llm/geminiService.js');
-    const answer = await geminiChatStrict(systemPrompt, userMessage);
+    let answer = (await geminiChatStrict(systemPrompt, userMessage)).trim();
+
+    // Ensure answer is in the target Indic language
+    if (lang === 'te' && !/[\u0C00-\u0C7F]/.test(answer)) {
+      try {
+        const { translateWithFallback } = await import('../services/voiceGateway/factory.js');
+        const tr = await translateWithFallback(answer, 'en', 'te');
+        if (tr?.translated) answer = tr.translated;
+      } catch (trErr) {
+        console.warn('[DocumentController] Auto-translate RAG answer to Telugu failed:', trErr.message);
+      }
+    } else if (lang === 'hi' && !/[\u0900-\u097F]/.test(answer)) {
+      try {
+        const { translateWithFallback } = await import('../services/voiceGateway/factory.js');
+        const tr = await translateWithFallback(answer, 'en', 'hi');
+        if (tr?.translated) answer = tr.translated;
+      } catch (trErr) {
+        console.warn('[DocumentController] Auto-translate RAG answer to Hindi failed:', trErr.message);
+      }
+    }
 
     res.json({
       answer: answer.trim(),

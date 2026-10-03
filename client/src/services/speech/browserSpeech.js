@@ -9,6 +9,7 @@ const langMap = {
 let mediaRecorder = null;
 let audioChunks = [];
 let currentUtterance = null;
+let currentAudio = null;
 
 const waitForVoices = () => {
   return new Promise(resolve => {
@@ -25,10 +26,7 @@ export const speechProvider = {
   isSupported: () => !!navigator.mediaDevices && !!navigator.mediaDevices.getUserMedia,
 
   hasVoice: async (lang) => {
-    if (!window.speechSynthesis) return false;
-    const targetLang = langMap[lang];
-    const voices = await waitForVoices();
-    return voices.some(v => v.lang.startsWith(targetLang.split('-')[0]));
+    return true; // Supported via Sarvam TTS backend and Web Speech API
   },
 
   listen: (lang) => {
@@ -118,23 +116,115 @@ export const speechProvider = {
   },
 
   speak: async (text, lang) => {
-    return new Promise(async (resolve, reject) => {
+    speechProvider.stop(); // cancel ongoing speech / audio
+    if (!text || !text.trim()) return;
+
+    let textToSynthesize = text.trim();
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+    // Guard: If lang is te or hi, but the input text contains only English/Latin characters,
+    // translate it to the target language first so it is never spoken in English!
+    const hasTelugu = /[\u0C00-\u0C7F]/.test(textToSynthesize);
+    const hasHindi = /[\u0900-\u097F]/.test(textToSynthesize);
+
+    if (lang === 'te' && !hasTelugu) {
+      try {
+        const transRes = await fetch(`${apiUrl}/voice/translate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: textToSynthesize.slice(0, 800), from: 'en', to: 'te' })
+        });
+        if (transRes.ok) {
+          const transData = await transRes.json();
+          if (transData.translated) textToSynthesize = transData.translated;
+        }
+      } catch (e) {
+        console.warn('[speechProvider] Pre-speak translation to Telugu failed:', e.message);
+      }
+    } else if (lang === 'hi' && !hasHindi) {
+      try {
+        const transRes = await fetch(`${apiUrl}/voice/translate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: textToSynthesize.slice(0, 800), from: 'en', to: 'hi' })
+        });
+        if (transRes.ok) {
+          const transData = await transRes.json();
+          if (transData.translated) textToSynthesize = transData.translated;
+        }
+      } catch (e) {
+        console.warn('[speechProvider] Pre-speak translation to Hindi failed:', e.message);
+      }
+    }
+
+    // 1. Primary: High-fidelity authentic Indian native speech via Sarvam AI TTS
+    try {
+      const res = await fetch(`${apiUrl}/voice/synthesize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: textToSynthesize, lang })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.audio) {
+          return new Promise((resolve) => {
+            const audio = new Audio(`data:audio/wav;base64,${data.audio}`);
+            currentAudio = audio;
+            audio.onended = () => {
+              currentAudio = null;
+              resolve();
+            };
+            audio.onerror = () => {
+              currentAudio = null;
+              resolve();
+            };
+            audio.play().catch((playErr) => {
+              console.warn('[speechProvider] Audio play error:', playErr);
+              currentAudio = null;
+              resolve();
+            });
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('[speechProvider] Sarvam TTS request failed, trying browser speech fallback:', err.message);
+    }
+
+    // 2. Fallback: Browser Web Speech API ONLY if matching voice exists or English
+    return new Promise(async (resolve) => {
       if (!window.speechSynthesis) {
         return resolve();
       }
 
-      speechProvider.stop(); // cancel ongoing speech
-
       const targetLang = langMap[lang] || 'hi-IN';
       const voices = await waitForVoices();
-      const voice = voices.find(v => v.lang.startsWith(targetLang.split('-')[0])) || voices[0];
+      
+      // Look for a native matching voice for this specific language code
+      const matchedVoice = voices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = voice;
-      utterance.lang = voice ? voice.lang : targetLang;
+      // Never use default English voice if citizen selected Telugu or Hindi and no native voice exists
+      if (lang !== 'en' && !matchedVoice) {
+        console.warn(`[speechProvider] No native ${lang} voice installed in browser; skipped to avoid incorrect English voice.`);
+        return resolve();
+      }
 
-      utterance.onend = () => resolve();
-      utterance.onerror = (e) => reject(e);
+      const utterance = new SpeechSynthesisUtterance(textToSynthesize);
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+        utterance.lang = matchedVoice.lang;
+      } else {
+        utterance.lang = targetLang;
+      }
+
+      utterance.onend = () => {
+        currentUtterance = null;
+        resolve();
+      };
+      utterance.onerror = () => {
+        currentUtterance = null;
+        resolve();
+      };
 
       currentUtterance = utterance;
       window.speechSynthesis.speak(utterance);
@@ -146,9 +236,17 @@ export const speechProvider = {
       mediaRecorder.stop();
       mediaRecorder = null;
     }
+    if (currentAudio) {
+      try {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      } catch {}
+      currentAudio = null;
+    }
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
       currentUtterance = null;
     }
   }
 };
+

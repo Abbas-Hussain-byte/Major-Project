@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import MicButton from '../components/MicButton';
 import { useVoice } from '../services/speech/useVoice';
+import { speechProvider } from '../services/speech/browserSpeech';
 import { 
   User, Volume2, ArrowRight, CheckCircle2, 
   Send, HelpCircle, BookOpen, AlertCircle, ShieldCheck, ChevronRight,
@@ -102,21 +103,21 @@ export default function Home() {
     await askText(chipQuestion);
   };
 
-  const speakGreeting = () => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
+  const speakGreeting = async () => {
     if (isGreetingSpeaking) {
+      speechProvider.stop();
       setIsGreetingSpeaking(false);
       return;
     }
     const text = t('home_greeting');
-    const utterance = new SpeechSynthesisUtterance(text);
-    const langTag = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-    utterance.lang = langTag;
-    utterance.onend = () => setIsGreetingSpeaking(false);
-    utterance.onerror = () => setIsGreetingSpeaking(false);
-    setIsGreetingSpeaking(true);
-    window.speechSynthesis.speak(utterance);
+    try {
+      setIsGreetingSpeaking(true);
+      await speechProvider.speak(text, language);
+    } catch {
+      // Ignored
+    } finally {
+      setIsGreetingSpeaking(false);
+    }
   };
 
   const promptChips = [

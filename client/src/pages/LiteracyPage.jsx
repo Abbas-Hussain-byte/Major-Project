@@ -8,6 +8,7 @@ import {
 import MicButton from '../components/MicButton';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useVoice } from '../services/speech/useVoice';
+import { speechProvider } from '../services/speech/browserSpeech';
 import { 
   FINANCIAL_LITERACY_CHUNKS, 
   LITERACY_CATEGORIES, 
@@ -61,8 +62,9 @@ export default function LiteracyPage() {
     let isMounted = true;
     literacyService.getChunks()
       .then(res => {
-        if (isMounted && res?.data && Array.isArray(res.data) && res.data.length > 0) {
-          setChunks(res.data);
+        const chunksArr = Array.isArray(res?.data) ? res.data : (res?.data?.chunks || []);
+        if (isMounted && Array.isArray(chunksArr) && chunksArr.length > 0) {
+          setChunks(chunksArr);
         }
       })
       .catch(err => {
@@ -90,17 +92,15 @@ export default function LiteracyPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedChunk]);
 
-  // TTS Speech Synthesis Engine
+  // TTS Speech Synthesis Engine via Sarvam AI & browser fallback
   const stopAudio = () => {
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-    }
+    speechProvider.stop();
     setPlayingChunkId(null);
     setIsModalSpeaking(false);
   };
 
-  const playAudio = (text, chunkId = null, isModal = false) => {
-    if (!text || !window.speechSynthesis) return;
+  const playAudio = async (text, chunkId = null, isModal = false) => {
+    if (!text) return;
 
     // If currently speaking this exact item, toggle off
     if (isModal && isModalSpeaking) {
@@ -114,34 +114,17 @@ export default function LiteracyPage() {
 
     stopAudio();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = activeLang === 'te' ? 'te-IN' : activeLang === 'hi' ? 'hi-IN' : 'en-IN';
-    utterance.rate = 0.92; // Slightly measured rate for low-literacy clarity
+    if (isModal) setIsModalSpeaking(true);
+    if (chunkId) setPlayingChunkId(chunkId);
 
-    // Select suitable voice if available
-    const voices = window.speechSynthesis.getVoices();
-    const matchedVoice = voices.find(v => v.lang.startsWith(utterance.lang.slice(0, 2)));
-    if (matchedVoice) {
-      utterance.voice = matchedVoice;
+    try {
+      await speechProvider.speak(text, activeLang);
+    } catch (err) {
+      console.warn('[Literacy TTS Error]:', err);
+    } finally {
+      if (isModal) setIsModalSpeaking(false);
+      setPlayingChunkId(null);
     }
-
-    utterance.onstart = () => {
-      if (isModal) setIsModalSpeaking(true);
-      if (chunkId) setPlayingChunkId(chunkId);
-    };
-
-    utterance.onend = () => {
-      if (isModal) setIsModalSpeaking(false);
-      setPlayingChunkId(null);
-    };
-
-    utterance.onerror = (e) => {
-      console.warn('[TTS Error]:', e);
-      if (isModal) setIsModalSpeaking(false);
-      setPlayingChunkId(null);
-    };
-
-    window.speechSynthesis.speak(utterance);
   };
 
   // Filter chunks by Category and Search query

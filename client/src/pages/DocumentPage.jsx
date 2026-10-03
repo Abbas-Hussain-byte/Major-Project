@@ -5,6 +5,7 @@ import {
   Send, Mic, ShieldCheck, Trash2
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { speechProvider } from '../services/speech/browserSpeech';
 import './DocumentPage.css';
 
 const getDocQuestionChips = (lang) => {
@@ -371,9 +372,7 @@ export default function DocumentPage() {
 
   const handleDeleteDocument = async () => {
     // Stop any active speech
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    speechProvider.stop();
     setIsSpeaking(false);
     setRagSpeaking(false);
 
@@ -417,21 +416,22 @@ export default function DocumentPage() {
     }
   };
 
-  const handleReadAloud = () => {
+  const handleReadAloud = async () => {
     if (!currentSummary) return;
 
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      if (isSpeaking) {
-        setIsSpeaking(false);
-        return;
-      }
-      const utterance = new SpeechSynthesisUtterance(currentSummary);
-      utterance.lang = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
+    if (isSpeaking) {
+      speechProvider.stop();
+      setIsSpeaking(false);
+      return;
+    }
+
+    try {
       setIsSpeaking(true);
-      window.speechSynthesis.speak(utterance);
+      await speechProvider.speak(currentSummary, language);
+    } catch (err) {
+      console.warn('[DocumentPage] Read aloud error:', err);
+    } finally {
+      setIsSpeaking(false);
     }
   };
 
@@ -516,20 +516,21 @@ export default function DocumentPage() {
     }
   };
 
-  const handleSpeakRagAnswer = () => {
+  const handleSpeakRagAnswer = async () => {
     if (!ragAnswer) return;
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      if (ragSpeaking) {
-        setRagSpeaking(false);
-        return;
-      }
-      const utterance = new SpeechSynthesisUtterance(ragAnswer);
-      utterance.lang = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-      utterance.onend = () => setRagSpeaking(false);
-      utterance.onerror = () => setRagSpeaking(false);
+    if (ragSpeaking) {
+      speechProvider.stop();
+      setRagSpeaking(false);
+      return;
+    }
+
+    try {
       setRagSpeaking(true);
-      window.speechSynthesis.speak(utterance);
+      await speechProvider.speak(ragAnswer, language);
+    } catch (err) {
+      console.warn('[DocumentPage] RAG TTS error:', err);
+    } finally {
+      setRagSpeaking(false);
     }
   };
 

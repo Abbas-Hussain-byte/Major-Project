@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { User, Save, Check, Shield, AlertCircle } from 'lucide-react';
+import { User, Save, Check, Shield, AlertCircle, Globe } from 'lucide-react';
 import { profileService } from '../api/services';
 import { useLanguage } from '../contexts/LanguageContext';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
-  const { t } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -116,6 +116,70 @@ export default function ProfilePage() {
         </div>
 
         <form onSubmit={handleSubmit} className="profile-form-grid">
+          {/* Preferred Language Setting */}
+          <div className="field-group full-width-field" style={{ gridColumn: '1 / -1' }}>
+            <label className="field-label">
+              <Globe size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'middle' }} />
+              {t('profile_lang_label')}
+            </label>
+            <p className="field-hint" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+              {t('profile_lang_hint')}
+            </p>
+            <div className="language-selector-pills" style={{ display: 'flex', gap: '10px' }}>
+              <button
+                type="button"
+                className={`lang-select-pill ${language === 'te' ? 'active' : ''}`}
+                onClick={() => setLanguage('te')}
+                style={{
+                  flex: 1,
+                  padding: '10px 16px',
+                  borderRadius: '10px',
+                  border: language === 'te' ? '2px solid var(--accent-cyan, #06b6d4)' : '1px solid var(--border-color, #e2e8f0)',
+                  backgroundColor: language === 'te' ? 'rgba(6, 182, 212, 0.12)' : 'var(--card-bg, #ffffff)',
+                  color: language === 'te' ? 'var(--accent-cyan, #06b6d4)' : 'var(--text-primary)',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                తెలుగు (Telugu)
+              </button>
+              <button
+                type="button"
+                className={`lang-select-pill ${language === 'hi' ? 'active' : ''}`}
+                onClick={() => setLanguage('hi')}
+                style={{
+                  flex: 1,
+                  padding: '10px 16px',
+                  borderRadius: '10px',
+                  border: language === 'hi' ? '2px solid var(--accent-cyan, #06b6d4)' : '1px solid var(--border-color, #e2e8f0)',
+                  backgroundColor: language === 'hi' ? 'rgba(6, 182, 212, 0.12)' : 'var(--card-bg, #ffffff)',
+                  color: language === 'hi' ? 'var(--accent-cyan, #06b6d4)' : 'var(--text-primary)',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                हिन्दी (Hindi)
+              </button>
+              <button
+                type="button"
+                className={`lang-select-pill ${language === 'en' ? 'active' : ''}`}
+                onClick={() => setLanguage('en')}
+                style={{
+                  flex: 1,
+                  padding: '10px 16px',
+                  borderRadius: '10px',
+                  border: language === 'en' ? '2px solid var(--accent-cyan, #06b6d4)' : '1px solid var(--border-color, #e2e8f0)',
+                  backgroundColor: language === 'en' ? 'rgba(6, 182, 212, 0.12)' : 'var(--card-bg, #ffffff)',
+                  color: language === 'en' ? 'var(--accent-cyan, #06b6d4)' : 'var(--text-primary)',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                English
+              </button>
+            </div>
+          </div>
+
           <div className="field-group">
             <label htmlFor="profile-age" className="field-label">{t('profile_age_label')}</label>
             <input 

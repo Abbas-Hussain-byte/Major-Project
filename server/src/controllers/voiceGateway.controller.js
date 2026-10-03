@@ -62,9 +62,22 @@ export const query = async (req, res) => {
 };
 
 export const transcribe = (req, res) => {
-  res.status(501).json({ error: 'Transcribe is handled client-side by browserSpeech.' });
+  res.status(501).json({ error: 'Transcribe is handled client-side by browserSpeech or /api/voice/transcribe.' });
 };
 
-export const synthesize = (req, res) => {
-  res.status(501).json({ error: 'Synthesize is handled client-side by browserSpeech.' });
+export const synthesize = async (req, res) => {
+  const { text, lang = 'en' } = req.body;
+  if (!text || typeof text !== 'string') {
+    return res.status(400).json({ error: 'text must be a non-empty string' });
+  }
+
+  try {
+    const { synthesizeSpeech } = await import('../services/voiceGateway/providers/sarvamService.js');
+    const result = await synthesizeSpeech(text, lang);
+    res.json(result);
+  } catch (err) {
+    console.warn('[VoiceGatewayController] synthesize warning:', err.message);
+    res.status(500).json({ error: err.message, audio: null });
+  }
 };
+

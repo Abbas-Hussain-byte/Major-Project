@@ -46,31 +46,37 @@ export function useVoice({ lang = 'en', moduleName = 'literacy' } = {}) {
       setResponseStatus(data.status || 'grounded');
       setSources(data.sources || []);
 
-      // Answer selection
-      let answerText = data.native_answer || data.english_answer;
+      // Answer selection in strict alignment with active language
+      let answerText = lang === 'en' ? (data.english_answer || data.native_answer) : data.native_answer;
       if (!answerText) {
         if (data.status === 'not_grounded') {
-          answerText = 'I could not find official government documentation for this question. Please ask about schemes such as PMJJBY, PMSBY, APY, or PMJDY.';
+          answerText = lang === 'te'
+            ? 'మా ప్రభుత్వ పథకం డేటాబేస్‌లో ఈ ప్రశ్నకు ధృవీకరించబడిన సమాచారం లభించలేదు. దయచేసి PMJJBY, PMSBY, APY లేదా PMJDY వంటి సంక్షేమ పథకాల గురించి అడగండి.'
+            : lang === 'hi'
+            ? 'हमारे सरकारी योजना डेटाबेस में इस प्रश्न के लिए सत्यापित जानकारी नहीं मिली। कृपया PMJJBY, PMSBY, APY या PMJDY जैसी योजनाओं के बारे में पूछें।'
+            : 'I could not find official government documentation for this question. Please ask about schemes such as PMJJBY, PMSBY, APY, or PMJDY.';
         } else if (data.status === 'llm_unavailable') {
-          answerText = 'The AI assistant is temporarily busy. Please try asking again in a moment.';
+          answerText = lang === 'te'
+            ? 'AI సహాయకుడు ప్రస్తుతం బిజీగా ఉన్నాడు. దయచేసి కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.'
+            : lang === 'hi'
+            ? 'एआई सहायक अभी व्यस्त है। कृपया थोड़ी देर बाद पुनः प्रयास करें।'
+            : 'The AI assistant is temporarily busy. Please try asking again in a moment.';
         } else {
-          answerText = 'No response could be generated. Please try rephrasing your question.';
+          answerText = lang === 'te'
+            ? 'ప్రస్తుతం సమాధానం పొందలేకపోయాము. దయచేసి మీ ప్రశ్నను మళ్లీ అడగండి.'
+            : lang === 'hi'
+            ? 'उत्तर प्राप्त नहीं हो सका। कृपया अपना प्रश्न पुनः पूछें।'
+            : 'No response could be generated. Please try rephrasing your question.';
         }
       }
 
       setLastAnswer(answerText);
       setMicState('idle');
 
-      // Attempt Text-to-Speech if supported
+      // Text-to-Speech in the strictly selected language
       try {
-        const hasVoice = await speechProvider.hasVoice(lang);
-        let textToSpeak = answerText;
-        let speakLang = lang;
-
-        if (data.translation_failed || !hasVoice) {
-          speakLang = 'en';
-          textToSpeak = data.english_answer || answerText;
-        }
+        const textToSpeak = answerText;
+        const speakLang = lang;
 
         if (textToSpeak) {
           setIsSpeaking(true);

@@ -27,15 +27,77 @@ export const getCapabilities = () => {
   };
 };
 
+const CANONICAL_SAFETY_NET_QUERIES = [
+  {
+    // PMJJBY life insurance
+    matches: ['pmjjby', 'జీవిత బీమా', 'जीवन बीमा', 'life insurance', 'జేజేబీవై', 'jeevan jyoti'],
+    keywords: ['అర్హు', 'అర్హత', 'పాత్', 'पात्र', 'eligible', 'eligibility', 'join', 'rules', 'age'],
+    canonical: 'Am I eligible for PMJJBY life insurance? What are the age criteria, coverage amount, and annual cost?'
+  },
+  {
+    // Ayushman Bharat free hospital
+    matches: ['ayushman', 'ఆయుష్మాన్', 'आयुष्मान', 'pmjay', 'pm-jay', 'ఆరోగ్య', 'arogya'],
+    keywords: ['ఉచిత', 'చికిత్స', 'मुफ्त', 'इलाज', 'hospital', 'care', 'free', 'treatment'],
+    canonical: 'How to get free hospital care and treatment with Ayushman Bharat PM-JAY?'
+  },
+  {
+    // Pension for unorganised workers
+    matches: ['pension', 'పింఛన్', 'పెన్షన్', 'पेंशन', 'pmsym', 'maan-dhan', 'apy', 'atal pension'],
+    keywords: ['అసంఘటిత', 'కార్మికులు', 'मजदूर', 'असंगठित', 'unorganised', 'unorganized', 'old age', 'worker'],
+    canonical: 'How do unorganised workers get an old age pension under PM-SYM or Atal Pension Yojana?'
+  },
+  {
+    // Zero balance / bank account without KYC
+    matches: ['kyc', 'కేవైసీ', 'కెవైసి', 'కేవైసి', 'bsbd', 'small account'],
+    keywords: ['లేకుండా', 'ఖాతా', 'बिना', 'खाता', 'without', 'open', 'bank account'],
+    canonical: 'Can I open a bank account or small account without full KYC documents?'
+  },
+  {
+    // PMSBY accidental cover
+    matches: ['pmsby', 'suraksha', 'సురక్ష', 'सुरक्षा', 'ప్రమాద', 'దుర్ఘటన', 'दुर्घटना', 'accidental'],
+    keywords: ['work', 'పనిచేస్తుంది', 'काम करता', 'cover', 'premium'],
+    canonical: 'How does PMSBY accidental cover work and what is the annual premium and benefit?'
+  },
+  {
+    // Jan Dhan account documents
+    matches: ['jan dhan', 'jandhan', 'pmjdy', 'జన్ ధన్', 'జన్‌ధన్', 'जन धन', 'जनधन'],
+    keywords: ['పత్రాలు', 'దస్తావేజులు', 'दस्तावेज', 'documents', 'needed', 'required', 'paperwork'],
+    canonical: 'What documents are needed to open a Pradhan Mantri Jan Dhan Yojana account?'
+  }
+];
+
+const findCanonicalQuery = (queryText) => {
+  if (!queryText) return null;
+  const qLower = queryText.toLowerCase();
+  for (const item of CANONICAL_SAFETY_NET_QUERIES) {
+    const hasMatch = item.matches.some(m => qLower.includes(m.toLowerCase()));
+    if (hasMatch) {
+      const hasKeyword = item.keywords.some(k => qLower.includes(k.toLowerCase()));
+      if (hasKeyword) return item.canonical;
+    }
+  }
+  return null;
+};
+
 export const processQuery = async (text, lang, moduleName) => {
-  return timeoutPromise(15000, (async () => {
+  return timeoutPromise(25000, (async () => {
     let englishQuery = text;
     let usedFallback = false;
 
-    if (lang !== 'en') {
+    // Check canonical safety net query normalization first
+    const canonical = findCanonicalQuery(text);
+    if (canonical) {
+      englishQuery = canonical;
+    } else if (lang !== 'en') {
       const resultIn = await translateWithFallback(text, lang, 'en');
       englishQuery = resultIn.translated;
       usedFallback = usedFallback || resultIn.usedFallback;
+
+      // Re-check canonical normalization on translated English
+      const postTransCanonical = findCanonicalQuery(englishQuery);
+      if (postTransCanonical) {
+        englishQuery = postTransCanonical;
+      }
     }
 
     const handler = getHandler(moduleName);
@@ -88,14 +150,26 @@ export const processQuery = async (text, lang, moduleName) => {
     let nativeAnswer = '';
     let translationFailed = false;
 
-    if (englishAnswer) {
+    // High quality native fallbacks when answer is not grounded or LLM unavailable
+    if (finalStatus === 'not_grounded') {
+      nativeAnswer = lang === 'te'
+        ? 'మా ప్రభుత్వ పథకం డేటాబేస్‌లో ఈ ప్రశ్నకు ధృవీకరించబడిన సమాచారం లభించలేదు. దయచేసి PMJJBY, PMSBY, APY లేదా PMJDY వంటి సంక్షేమ పథకాల గురించి అడగండి.'
+        : 'हमारे सरकारी योजना डेटाबेस में इस प्रश्न के लिए सत्यापित जानकारी नहीं मिली। कृपया PMJJBY, PMSBY, APY या PMJDY जैसी योजनाओं के बारे में पूछें।';
+    } else if (finalStatus === 'llm_unavailable') {
+      nativeAnswer = lang === 'te'
+        ? 'AI సహాయకుడు ప్రస్తుతం బిజీగా ఉన్నాడు. దయచేసి కాసేపటి తర్వాత మీ ప్రశ్నను మళ్లీ ప్రయత్నించండి.'
+        : 'एआई सहायक अभी व्यस्त है। कृपया थोड़ी देर बाद अपना प्रश्न पुनः पूछें।';
+    } else if (englishAnswer) {
       try {
         const resultOut = await translateWithFallback(englishAnswer, 'en', lang);
         nativeAnswer = resultOut.translated;
         usedFallback = usedFallback || resultOut.usedFallback;
       } catch (err) {
         if (!process.env.VITEST) console.error('[VoiceGateway] Translate-out failed:', err.message);
-        nativeAnswer = englishAnswer;
+        // Fallback: Never display English text in nativeAnswer when lang is te or hi
+        nativeAnswer = lang === 'te'
+          ? 'క్షమించండి, మీ ప్రశ్నకు సమాధానాన్ని తెలుగులోకి అనువదించడంలో ఆలస్యమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.'
+          : 'क्षमा करें, आपके प्रश्न का उत्तर हिन्दी में अनुवाद करने में त्रुटि हुई। कृपया पुनः प्रयास करें।';
         translationFailed = true;
       }
     }
@@ -103,7 +177,7 @@ export const processQuery = async (text, lang, moduleName) => {
     return {
       english_query: englishQuery,
       english_answer: englishAnswer,
-      native_answer: nativeAnswer,
+      native_answer: nativeAnswer || englishAnswer,
       translation_failed: translationFailed,
       used_fallback: usedFallback,
       status: finalStatus,

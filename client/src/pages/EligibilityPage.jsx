@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { getLocalizedScheme } from '../locales/schemeData';
+import { speechProvider } from '../services/speech/browserSpeech';
 import './EligibilityPage.css';
 
 export default function EligibilityPage() {
@@ -55,22 +56,27 @@ export default function EligibilityPage() {
     }));
   };
 
-  const handleSpeakScheme = (scheme, loc) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      if (speakingId === scheme._id) {
-        setSpeakingId(null);
-        return;
-      }
+  const handleSpeakScheme = async (scheme, loc) => {
+    if (speakingId === scheme._id) {
+      speechProvider.stop();
+      setSpeakingId(null);
+      return;
+    }
 
-      const costText = scheme.premium_annual_inr === 0 ? 'Free' : `₹${scheme.premium_annual_inr} rupees`;
-      const text = `${loc.localized_name}. ${costText}. ${loc.localized_benefit}. ${loc.localized_how_to_apply}`;
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = language === 'te' ? 'te-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-      utterance.onend = () => setSpeakingId(null);
-      utterance.onerror = () => setSpeakingId(null);
-      setSpeakingId(scheme._id);
-      window.speechSynthesis.speak(utterance);
+    speechProvider.stop();
+    setSpeakingId(scheme._id);
+
+    const costText = scheme.premium_annual_inr === 0 
+      ? (language === 'te' ? 'ఉచితం' : language === 'hi' ? 'నిఃशुल्क' : 'Free')
+      : (language === 'te' ? `వార్షిక రుసుము రూ. ${scheme.premium_annual_inr}` : language === 'hi' ? `वार्षिक प्रीमियम रु. ${scheme.premium_annual_inr}` : `Annual premium Rs. ${scheme.premium_annual_inr}`);
+    const text = `${loc.localized_name}. ${costText}. ${loc.localized_benefit}. ${loc.localized_how_to_apply}`;
+
+    try {
+      await speechProvider.speak(text, language);
+    } catch {
+      // Ignored
+    } finally {
+      setSpeakingId(null);
     }
   };
 
