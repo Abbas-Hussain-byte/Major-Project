@@ -19,7 +19,7 @@
   transition: all 0.3s ease;
   box-sizing: border-box;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .header-inner {
@@ -246,6 +246,7 @@
 .account-dropdown-wrapper {
   position: relative;
   flex-shrink: 0;
+  z-index: 1010;
 }
 
 .citizen-account-btn {
@@ -363,6 +364,7 @@
   padding: 20px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(99, 102, 241, 0.2);
   z-index: 1200;
+  animation: dropdownSlideFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .dropdown-header {
@@ -689,6 +691,10 @@
   color: #090d16;
 }
 
+[data-theme='light'] .dropdown-stat .val.positive {
+  color: #059669;
+}
+
 [data-theme='light'] .btn-dropdown-action.view-profile {
   background: #f1f5f9;
   border-color: #e2e8f0;
@@ -737,6 +743,17 @@
   0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
   70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes dropdownSlideFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (max-width: 860px) {

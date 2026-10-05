@@ -10,8 +10,8 @@
 body {
   font-family: var(--font-primary);
   font-size: var(--text-base);
-  color: var(--color-text-dark);
-  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

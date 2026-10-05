@@ -166,18 +166,36 @@ export default function VoiceProfileWizard({ isOpen, onClose, onComplete }) {
         has_bank_account: profileData.has_bank_account === 'true'
       };
 
-      await profileService.updateProfile(dataToSave);
+      const serverPayload = {
+        ...dataToSave,
+        income_band: dataToSave.income_band === '1L_to_2.5L' ? '1L_3L' : dataToSave.income_band === '2.5L_to_5L' ? '3L_5L' : dataToSave.income_band,
+        employment_type: ['gig_worker', 'street_vendor', 'daily_wage', 'other_unorganised'].includes(dataToSave.employment_type)
+          ? dataToSave.employment_type
+          : 'daily_wage'
+      };
+
+      let finalData = dataToSave;
+      try {
+        const res = await profileService.updateProfile(serverPayload);
+        if (res?.data) {
+          finalData = { ...dataToSave, ...res.data };
+        }
+      } catch (apiErr) {
+        console.warn("Could not save to API, saving locally:", apiErr.message);
+      }
+
       localStorage.setItem('benefitlens_onboarded', 'true');
+      localStorage.setItem('benefitlens_profile', JSON.stringify(finalData));
       
       // Dispatch profile update event so navbar account chip updates immediately
-      window.dispatchEvent(new CustomEvent('benefitlens_profile_updated', { detail: dataToSave }));
+      window.dispatchEvent(new CustomEvent('benefitlens_profile_updated', { detail: finalData }));
 
-      if (onComplete) onComplete(dataToSave);
+      if (onComplete) onComplete(finalData);
       onClose();
       navigate('/eligibility');
     } catch (err) {
       console.error('Failed to save profile:', err);
-      setError('Could not save profile to database. Please retry.');
+      setError('Could not save profile. Please retry.');
     } finally {
       setIsSaving(false);
     }

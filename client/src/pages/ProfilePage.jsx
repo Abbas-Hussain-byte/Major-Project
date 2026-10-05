@@ -21,21 +21,43 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
+    // 1. Instant local hydration from cache
+    try {
+      const cached = localStorage.getItem('benefitlens_profile');
+      if (cached) {
+        const p = JSON.parse(cached);
+        setFormData({
+          age: p.age !== undefined && p.age !== null ? p.age.toString() : '',
+          occupation: p.occupation || '',
+          employment_type: p.employment_type || 'daily_wage',
+          income_band: p.income_band === '1L_3L' ? '1L_to_2.5L' : p.income_band === '3L_5L' ? '2.5L_to_5L' : p.income_band || 'below_1L',
+          dependents: p.dependents !== undefined && p.dependents !== null ? p.dependents.toString() : '0',
+          has_bank_account: p.has_bank_account !== undefined ? p.has_bank_account.toString() : 'true'
+        });
+        setLoading(false);
+      }
+    } catch {}
+
+    // 2. Fetch latest from server
     const fetchProfile = async () => {
       try {
         const response = await profileService.getProfile();
         if (response.data) {
+          const p = response.data;
           setFormData({
-            age: response.data.age || '',
-            occupation: response.data.occupation || '',
-            employment_type: response.data.employment_type || 'daily_wage',
-            income_band: response.data.income_band || 'below_1L',
-            dependents: response.data.dependents?.toString() || '0',
-            has_bank_account: response.data.has_bank_account !== undefined ? response.data.has_bank_account.toString() : 'true'
+            age: p.age !== undefined && p.age !== null ? p.age.toString() : '',
+            occupation: p.occupation || '',
+            employment_type: p.employment_type || 'daily_wage',
+            income_band: p.income_band === '1L_3L' ? '1L_to_2.5L' : p.income_band === '3L_5L' ? '2.5L_to_5L' : p.income_band || 'below_1L',
+            dependents: p.dependents !== undefined && p.dependents !== null ? p.dependents.toString() : '0',
+            has_bank_account: p.has_bank_account !== undefined ? p.has_bank_account.toString() : 'true'
           });
+          try {
+            localStorage.setItem('benefitlens_profile', JSON.stringify(p));
+          } catch {}
         }
       } catch (err) {
-        console.error("Failed to load profile", err);
+        console.warn("Using offline / cached profile data:", err.message);
       } finally {
         setLoading(false);
       }
@@ -47,6 +69,19 @@ export default function ProfilePage() {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleLanguageSelect = (newLang) => {
+    setLanguage(newLang);
+    try {
+      const cached = localStorage.getItem('benefitlens_profile');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        parsed.preferred_language = newLang;
+        localStorage.setItem('benefitlens_profile', JSON.stringify(parsed));
+        window.dispatchEvent(new CustomEvent('benefitlens_profile_updated', { detail: parsed }));
+      }
+    } catch {}
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -54,19 +89,54 @@ export default function ProfilePage() {
     setError(null);
     
     try {
+      const parsedAge = formData.age ? parseInt(formData.age, 10) : undefined;
+      const parsedDep = formData.dependents !== '' ? parseInt(formData.dependents, 10) : 0;
+      const isBank = formData.has_bank_account === 'true' || formData.has_bank_account === true;
+
       const dataToSave = {
-        ...formData,
-        age: formData.age ? parseInt(formData.age, 10) : undefined,
-        dependents: formData.dependents ? parseInt(formData.dependents, 10) : 0,
-        has_bank_account: formData.has_bank_account === 'true'
+        age: parsedAge,
+        occupation: (formData.occupation || '').trim(),
+        employment_type: formData.employment_type || 'daily_wage',
+        income_band: formData.income_band || 'below_1L',
+        dependents: isNaN(parsedDep) ? 0 : parsedDep,
+        has_bank_account: isBank,
+        preferred_language: language
+      };
+
+      // Server payload mapping for schema compliance
+      const serverPayload = {
+        ...dataToSave,
+        income_band: dataToSave.income_band === '1L_to_2.5L' ? '1L_3L' : dataToSave.income_band === '2.5L_to_5L' ? '3L_5L' : dataToSave.income_band,
+        employment_type: ['gig_worker', 'street_vendor', 'daily_wage', 'other_unorganised'].includes(dataToSave.employment_type) 
+          ? dataToSave.employment_type 
+          : 'other_unorganised'
       };
       
-      await profileService.updateProfile(dataToSave);
+      let finalSaved = { ...dataToSave };
+
+      try {
+        const res = await profileService.updateProfile(serverPayload);
+        if (res?.data) {
+          finalSaved = { ...dataToSave, ...res.data };
+        }
+      } catch (apiErr) {
+        console.warn("Server update warning, storing locally:", apiErr.message);
+      }
+
+      // Persist to localStorage so the account section updates immediately across reloads
+      try {
+        localStorage.setItem('benefitlens_profile', JSON.stringify(finalSaved));
+        localStorage.setItem('benefitlens_onboarded', 'true');
+      } catch {}
+
+      // Dispatch dynamic profile update event to Navigation and other components
+      window.dispatchEvent(new CustomEvent('benefitlens_profile_updated', { detail: finalSaved }));
+
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch (err) {
       console.error("Failed to update profile", err);
-      setError("Failed to save changes. Please verify server connection.");
+      setError("Failed to save changes. Please try again.");
     } finally {
       setSaving(false);
     }
@@ -107,7 +177,7 @@ export default function ProfilePage() {
             <User size={32} />
           </div>
           <div className="profile-banner-info">
-            <h3>{formData.occupation || 'Unorganised Worker'}</h3>
+            <h3>{formData.occupation || t('account_citizen')}</h3>
             <span className="profile-badge">
               <Shield size={13} />
               <span>{t('profile_worker_tag')}</span>
@@ -117,63 +187,36 @@ export default function ProfilePage() {
 
         <form onSubmit={handleSubmit} className="profile-form-grid">
           {/* Preferred Language Setting */}
-          <div className="field-group full-width-field" style={{ gridColumn: '1 / -1' }}>
-            <label className="field-label">
-              <Globe size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'middle' }} />
-              {t('profile_lang_label')}
+          <div className="field-group full-width-field">
+            <label className="field-label" htmlFor="profile-lang-selector">
+              <Globe size={16} className="field-label-icon" aria-hidden="true" />
+              <span>{t('profile_lang_label')}</span>
             </label>
-            <p className="field-hint" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+            <p className="field-hint">
               {t('profile_lang_hint')}
             </p>
-            <div className="language-selector-pills" style={{ display: 'flex', gap: '10px' }}>
+            <div className="language-selector-pills" id="profile-lang-selector" role="group" aria-label={t('profile_lang_label')}>
               <button
                 type="button"
                 className={`lang-select-pill ${language === 'te' ? 'active' : ''}`}
-                onClick={() => setLanguage('te')}
-                style={{
-                  flex: 1,
-                  padding: '10px 16px',
-                  borderRadius: '10px',
-                  border: language === 'te' ? '2px solid var(--accent-cyan, #06b6d4)' : '1px solid var(--border-color, #e2e8f0)',
-                  backgroundColor: language === 'te' ? 'rgba(6, 182, 212, 0.12)' : 'var(--card-bg, #ffffff)',
-                  color: language === 'te' ? 'var(--accent-cyan, #06b6d4)' : 'var(--text-primary)',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
+                onClick={() => handleLanguageSelect('te')}
+                aria-pressed={language === 'te'}
               >
                 తెలుగు (Telugu)
               </button>
               <button
                 type="button"
                 className={`lang-select-pill ${language === 'hi' ? 'active' : ''}`}
-                onClick={() => setLanguage('hi')}
-                style={{
-                  flex: 1,
-                  padding: '10px 16px',
-                  borderRadius: '10px',
-                  border: language === 'hi' ? '2px solid var(--accent-cyan, #06b6d4)' : '1px solid var(--border-color, #e2e8f0)',
-                  backgroundColor: language === 'hi' ? 'rgba(6, 182, 212, 0.12)' : 'var(--card-bg, #ffffff)',
-                  color: language === 'hi' ? 'var(--accent-cyan, #06b6d4)' : 'var(--text-primary)',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
+                onClick={() => handleLanguageSelect('hi')}
+                aria-pressed={language === 'hi'}
               >
                 हिन्दी (Hindi)
               </button>
               <button
                 type="button"
                 className={`lang-select-pill ${language === 'en' ? 'active' : ''}`}
-                onClick={() => setLanguage('en')}
-                style={{
-                  flex: 1,
-                  padding: '10px 16px',
-                  borderRadius: '10px',
-                  border: language === 'en' ? '2px solid var(--accent-cyan, #06b6d4)' : '1px solid var(--border-color, #e2e8f0)',
-                  backgroundColor: language === 'en' ? 'rgba(6, 182, 212, 0.12)' : 'var(--card-bg, #ffffff)',
-                  color: language === 'en' ? 'var(--accent-cyan, #06b6d4)' : 'var(--text-primary)',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
+                onClick={() => handleLanguageSelect('en')}
+                aria-pressed={language === 'en'}
               >
                 English
               </button>

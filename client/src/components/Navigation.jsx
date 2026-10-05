@@ -16,22 +16,40 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
 
-  const [citizenProfile, setCitizenProfile] = useState(null);
+  const [citizenProfile, setCitizenProfile] = useState(() => {
+    try {
+      const cached = localStorage.getItem('benefitlens_profile');
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const accountRef = useRef(null);
 
-  // Fetch initial profile
+  // Fetch initial profile & listen for dynamic updates across components
   useEffect(() => {
     profileService.getProfile()
       .then(res => {
-        if (res.data) setCitizenProfile(res.data);
+        if (res.data) {
+          setCitizenProfile(res.data);
+          try {
+            localStorage.setItem('benefitlens_profile', JSON.stringify(res.data));
+          } catch {}
+        }
       })
       .catch(() => {});
 
     const handleProfileUpdate = (e) => {
       if (e.detail) {
-        setCitizenProfile(prev => ({ ...prev, ...e.detail }));
+        setCitizenProfile(prev => {
+          const merged = { ...(prev || {}), ...e.detail };
+          try {
+            localStorage.setItem('benefitlens_profile', JSON.stringify(merged));
+          } catch {}
+          return merged;
+        });
       }
     };
 
@@ -39,16 +57,32 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
     return () => window.removeEventListener('benefitlens_profile_updated', handleProfileUpdate);
   }, []);
 
-  // Close dropdown on click outside
+  // Close dropdown on click outside or escape key
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (accountRef.current && !accountRef.current.contains(e.target)) {
         setIsAccountOpen(false);
       }
     };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsAccountOpen(false);
+      }
+    };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
+
+  const getIncomeTierLabel = (band) => {
+    if (band === 'below_1L') return t('account_tier_bpl');
+    if (band === '1L_3L' || band === '1L_to_2.5L') return t('account_tier_mid');
+    if (band === '3L_5L' || band === '2.5L_to_5L' || band === 'above_5L') return t('account_tier_high');
+    return t('account_tier_bpl');
+  };
 
   const handleCenterMicClick = () => {
     if (onMicClick) {
@@ -180,8 +214,10 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
               <button 
                 type="button" 
                 className={`citizen-account-btn ${isAccountOpen ? 'open' : ''}`}
-                onClick={() => setIsAccountOpen(!isAccountOpen)}
+                onClick={() => setIsAccountOpen(prev => !prev)}
                 aria-label="Citizen Safety Net Account"
+                aria-expanded={isAccountOpen}
+                aria-haspopup="menu"
               >
                 <div className="account-avatar-mini">
                   <User size={14} />
@@ -189,10 +225,10 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
                 </div>
                 <div className="account-text-mini">
                   <span className="account-name-mini">
-                    {citizenProfile?.occupation ? citizenProfile.occupation.split(' ')[0] : 'Citizen'}
+                    {citizenProfile?.occupation ? citizenProfile.occupation.split(' ')[0] : t('account_citizen')}
                   </span>
                   <span className="account-sub-mini">
-                    {citizenProfile?.age ? `${citizenProfile.age} yrs • Active` : 'Profile'}
+                    {citizenProfile?.age ? `${citizenProfile.age} ${t('wizard_yrs')} • ${t('account_active_status')}` : t('dock_profile')}
                   </span>
                 </div>
                 <ChevronDown size={14} className={`dropdown-caret ${isAccountOpen ? 'rotate' : ''}`} />
@@ -206,7 +242,7 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
                       <User size={24} />
                     </div>
                     <div className="dropdown-title-info">
-                      <h4>{citizenProfile?.occupation || 'Unorganised Worker'}</h4>
+                      <h4>{citizenProfile?.occupation || t('account_citizen')}</h4>
                       <span className="dropdown-status-pill">
                         <ShieldCheck size={12} />
                         <span>{t('account_verified')}</span>
@@ -216,22 +252,22 @@ export default function Navigation({ onMicClick, isMicListening = false }) {
 
                   <div className="dropdown-stats-grid">
                     <div className="dropdown-stat">
-                      <span className="label">Age</span>
-                      <span className="val">{citizenProfile?.age || 32} yrs</span>
+                      <span className="label">{t('account_stat_age')}</span>
+                      <span className="val">{citizenProfile?.age ?? 32} {t('wizard_yrs')}</span>
                     </div>
                     <div className="dropdown-stat">
-                      <span className="label">Income Tier</span>
-                      <span className="val">BPL Tier</span>
+                      <span className="label">{t('account_stat_income')}</span>
+                      <span className="val">{getIncomeTierLabel(citizenProfile?.income_band)}</span>
                     </div>
                     <div className="dropdown-stat">
-                      <span className="label">Bank Account</span>
-                      <span className="val positive">
-                        {citizenProfile?.has_bank_account !== false ? 'Active Jan Dhan' : 'None'}
+                      <span className="label">{t('account_stat_bank')}</span>
+                      <span className={`val ${citizenProfile?.has_bank_account !== false ? 'positive' : ''}`}>
+                        {citizenProfile?.has_bank_account !== false ? t('account_active_bank') : t('account_no_bank')}
                       </span>
                     </div>
                     <div className="dropdown-stat">
-                      <span className="label">Dependents</span>
-                      <span className="val">{citizenProfile?.dependents || 3} members</span>
+                      <span className="label">{t('account_stat_dependents')}</span>
+                      <span className="val">{citizenProfile?.dependents ?? 0} {t('account_members')}</span>
                     </div>
                   </div>
 

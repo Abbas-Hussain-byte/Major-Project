@@ -394,3 +394,15 @@ select option {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* Glow Accent Icons */
+.glow-cyan {
+  color: #38bdf8;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
+}
+
+[data-theme='light'] .glow-cyan {
+  color: #0284c7;
+  filter: drop-shadow(0 0 6px rgba(2, 132, 199, 0.25));
+}
+

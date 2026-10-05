@@ -49,6 +49,15 @@ export const translations = {
     account_relaunch_wizard: 'Voice Profile Wizard',
     account_active_bank: 'Jan Dhan / Bank Active',
     account_no_bank: 'No Bank Linked',
+    account_active_status: 'Active',
+    account_stat_age: 'Age',
+    account_stat_income: 'Income Tier',
+    account_stat_bank: 'Bank Account',
+    account_stat_dependents: 'Dependents',
+    account_members: 'members',
+    account_tier_bpl: 'Below ₹1L (BPL)',
+    account_tier_mid: '₹1L – ₹2.5L Tier',
+    account_tier_high: 'Above ₹2.5L Tier',
 
     // Home Page
     home_title: 'Talk to',
@@ -270,6 +279,15 @@ export const translations = {
     account_relaunch_wizard: 'बोलकर प्रोफ़ाइल सेट करें',
     account_active_bank: 'जन धन / बैंक सक्रिय',
     account_no_bank: 'बैंक खाता नहीं जुड़ा',
+    account_active_status: 'सक्रिय',
+    account_stat_age: 'उम्र',
+    account_stat_income: 'आय वर्ग',
+    account_stat_bank: 'बैंक खाता',
+    account_stat_dependents: 'आश्रित',
+    account_members: 'सदस्य',
+    account_tier_bpl: '₹1 लाख से कम (BPL)',
+    account_tier_mid: '₹1L – ₹2.5L वर्ग',
+    account_tier_high: '₹2.5L से अधिक वर्ग',
 
     // Home Page
     home_title: 'बात करें',
@@ -491,6 +509,15 @@ export const translations = {
     account_relaunch_wizard: 'వాయిస్ ప్రొఫైల్ విజార్డ్',
     account_active_bank: 'జన్ ధన్ / బ్యాంక్ యాక్టివ్',
     account_no_bank: 'బ్యాంక్ ఖాతా లేదు',
+    account_active_status: 'యాక్టివ్',
+    account_stat_age: 'వయస్సు',
+    account_stat_income: 'ఆదాయ శ్రేణి',
+    account_stat_bank: 'బ్యాంక్ ఖాతా',
+    account_stat_dependents: 'ఆధారపడినవారు',
+    account_members: 'సభ్యులు',
+    account_tier_bpl: '₹1 లక్ష లోపు (BPL)',
+    account_tier_mid: '₹1ల – ₹2.5ల శ్రేణి',
+    account_tier_high: '₹2.5ల పైబడిన శ్రేణి',
 
     // Home Page
     home_title: 'మాట్లాడండి',

@@ -81,6 +81,64 @@
   gap: 20px 24px;
 }
 
+/* Full Width Field (Language Selector, etc.) */
+.full-width-field {
+  grid-column: 1 / -1;
+}
+
+.field-label-icon {
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.field-hint {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-top: -2px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* Language Selector Pills */
+.language-selector-pills {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.lang-select-pill {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  background: rgba(30, 41, 59, 0.65);
+  color: #cbd5e1;
+  font-weight: 600;
+  font-size: 14.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.lang-select-pill:hover:not(.active) {
+  background: rgba(51, 65, 85, 0.85);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.lang-select-pill.active {
+  border: 2px solid #06b6d4;
+  background: rgba(6, 182, 212, 0.16);
+  color: #22d3ee;
+  font-weight: 700;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.28);
+}
+
 .form-submit-full {
   grid-column: 1 / -1;
   margin-top: 24px;
@@ -153,6 +211,47 @@
   color: #059669;
 }
 
+[data-theme='light'] .profile-error-banner {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+[data-theme='light'] .field-label {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+[data-theme='light'] .field-label-icon {
+  color: #0284c7;
+}
+
+[data-theme='light'] .field-hint {
+  color: #475569;
+}
+
+[data-theme='light'] .lang-select-pill {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #1e293b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .lang-select-pill:hover:not(.active) {
+  background: #f1f5f9;
+  color: #090d16;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+[data-theme='light'] .lang-select-pill.active {
+  background: rgba(6, 182, 212, 0.12);
+  border: 2px solid #0891b2;
+  color: #0e7490;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(8, 145, 178, 0.2);
+}
+
 [data-theme='light'] .btn-save-profile {
   background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
   color: #ffffff !important;
@@ -163,8 +262,17 @@
   box-shadow: 0 12px 30px rgba(5, 150, 105, 0.5) !important;
 }
 
+[data-theme='light'] .loading-card {
+  color: #64748b;
+}
+
 @media (max-width: 640px) {
   .profile-form-grid {
     grid-template-columns: 1fr;
   }
+  .language-selector-pills {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
+
