@@ -480,30 +480,6 @@
   color: #ffffff;
 }
 
-.ai-status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 6px 12px;
-  border-radius: 20px;
-}
-
-.status-ping {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 10px #10b981;
-  animation: pingGreen 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-.status-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #34d399;
-}
 
 /* ==========================================================================
    Floating Center Bottom Dock
@@ -759,5 +735,142 @@
 @media (max-width: 860px) {
   .header-nav-links {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-top-header {
+    height: 60px;
+    padding: 0 12px;
+  }
+
+  .brand-group {
+    gap: 6px;
+  }
+
+  .brand-logo-pod {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .brand-title {
+    font-size: 16px;
+  }
+
+  .brand-badge {
+    font-size: 8.5px;
+  }
+
+  .header-actions {
+    gap: 5px;
+  }
+
+  .ai-status-indicator {
+    padding: 4px 6px;
+  }
+
+  .ai-status-indicator .status-label {
+    display: none;
+  }
+
+  .account-sub-mini {
+    display: none;
+  }
+
+  /* Floating Dock Mobile Optimization */
+  .floating-bottom-dock {
+    bottom: 14px;
+    padding: 4px 10px;
+    max-width: calc(100vw - 20px);
+    border-radius: 9999px;
+  }
+
+  .dock-group {
+    gap: 4px;
+  }
+
+  .dock-item {
+    min-width: 58px;
+    padding: 6px 10px;
+    font-size: 10.5px;
+  }
+
+  .dock-center-mic {
+    padding: 0 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .desktop-top-header {
+    height: 56px;
+    padding: 0 8px;
+  }
+
+  .brand-title {
+    font-size: 14.5px;
+  }
+
+  .brand-badge {
+    display: none;
+  }
+
+  .brand-logo-pod {
+    width: 30px;
+    height: 30px;
+  }
+
+  .theme-toggle-btn {
+    padding: 5px 6px;
+  }
+
+  .header-lang-switcher {
+    padding: 2px 3px;
+    gap: 1px;
+  }
+
+  .lang-btn-pill {
+    padding: 2.5px 5px;
+    font-size: 10.5px;
+  }
+
+  .ai-status-indicator {
+    display: none;
+  }
+
+  .account-text-mini {
+    display: none;
+  }
+
+  .citizen-account-btn {
+    padding: 3px 6px;
+    gap: 3px;
+  }
+
+  /* Dock ultra-compact for small phones */
+  .floating-bottom-dock {
+    bottom: 10px;
+    padding: 3px 6px;
+    max-width: calc(100vw - 12px);
+  }
+
+  .dock-group {
+    gap: 2px;
+  }
+
+  .dock-item {
+    min-width: 48px;
+    padding: 5px 6px;
+    font-size: 9.5px;
+    gap: 2px;
+  }
+
+  .dock-center-mic {
+    padding: 0 4px;
+  }
+
+  .citizen-account-dropdown {
+    width: calc(100vw - 24px);
+    right: -4px;
   }
 }

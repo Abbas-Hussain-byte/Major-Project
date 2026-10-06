@@ -126,14 +126,6 @@ export const processQuery = async (text, lang, moduleName) => {
       finalStatus = handlerResult.status || 'grounded';
       sources = handlerResult.sources || [];
     }
-
-    if (!englishAnswer) {
-      if (finalStatus === 'not_grounded') {
-        englishAnswer = 'I could not find verified information for this question in our government scheme database. Please try asking about schemes such as PMJJBY, PMSBY, APY, or PMJDY.';
-      } else if (finalStatus === 'llm_unavailable') {
-        englishAnswer = 'The AI assistant is temporarily busy or updating. Please try your question again in a moment.';
-      }
-    }
     
     if (lang === 'en') {
       return {
@@ -150,26 +142,14 @@ export const processQuery = async (text, lang, moduleName) => {
     let nativeAnswer = '';
     let translationFailed = false;
 
-    // High quality native fallbacks when answer is not grounded or LLM unavailable
-    if (finalStatus === 'not_grounded') {
-      nativeAnswer = lang === 'te'
-        ? 'మా ప్రభుత్వ పథకం డేటాబేస్‌లో ఈ ప్రశ్నకు ధృవీకరించబడిన సమాచారం లభించలేదు. దయచేసి PMJJBY, PMSBY, APY లేదా PMJDY వంటి సంక్షేమ పథకాల గురించి అడగండి.'
-        : 'हमारे सरकारी योजना डेटाबेस में इस प्रश्न के लिए सत्यापित जानकारी नहीं मिली। कृपया PMJJBY, PMSBY, APY या PMJDY जैसी योजनाओं के बारे में पूछें।';
-    } else if (finalStatus === 'llm_unavailable') {
-      nativeAnswer = lang === 'te'
-        ? 'AI సహాయకుడు ప్రస్తుతం బిజీగా ఉన్నాడు. దయచేసి కాసేపటి తర్వాత మీ ప్రశ్నను మళ్లీ ప్రయత్నించండి.'
-        : 'एआई सहायक अभी व्यस्त है। कृपया थोड़ी देर बाद अपना प्रश्न पुनः पूछें।';
-    } else if (englishAnswer) {
+    if (englishAnswer) {
       try {
         const resultOut = await translateWithFallback(englishAnswer, 'en', lang);
         nativeAnswer = resultOut.translated;
         usedFallback = usedFallback || resultOut.usedFallback;
       } catch (err) {
         if (!process.env.VITEST) console.error('[VoiceGateway] Translate-out failed:', err.message);
-        // Fallback: Never display English text in nativeAnswer when lang is te or hi
-        nativeAnswer = lang === 'te'
-          ? 'క్షమించండి, మీ ప్రశ్నకు సమాధానాన్ని తెలుగులోకి అనువదించడంలో ఆలస్యమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.'
-          : 'क्षमा करें, आपके प्रश्न का उत्तर हिन्दी में अनुवाद करने में त्रुटि हुई। कृपया पुनः प्रयास करें।';
+        nativeAnswer = englishAnswer;
         translationFailed = true;
       }
     }

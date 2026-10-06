@@ -37,6 +37,21 @@ const schemeSchema = new mongoose.Schema(
     how_to_apply: { type: String },
     source_document_ref: { type: String },
     is_active: { type: Boolean, default: true },
+    // myScheme.gov.in Comprehensive Dossier Fields
+    ministry: { type: String },
+    details: { type: String },
+    benefits_list: [{ type: String }],
+    eligibility_list: [{ type: String }],
+    exclusions_list: [{ type: String }],
+    application_process: { type: String },
+    documents_required: [{ type: String }],
+    faqs: [
+      {
+        question: { type: String },
+        answer: { type: String }
+      }
+    ],
+    tags: [{ type: String }],
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );

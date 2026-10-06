@@ -178,6 +178,92 @@ const SCHEMES = [
     how_to_apply: 'Identified through Gram Sabha or apply via local block development office / municipal corporation.',
     source_document_ref: 'https://pmayg.nic.in',
     is_active: true
+  },
+  {
+    name: 'Education Loan Scheme of NMDFC',
+    type: 'government_scheme',
+    eligibility_criteria: {
+      age_min: 16,
+      age_max: 35,
+      income_max_band: '3L_5L'
+    },
+    benefit_description: 'Concessional education loan up to Rs. 20 Lakhs for domestic courses and Rs. 30 Lakhs for courses abroad for professional/technical education at 3% to 8% interest with 3% concession for women.',
+    premium_annual_inr: 0,
+    coverage_inr: 2000000,
+    how_to_apply: 'Apply through State Channelizing Agencies (SCAs) nominated by State Governments or partner banks (Canara Bank, Punjab Grameen Bank) or via UMANG portal.',
+    source_document_ref: 'https://www.nmdfc.org/',
+    is_active: true
+  },
+  {
+    name: 'PM Kisan Samman Nidhi (PM-KISAN)',
+    type: 'government_scheme',
+    eligibility_criteria: {
+      age_min: 18,
+      age_max: 90
+    },
+    benefit_description: 'Direct income support of Rs. 6,000 per year transferred in 3 equal four-monthly installments of Rs. 2,000 directly into Aadhaar-linked bank accounts.',
+    premium_annual_inr: 0,
+    coverage_inr: 6000,
+    how_to_apply: 'Self-register on pmkisan.gov.in (Farmers Corner) or apply via local CSC / Village Nodal Officer.',
+    source_document_ref: 'https://pmkisan.gov.in/',
+    is_active: true
+  },
+  {
+    name: 'Sukanya Samriddhi Yojana (SSY / Beti Bachao)',
+    type: 'government_scheme',
+    eligibility_criteria: {
+      age_min: 18,
+      age_max: 65,
+      min_dependents: 1
+    },
+    benefit_description: 'High-interest sovereign savings scheme for girl children up to age 10 with highest sovereign guaranteed interest (~8.2% p.a.) and 100% tax exemption under Section 80C.',
+    premium_annual_inr: 250,
+    coverage_inr: 150000,
+    how_to_apply: 'Open account at any Post Office or authorized commercial bank branch with girl child birth certificate and KYC documents.',
+    source_document_ref: 'https://www.indiapost.gov.in/',
+    is_active: true
+  },
+  {
+    name: 'Stand-Up India Scheme (SC/ST & Women Entrepreneurship)',
+    type: 'government_scheme',
+    eligibility_criteria: {
+      age_min: 18,
+      age_max: 65
+    },
+    benefit_description: 'Bank loans between Rs. 10 Lakh and Rs. 1 Crore for setting up greenfield enterprises in manufacturing, services, or trading by SC/ST or women entrepreneurs.',
+    premium_annual_inr: 0,
+    coverage_inr: 1000000,
+    how_to_apply: 'Apply through standupmitra.in portal or visit nearest scheduled commercial bank branch.',
+    source_document_ref: 'https://www.standupmitra.in/',
+    is_active: true
+  },
+  {
+    name: 'Pradhan Mantri Matsya Sampada Yojana (PMMSY)',
+    type: 'government_scheme',
+    eligibility_criteria: {
+      age_min: 18,
+      age_max: 70
+    },
+    benefit_description: 'Financial assistance and 40% to 60% capital subsidy for fishers, fish farmers, biofloc units, modern fishing boats, cold storage, and aquaculture equipment.',
+    premium_annual_inr: 0,
+    coverage_inr: 300000,
+    how_to_apply: 'Submit project proposal to District Fisheries Officer or apply via PMMSY state nodal agency.',
+    source_document_ref: 'https://pmmsy.dof.gov.in/',
+    is_active: true
+  },
+  {
+    name: 'Pradhan Mantri Kaushal Vikas Yojana (PMKVY 4.0)',
+    type: 'government_scheme',
+    eligibility_criteria: {
+      age_min: 15,
+      age_max: 45
+    },
+    benefit_description: 'Free industry-aligned skill training, National Skills Qualification Framework (NSQF) certification, accident insurance, and assessment reward for youth.',
+    premium_annual_inr: 0,
+    coverage_inr: 20000,
+    how_to_apply: 'Register on Skill India Digital (skillindiadigital.gov.in) or visit nearest PMKVY Training Centre.',
+    source_document_ref: 'https://www.pmkvyofficial.org/',
+    is_active: true
   }
 ];
 

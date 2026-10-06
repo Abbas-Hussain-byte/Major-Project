@@ -305,6 +305,18 @@ select option {
   box-sizing: border-box;
 }
 
+@media (max-width: 768px) {
+  .page-container {
+    padding: 20px 16px 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 16px 12px 130px;
+  }
+}
+
 /* Header standard */
 .page-header {
   text-align: center;
