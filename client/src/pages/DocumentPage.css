@@ -557,9 +557,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(99, 102, 241, 0.35);
-  color: #818cf8;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.45);
+  color: #c7d2fe;
   padding: 8px 16px;
   border-radius: 12px;
   font-size: 13px;
@@ -569,8 +569,28 @@
 }
 
 .btn-read-aloud:hover {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.35);
+  border-color: #818cf8;
   color: #ffffff;
+}
+
+.btn-read-aloud.btn-read-risks {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #fecaca;
+}
+
+.btn-read-aloud.btn-read-risks:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+.btn-read-aloud.active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.6);
 }
 
 .result-card-body p {
@@ -838,14 +858,29 @@
 }
 
 [data-theme='light'] .btn-read-aloud {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-  color: #4f46e5;
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  color: #1d4ed8;
+  font-weight: 700;
 }
 
 [data-theme='light'] .btn-read-aloud:hover {
-  background: #e2e8f0;
-  color: #4338ca;
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+[data-theme='light'] .btn-read-aloud.btn-read-risks {
+  background: #fef2f2;
+  border: 1.5px solid #fecaca;
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+[data-theme='light'] .btn-read-aloud.btn-read-risks:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
 }
 
 [data-theme='light'] .checklist-item {

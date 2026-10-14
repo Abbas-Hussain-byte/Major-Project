@@ -192,8 +192,11 @@
 .scheme-match-reasons-box {
   background: rgba(16, 185, 129, 0.06);
   border: 1px solid rgba(16, 185, 129, 0.2);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 12px 14px;
+  min-height: 124px;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 4px;
 }
 
@@ -273,9 +276,10 @@
 /* Schemes Grid */
 .schemes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 24px;
   width: 100%;
+  align-items: stretch;
 }
 
 .scheme-card {
@@ -284,13 +288,14 @@
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  padding: 26px;
+  padding: 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   transition: all 0.25s ease;
   position: relative;
+  height: 100%;
 }
 
 .scheme-card:hover {
@@ -306,9 +311,10 @@
 
 .scheme-card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  min-height: 38px;
 }
 
 .scheme-tag-group {
@@ -364,9 +370,9 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -376,9 +382,9 @@
 }
 
 .btn-listen-scheme:hover {
-  background: rgba(99, 102, 241, 0.25);
+  background: rgba(99, 102, 241, 0.3);
   color: #ffffff;
-  border-color: #6366f1;
+  border-color: #818cf8;
 }
 
 .btn-listen-scheme.active {
@@ -390,10 +396,13 @@
 
 .scheme-title {
   margin: 0;
-  font-size: 20px;
+  font-size: 19px;
   color: #ffffff;
   line-height: 1.35;
   font-weight: 700;
+  min-height: 52px;
+  display: flex;
+  align-items: flex-start;
 }
 
 /* Metrics Bar */
@@ -405,6 +414,8 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
   padding: 12px 14px;
+  min-height: 68px;
+  align-items: center;
 }
 
 .metric-box {
@@ -436,9 +447,15 @@
 }
 
 /* Explanation & Instructions */
+.scheme-explanation-box {
+  min-height: 72px;
+  display: flex;
+  align-items: flex-start;
+}
+
 .scheme-explanation-box p {
   margin: 0;
-  font-size: 14.5px;
+  font-size: 14px;
   line-height: 1.6;
   color: #e2e8f0;
   font-weight: 450;
@@ -450,8 +467,12 @@
   background: rgba(59, 130, 246, 0.08);
   border-left: 3px solid #3b82f6;
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: 10px;
   line-height: 1.5;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .apply-instruction-box strong {
@@ -460,28 +481,30 @@
 
 /* Card Footer */
 .scheme-card-footer {
+  margin-top: auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-top: 10px;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .btn-view-dossier {
+  width: 100%;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(59, 130, 246, 0.25) 100%);
   border: 1px solid rgba(99, 102, 241, 0.45);
-  color: #c7d2fe;
-  padding: 9px 16px;
+  color: #e0e7ff;
+  padding: 10px 16px;
   border-radius: 12px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 40px;
 }
 
 .btn-view-dossier:hover {
@@ -492,50 +515,68 @@
   transform: translateY(-1px);
 }
 
+.scheme-card-footer-secondary {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+
 .btn-enroll {
+  flex: 1 1 0;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
-  padding: 9px 15px;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
+  padding: 8px 10px;
   border-radius: 12px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
+  min-height: 38px;
+  text-align: center;
 }
 
 .btn-enroll:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
 }
 
 .btn-enroll.btn-enrolled {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.4);
-  color: #34d399;
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #6ee7b7;
 }
 
 .btn-official-link {
+  flex: 1 1 0;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: #94a3b8;
-  font-size: 12.5px;
+  justify-content: center;
+  gap: 5px;
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
   text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   transition: all 0.2s;
+  white-space: nowrap;
+  min-height: 38px;
+  text-align: center;
 }
 
 .btn-official-link:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Empty Card */
@@ -577,7 +618,7 @@
 
 .dossier-modal-container {
   width: 100%;
-  max-width: 780px;
+  max-width: min(94vw, 880px);
   max-height: 88vh;
   background: #0f172a;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -640,9 +681,9 @@
 .dossier-pill-tag {
   font-size: 11px;
   font-weight: 600;
-  color: #a5b4fc;
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: #c7d2fe;
+  background: rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.35);
   padding: 2px 8px;
   border-radius: 6px;
 }
@@ -658,9 +699,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
   padding: 7px 12px;
   border-radius: 12px;
   font-size: 12.5px;
@@ -670,7 +711,8 @@
 }
 
 .btn-dossier-speak:hover {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(99, 102, 241, 0.3);
+  border-color: #818cf8;
   color: #ffffff;
 }
 
@@ -684,9 +726,9 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #cbd5e1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -695,9 +737,9 @@
 }
 
 .btn-dossier-close:hover {
-  background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
-  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.5);
 }
 
 /* Dossier Tabs Navigation */
@@ -705,37 +747,50 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 24px;
+  padding: 10px 20px;
   background: rgba(0, 0, 0, 0.35);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
 }
 
 .dossier-tabs-nav::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+}
+
+.dossier-tabs-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dossier-tabs-nav::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.35);
+  border-radius: 4px;
 }
 
 .dossier-tab-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 7px 14px;
+  padding: 8px 12px;
   border-radius: 10px;
   background: transparent;
   border: 1px solid transparent;
-  color: #94a3b8;
+  color: #cbd5e1;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  flex-shrink: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .dossier-tab-btn:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .dossier-tab-btn.active {
@@ -778,7 +833,7 @@
 
 .stat-card-label {
   font-size: 11px;
-  color: #94a3b8;
+  color: #cbd5e1;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -1075,9 +1130,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(99, 102, 241, 0.4);
-  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1.5px solid rgba(165, 180, 252, 0.45);
+  color: #e0e7ff;
   padding: 9px 16px;
   border-radius: 10px;
   font-size: 13px;
@@ -1086,19 +1141,30 @@
   transition: all 0.2s;
 }
 
+.btn-dossier-enroll:hover {
+  background: rgba(99, 102, 241, 0.35);
+  border-color: #818cf8;
+  color: #ffffff;
+}
+
 .btn-dossier-enroll.enrolled {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.4);
-  color: #34d399;
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #6ee7b7;
+}
+
+.btn-dossier-enroll.enrolled:hover {
+  background: rgba(16, 185, 129, 0.3);
+  color: #ffffff;
 }
 
 .btn-dossier-portal {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
   padding: 9px 16px;
   border-radius: 10px;
   font-size: 13px;
@@ -1108,14 +1174,15 @@
 }
 
 .btn-dossier-portal:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.32);
   color: #ffffff;
 }
 
 .btn-dossier-dismiss {
   background: #334155;
   color: #ffffff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 9px 18px;
   border-radius: 10px;
   font-size: 13px;
@@ -1126,6 +1193,7 @@
 
 .btn-dossier-dismiss:hover {
   background: #475569;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* ==========================================================================
@@ -1188,6 +1256,11 @@
     gap: 8px;
   }
 
+  .scheme-card-footer-secondary {
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .btn-view-dossier,
   .btn-enroll,
   .btn-official-link {
@@ -1228,12 +1301,14 @@
   }
 
   .dossier-tabs-nav {
-    padding: 8px 16px;
+    padding: 8px 12px;
+    gap: 6px;
   }
 
   .dossier-tab-btn {
-    padding: 6px 11px;
+    padding: 7px 12px;
     font-size: 12px;
+    flex: 0 0 auto;
   }
 
   .dossier-modal-body {
@@ -1346,20 +1421,31 @@
   color: #334155;
 }
 
+[data-theme='light'] .scheme-card.enrolled {
+  border-color: rgba(5, 150, 105, 0.4);
+  background: linear-gradient(180deg, rgba(5, 150, 105, 0.04) 0%, #ffffff 100%);
+}
+
 [data-theme='light'] .apply-instruction-box {
-  background: #f8fafc;
-  border-color: #e2e8f0;
+  background: #eff6ff;
+  border-left: 3px solid #3b82f6;
+  border-color: #dbeafe;
   color: #1e293b;
 }
 
 [data-theme='light'] .apply-instruction-box strong {
-  color: #090d16;
+  color: #1d4ed8;
+}
+
+[data-theme='light'] .scheme-card-footer {
+  border-top-color: #e2e8f0;
 }
 
 [data-theme='light'] .btn-view-dossier {
   background: #f1f5f9;
-  border-color: #cbd5e1;
-  color: #1e293b;
+  border: 1.5px solid #cbd5e1;
+  color: #090d16;
+  font-weight: 700;
 }
 
 [data-theme='light'] .btn-view-dossier:hover {
@@ -1369,30 +1455,42 @@
 }
 
 [data-theme='light'] .btn-enroll {
-  background: #ffffff;
-  border-color: #cbd5e1;
-  color: #1e293b;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #0f172a;
+  font-weight: 600;
 }
 
 [data-theme='light'] .btn-enroll:hover {
-  background: #f1f5f9;
+  background: #ede9fe;
+  border-color: #a5b4fc;
+  color: #4338ca;
 }
 
 [data-theme='light'] .btn-enroll.btn-enrolled {
-  background: rgba(5, 150, 105, 0.15);
+  background: #ecfdf5;
+  border: 1.5px solid #10b981;
+  color: #047857;
+  font-weight: 700;
+}
+
+[data-theme='light'] .btn-enroll.btn-enrolled:hover {
+  background: #d1fae5;
   border-color: #059669;
-  color: #059669;
+  color: #065f46;
 }
 
 [data-theme='light'] .btn-official-link {
-  background: #f1f5f9;
-  border-color: #e2e8f0;
-  color: #475569;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #0f172a;
+  font-weight: 600;
 }
 
 [data-theme='light'] .btn-official-link:hover {
   background: #e2e8f0;
-  color: #090d16;
+  border-color: #94a3b8;
+  color: #000000;
 }
 
 [data-theme='light'] .summary-count {
@@ -1404,20 +1502,33 @@
 }
 
 [data-theme='light'] .btn-refresh-text {
-  background: #f1f5f9;
-  border-color: #e2e8f0;
-  color: #475569;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+[data-theme='light'] .btn-refresh-text:hover {
+  background: #e2e8f0;
+  color: #000000;
 }
 
 [data-theme='light'] .btn-listen-scheme {
-  background: #f1f5f9;
-  border-color: #e2e8f0;
-  color: #475569;
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  color: #1d4ed8;
 }
 
 [data-theme='light'] .btn-listen-scheme:hover {
-  background: #e2e8f0;
-  color: #090d16;
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+[data-theme='light'] .btn-listen-scheme.active {
+  background: #059669;
+  border-color: #059669;
+  color: #ffffff;
 }
 
 [data-theme='light'] .loading-schemes-card,
@@ -1485,26 +1596,71 @@
 /* Light Mode: Dossier Modal */
 [data-theme='light'] .dossier-modal-container {
   background: #ffffff;
-  border-color: #cbd5e1;
+  border: 1px solid #cbd5e1;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme='light'] .dossier-modal-header {
   background: #ffffff;
-  border-color: #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 [data-theme='light'] .dossier-scheme-title {
   color: #090d16;
 }
 
+[data-theme='light'] .dossier-ministry-badge {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+
+[data-theme='light'] .dossier-pill-tag {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #4338ca;
+  font-weight: 600;
+}
+
+[data-theme='light'] .btn-dossier-speak {
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+[data-theme='light'] .btn-dossier-speak:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+[data-theme='light'] .btn-dossier-speak.speaking {
+  background: #059669;
+  border-color: #059669;
+  color: #ffffff;
+}
+
+[data-theme='light'] .btn-dossier-close {
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  color: #334155;
+}
+
+[data-theme='light'] .btn-dossier-close:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
 [data-theme='light'] .dossier-tabs-nav {
   background: #f8fafc;
-  border-color: #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 [data-theme='light'] .dossier-tab-btn {
-  color: #64748b;
+  color: #334155;
+  font-weight: 600;
 }
 
 [data-theme='light'] .dossier-tab-btn:hover {
@@ -1523,7 +1679,7 @@
 }
 
 [data-theme='light'] .dossier-paragraph {
-  color: #334155;
+  color: #1e293b;
 }
 
 [data-theme='light'] .dossier-bullet-item {
@@ -1532,11 +1688,24 @@
 
 [data-theme='light'] .dossier-stat-card {
   background: #f8fafc;
-  border-color: #e2e8f0;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] .dossier-stat-card .stat-card-label {
+  color: #475569;
+  font-weight: 700;
 }
 
 [data-theme='light'] .dossier-stat-card .stat-card-val {
   color: #090d16;
+}
+
+[data-theme='light'] .dossier-stat-card .stat-card-val.cost {
+  color: #1d4ed8;
+}
+
+[data-theme='light'] .dossier-stat-card .stat-card-val.cover {
+  color: #047857;
 }
 
 [data-theme='light'] .process-step-row,
@@ -1560,20 +1729,74 @@
   color: #1e293b;
 }
 
+[data-theme='light'] .dossier-source-link-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] .source-label {
+  color: #475569;
+  font-weight: 600;
+}
+
+[data-theme='light'] .source-anchor {
+  color: #1d4ed8;
+}
+
 [data-theme='light'] .dossier-modal-footer {
   background: #ffffff;
-  border-color: #e2e8f0;
+  border-top: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] .btn-dossier-enroll {
+  background: #f5f3ff;
+  border: 1.5px solid #c7d2fe;
+  color: #4338ca;
+  font-weight: 700;
+}
+
+[data-theme='light'] .btn-dossier-enroll:hover {
+  background: #ede9fe;
+  border-color: #a5b4fc;
+  color: #3730a3;
+}
+
+[data-theme='light'] .btn-dossier-enroll.enrolled {
+  background: #ecfdf5;
+  border: 1.5px solid #6ee7b7;
+  color: #047857;
+  font-weight: 700;
+}
+
+[data-theme='light'] .btn-dossier-enroll.enrolled:hover {
+  background: #d1fae5;
+  border-color: #34d399;
+  color: #065f46;
 }
 
 [data-theme='light'] .btn-dossier-portal {
-  background: #f1f5f9;
-  border-color: #e2e8f0;
-  color: #1e293b;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+[data-theme='light'] .btn-dossier-portal:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  color: #000000;
 }
 
 [data-theme='light'] .btn-dossier-dismiss {
   background: #e2e8f0;
+  border: 1.5px solid #cbd5e1;
   color: #090d16;
+  font-weight: 600;
+}
+
+[data-theme='light'] .btn-dossier-dismiss:hover {
+  background: #cbd5e1;
+  color: #000000;
 }
 
 @keyframes modalScaleUp {

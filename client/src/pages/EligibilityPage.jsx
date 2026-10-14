@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   ShieldCheck, Check, ExternalLink, Volume2, 
   UserCheck, AlertCircle, RefreshCw, CheckCircle2, 
   Scale, Award, Layers, Zap, BookOpen, X, ChevronDown,
   ChevronUp, Building2, HelpCircle, CheckSquare, AlertTriangle,
-  Info, ArrowRight, Share2, FileCheck
+  Info, ArrowRight, FileCheck
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { getLocalizedScheme } from '../locales/schemeData';
+import { getLocalizedScheme, sanitizeSchemeUrl } from '../locales/schemeData';
 import { speechProvider } from '../services/speech/browserSpeech';
+import { getApiBaseUrl } from '../api/client';
 import './EligibilityPage.css';
 
 export default function EligibilityPage() {
@@ -25,9 +26,43 @@ export default function EligibilityPage() {
   const [expandedFaqs, setExpandedFaqs] = useState({});
   const [isDossierSpeaking, setIsDossierSpeaking] = useState(false);
 
+  const handleCloseDossier = () => {
+    speechProvider.stop();
+    setIsDossierSpeaking(false);
+    setSelectedDossier(null);
+  };
+
+  const fetchEligibility = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const token = localStorage.getItem('token');
+      const apiUrl = getApiBaseUrl();
+      const res = await fetch(`${apiUrl}/eligibility/query`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to load schemes: ${res.statusText}`);
+      }
+
+      const result = await res.json();
+      setData(result);
+    } catch (err) {
+      console.error('[EligibilityPage] Fetch error:', err);
+      setError(err.message || 'Could not fetch eligible schemes. Please check server status.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchEligibility();
-  }, []);
+  }, [fetchEligibility]);
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -51,34 +86,6 @@ export default function EligibilityPage() {
       document.body.style.overflow = '';
     };
   }, [selectedDossier]);
-
-  const fetchEligibility = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const token = localStorage.getItem('token');
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-      const res = await fetch(`${apiUrl}/eligibility/query`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-        }
-      });
-
-      if (!res.ok) {
-        throw new Error(`Failed to load schemes: ${res.statusText}`);
-      }
-
-      const result = await res.json();
-      setData(result);
-    } catch (err) {
-      console.error('[EligibilityPage] Fetch error:', err);
-      setError(err.message || 'Could not fetch eligible schemes. Please check server status.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const toggleEnrolled = (schemeId) => {
     setEnrolledSchemes(prev => ({
@@ -117,12 +124,6 @@ export default function EligibilityPage() {
     setExpandedFaqs({});
     speechProvider.stop();
     setIsDossierSpeaking(false);
-  };
-
-  const handleCloseDossier = () => {
-    speechProvider.stop();
-    setIsDossierSpeaking(false);
-    setSelectedDossier(null);
   };
 
   const handleSpeakDossier = async () => {
@@ -338,27 +339,29 @@ export default function EligibilityPage() {
                       <span>{t('schemes_view_dossier')}</span>
                     </button>
 
-                    <button 
-                      type="button" 
-                      className={`btn-enroll ${isEnrolled ? 'btn-enrolled' : ''}`}
-                      onClick={() => toggleEnrolled(scheme._id)}
-                    >
-                      <UserCheck size={15} />
-                      <span>{isEnrolled ? t('schemes_already_enrolled') : t('schemes_mark_enrolled')}</span>
-                    </button>
-
-                    {(loc.source_url || scheme.source_document_ref) && (
-                      <a 
-                        href={loc.source_url || scheme.source_document_ref} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="btn-official-link"
-                        aria-label="Official Scheme Portal"
+                    <div className="scheme-card-footer-secondary">
+                      <button 
+                        type="button" 
+                        className={`btn-enroll ${isEnrolled ? 'btn-enrolled' : ''}`}
+                        onClick={() => toggleEnrolled(scheme._id)}
                       >
-                        <span>{t('schemes_official_portal')}</span>
-                        <ExternalLink size={13} />
-                      </a>
-                    )}
+                        <UserCheck size={15} />
+                        <span>{isEnrolled ? t('schemes_already_enrolled') : t('schemes_mark_enrolled')}</span>
+                      </button>
+
+                      {(loc.source_url || scheme.source_document_ref) && (
+                        <a 
+                          href={sanitizeSchemeUrl(loc.source_url || scheme.source_document_ref)} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="btn-official-link"
+                          aria-label="Official Scheme Portal"
+                        >
+                          <span>{t('schemes_official_portal')}</span>
+                          <ExternalLink size={13} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </article>
               );
@@ -619,7 +622,7 @@ export default function EligibilityPage() {
                     </p>
                     {selectedDossier.loc.source_url && (
                       <a 
-                        href={selectedDossier.loc.source_url} 
+                        href={sanitizeSchemeUrl(selectedDossier.loc.source_url)} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="btn-portal-primary"
@@ -661,7 +664,19 @@ export default function EligibilityPage() {
                       <span>{t('dossier_faqs_heading')}</span>
                     </h4>
                     <div className="dossier-faqs-accordion">
-                      {selectedDossier.loc.faqs?.map((faq, idx) => {
+                      {((selectedDossier.loc.faqs && selectedDossier.loc.faqs.length > 0)
+                        ? selectedDossier.loc.faqs
+                        : [
+                            {
+                              question: language === 'te' ? 'ఈ పథకానికి ఎవరు దరఖాస్తు చేసుకోవచ్చు?' : language === 'hi' ? 'इस योजना के लिए कौन पात्र है?' : 'Who is eligible to apply for this scheme?',
+                              answer: language === 'te' ? (selectedDossier.loc.eligibility_list?.[0] || 'అర్హత నిబంధనలను తీర్చిన పౌరులు దరఖాస్తు చేసుకోవచ్చు.') : language === 'hi' ? (selectedDossier.loc.eligibility_list?.[0] || 'पात्रता मानदंडों को पूरा करने वाले नागरिक आवेदन कर सकते हैं।') : (selectedDossier.loc.eligibility_list?.[0] || 'Citizens meeting the verified eligibility criteria can apply.')
+                            },
+                            {
+                              question: language === 'te' ? 'దరఖాస్తు విధానం ఏమిటి?' : language === 'hi' ? 'आवेदन प्रक्रिया क्या है?' : 'How do I apply for this scheme?',
+                              answer: selectedDossier.loc.application_process || selectedDossier.loc.how_to_apply || (language === 'te' ? 'సమీప బ్యాంకు లేదా CSC కేంద్రాన్ని సందర్శించండి.' : language === 'hi' ? 'नजदीकी बैंक शाखा या कॉमन सर्विस सेंटर (CSC) पर जाएं।' : 'Visit your nearest authorized bank branch or Common Service Centre (CSC).')
+                            }
+                          ]
+                      ).map((faq, idx) => {
                         const isOpen = !!expandedFaqs[idx];
                         return (
                           <div key={idx} className={`faq-item-card ${isOpen ? 'open' : ''}`}>
@@ -689,12 +704,12 @@ export default function EligibilityPage() {
                     <div className="dossier-source-link-box">
                       <span className="source-label">Official Sources & Gazette Reference:</span>
                       <a 
-                        href={selectedDossier.loc.source_url} 
+                        href={sanitizeSchemeUrl(selectedDossier.loc.source_url)} 
                         target="_blank" 
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer" 
                         className="source-anchor"
                       >
-                        <span>{selectedDossier.loc.source_url}</span>
+                        <span>{sanitizeSchemeUrl(selectedDossier.loc.source_url)}</span>
                         <ExternalLink size={13} />
                       </a>
                     </div>
@@ -720,7 +735,7 @@ export default function EligibilityPage() {
 
               {selectedDossier.loc.source_url && (
                 <a
-                  href={selectedDossier.loc.source_url}
+                  href={sanitizeSchemeUrl(selectedDossier.loc.source_url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-dossier-portal"

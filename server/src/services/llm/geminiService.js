@@ -148,6 +148,9 @@ export const geminiChatStrict = async (systemPrompt, userMessage) => {
   throw new LlmUnavailableError('LLM service temporarily unavailable. Please retry in a few moments.');
 };
 
+const embedCache = new Map();
+const MAX_EMBED_CACHE_ENTRIES = 500;
+
 /**
  * Generate an embedding vector for the given text.
  * Used by EmbeddingService — do not call directly from controllers.
@@ -157,6 +160,15 @@ export const geminiChatStrict = async (systemPrompt, userMessage) => {
  * @returns {Promise<number[]>}
  */
 export const geminiEmbed = async (text, taskType = 'RETRIEVAL_DOCUMENT') => {
+  if (!text || typeof text !== 'string' || text.trim() === '') {
+    return new Array(256).fill(0);
+  }
+
+  const cacheKey = `${taskType}:${text.trim()}`;
+  if (embedCache.has(cacheKey)) {
+    return embedCache.get(cacheKey);
+  }
+
   if (!ENV.GEMINI_API_KEY) {
     console.warn('[GeminiService] No API key — returning zero embedding stub (256-dim)');
     return new Array(256).fill(0);
@@ -183,7 +195,15 @@ export const geminiEmbed = async (text, taskType = 'RETRIEVAL_DOCUMENT') => {
   }
 
   const data = await res.json();
-  return data?.embedding?.values ?? [];
+  const vector = data?.embedding?.values ?? [];
+  if (vector.length > 0) {
+    if (embedCache.size >= MAX_EMBED_CACHE_ENTRIES) {
+      const firstKey = embedCache.keys().next().value;
+      embedCache.delete(firstKey);
+    }
+    embedCache.set(cacheKey, vector);
+  }
+  return vector;
 };
 /**
  * Send a prompt along with a file (PDF or Image) to Gemini for multimodal analysis.

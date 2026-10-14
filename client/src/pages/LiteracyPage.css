@@ -1212,21 +1212,21 @@
 }
 
 [data-theme='light'] .card-audio-btn {
-  background: #f8fafc !important;
-  border-color: #e2e8f0 !important;
-  color: #475569 !important;
+  background: #eff6ff !important;
+  border: 1.5px solid #bfdbfe !important;
+  color: #1d4ed8 !important;
 }
 
 [data-theme='light'] .card-audio-btn:hover {
-  background: #eef2ff !important;
-  border-color: #c7d2fe !important;
-  color: #4f46e5 !important;
+  background: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+  color: #ffffff !important;
 }
 
 [data-theme='light'] .card-audio-btn.playing {
   background: #ecfdf5 !important;
-  border-color: #a7f3d0 !important;
-  color: #059669 !important;
+  border: 1.5px solid #6ee7b7 !important;
+  color: #047857 !important;
 }
 
 [data-theme='light'] .no-topics-found {

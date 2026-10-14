@@ -1,0 +1,20 @@
+{
+  "name": "benefitlens",
+  "version": "1.0.0",
+  "description": "BenefitLens - Voice-first financial protection and literacy platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm install --prefix client && npm run build --prefix client && npm install --prefix server",
+    "build:client": "npm run build --prefix client",
+    "start": "node server/src/server.js",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "test:server": "npm run test --prefix server",
+    "seed:schemes": "node server/src/scripts/seedSchemes.js",
+    "seed:literacy": "node server/src/scripts/seedLiteracy.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

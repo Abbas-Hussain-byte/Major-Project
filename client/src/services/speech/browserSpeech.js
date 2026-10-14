@@ -1,4 +1,4 @@
-import { voiceService } from '../../api/services';
+import { getApiBaseUrl } from '../../api/client';
 
 const langMap = {
   te: 'te-IN',
@@ -120,7 +120,7 @@ export const speechProvider = {
     if (!text || !text.trim()) return;
 
     let textToSynthesize = text.trim();
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const apiUrl = getApiBaseUrl();
 
     // Guard: If lang is te or hi, but the input text contains only English/Latin characters,
     // translate it to the target language first so it is never spoken in English!

@@ -234,7 +234,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'Nominee must submit death certificate within 30 days. Claims are settled directly by Life Insurance Corporation (LIC) or partner insurer within 30 days.'
         }
       ],
-      source_url: 'https://financialservices.gov.in/beta/en/pmjjby',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmjjby',
       match_reasons: ['Age (32) is within 18–50 limit', 'Active savings bank account verified', 'No health certificate required'],
       tags: ['Life Cover ₹2 Lakh', 'Auto-Debit ₹436/yr', 'Age 18–50']
     },
@@ -260,7 +260,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'नहीं, इसमें किसी प्रकार की चिकित्सा जांच की आवश्यकता नहीं है।'
         }
       ],
-      source_url: 'https://financialservices.gov.in/beta/en/pmjjby',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmjjby',
       match_reasons: ['आयु (32) 18–50 वर्ष की सीमा में है', 'सक्रिय बचत बैंक खाता सत्यापित है', 'चिकित्सा जांच की आवश्यकता नहीं'],
       tags: ['जीवन बीमा ₹2 लाख', 'प्रीमियम ₹436/वर्ष', 'आयु 18–50']
     },
@@ -286,7 +286,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'అవసరం లేదు. ఎటువంటి వైద్య పరీక్షలు లేకుండానే ఈ బీమా పొందవచ్చు.'
         }
       ],
-      source_url: 'https://financialservices.gov.in/beta/en/pmjjby',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmjjby',
       match_reasons: ['వయస్సు (32) 18–50 సంవత్సరాల పరిమితిలో ఉంది', 'యాక్టివ్ బ్యాంక్ ఖాతా ధృవీకరించబడింది', 'మెడికల్ పరీక్ష అవసరం లేదు'],
       tags: ['జీవిత రక్షణ ₹2 లక్షలు', 'ఖర్చు ₹436/సంవత్సరం', 'వయస్సు 18–50']
     }
@@ -325,7 +325,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'Police FIR, hospital post-mortem report, and original death/disability certificate within 30 days.'
         }
       ],
-      source_url: 'https://financialservices.gov.in/beta/en/pmsby',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmsby',
       match_reasons: ['Age (32) satisfies 18–70 limit', 'Active savings account detected', 'Affordable safety net tier'],
       tags: ['Accident Cover ₹2 Lakh', '₹20/year Premium', 'Age 18–70']
     },
@@ -351,7 +351,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'दुर्घटना के 30 दिनों के भीतर एफआईआर और अस्पताल रिपोर्ट बैंक में जमा करें।'
         }
       ],
-      source_url: 'https://financialservices.gov.in/beta/en/pmsby',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmsby',
       match_reasons: ['आयु (32) 18–70 वर्ष के दायरे में है', 'सक्रिय बचत बैंक खाता उपलब्ध है', 'कम आय वर्ग के लिए सुलभ सुरक्षा'],
       tags: ['दुर्घटना कवर ₹2 लाख', 'प्रीमियम ₹20/वर्ष', 'आयु 18–70']
     },
@@ -377,7 +377,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'పోలీస్ ఎఫ్ఐఆర్, పోస్ట్‌మార్టం నివేదిక మరియు మరణ ధృవీకరణ పత్రం 30 రోజులలోపు బ్యాంకులో సమర్పించాలి.'
         }
       ],
-      source_url: 'https://financialservices.gov.in/beta/en/pmsby',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmsby',
       match_reasons: ['వయస్సు (32) 18–70 ఏళ్ల అర్హతను కలిగి ఉంది', 'పొదుపు బ్యాంక్ ఖాతా అందుబాటులో ఉంది', 'అత్యల్ప వార్షిక ప్రీమియం'],
       tags: ['ప్రమాద కవర్ ₹2 లక్షలు', 'ప్రీమియం ₹20/ఏడాది', 'వయస్సు 18–70']
     }
@@ -415,7 +415,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'Yes, over 12,000 empanelled private hospitals provide 100% cashless treatment under PM-JAY.'
         }
       ],
-      source_url: 'https://nha.gov.in/PM-JAY',
+      source_url: 'https://www.myscheme.gov.in/schemes/ab-pmjay',
       match_reasons: ['BPL / Informal income band matches eligibility', 'Covers all family dependents', 'Zero out-of-pocket costs'],
       tags: ['₹5 Lakh Free Hospital Care', 'Cashless Treatment', 'Secondary & Tertiary Care']
     },
@@ -440,7 +440,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'हाँ, पहले से मौजूद सभी बीमारियां पहले दिन से कवर होती हैं।'
         }
       ],
-      source_url: 'https://nha.gov.in/PM-JAY',
+      source_url: 'https://www.myscheme.gov.in/schemes/ab-pmjay',
       match_reasons: ['पारिवारिक आय सीमा पात्रता के अनुकूल है', 'परिवार के सभी आश्रित शामिल हैं', 'अस्पताल में कोई अग्रिम भुगतान नहीं'],
       tags: ['₹5 लाख मुफ्त अस्पताल इलाज', 'कैशलेस सुविधा', 'पूरे परिवार के लिए']
     },
@@ -465,7 +465,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'అవును, నెట్‌వర్క్ ప్రైవేట్ ఆసుపత్రులలో కూడా 100% ఉచితంగా చికిత్స పొందవచ్చు.'
         }
       ],
-      source_url: 'https://nha.gov.in/PM-JAY',
+      source_url: 'https://www.myscheme.gov.in/schemes/ab-pmjay',
       match_reasons: ['కుటుంబ ఆదాయ స్థాయి అర్హతకు తగినట్లుగా ఉంది', 'కుటుంబ సభ్యులందరికీ వర్తిస్తుంది', 'నగదు రహిత చికిత్స'],
       tags: ['₹5 లక్షల ఉచిత వైద్యం', 'క్యాష్‌లెస్‌ కార్డు', 'మొత్తం కుటుంబానికి']
     }
@@ -500,7 +500,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'Yes, once a year in April you can upgrade or downgrade your pension slab.'
         }
       ],
-      source_url: 'https://pfrda.org.in/index1.cshtml?lsid=16',
+      source_url: 'https://www.myscheme.gov.in/schemes/apy',
       match_reasons: ['Age (32) is in the 18–40 entry window', 'Active bank account detected', 'Unorganised worker pension tier'],
       tags: ['₹1000–₹5000/mo Pension', 'Government Guaranteed', 'Spouse Continuity']
     },
@@ -525,7 +525,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: '60 वर्ष की आयु पूरी होने पर पेंशन बैंक खाते में हर महीने आने लगती है।'
         }
       ],
-      source_url: 'https://pfrda.org.in/index1.cshtml?lsid=16',
+      source_url: 'https://www.myscheme.gov.in/schemes/apy',
       match_reasons: ['आयु (32) 18–40 वर्ष की प्रवेश सीमा में है', 'सक्रिय बैंक खाता मौजूद है', 'असंगठित कामगारों के लिए सुरक्षित बुढ़ापा'],
       tags: ['₹1000–₹5000 मासिक पेंशन', 'सरकारी गारंटी', 'जीवनभर सुरक्षा']
     },
@@ -550,7 +550,7 @@ export const SCHEME_LOCALIZATIONS = {
           answer: 'మీకు 60 సంవత్సరాలు నిండిన వెంటనే ప్రతి నెలా బ్యాంక్ ఖాతాలో పింఛను జమ అవుతుంది.'
         }
       ],
-      source_url: 'https://pfrda.org.in/index1.cshtml?lsid=16',
+      source_url: 'https://www.myscheme.gov.in/schemes/apy',
       match_reasons: ['వయస్సు (32) 18–40 సంవత్సరాల లోపు ఉంది', 'బ్యాంక్ ఖాతా ధృవీకరించబడింది', 'అసంఘటిత కార్మికుల భవిష్యత్ భద్రత'],
       tags: ['నెలకు ₹1000–₹5000 పింఛను', 'ప్రభుత్వ హామీ', 'వృద్ధాప్య రక్షణ']
     }
@@ -711,7 +711,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Apply online on pmsvanidhi portal or at local municipality/bank with Vending ID and Aadhaar.',
       documents_required: ['1. Vending Certificate/ID or Recommendation Letter from ULB.', '2. Aadhaar Card.', '3. Bank Passbook.'],
       faqs: [{ question: 'Is collateral needed?', answer: 'No collateral or guarantor is required.' }],
-      source_url: 'https://pmsvanidhi.mohua.gov.in',
+      source_url: 'https://pmsvanidhi.mohua.gov.in/Default/Index',
       match_reasons: ['Street vendor occupation verified', 'Zero collateral required', 'Interest subsidy & cashback incentive'],
       tags: ['Loans Up to ₹50,000', '7% Interest Subsidy', 'Zero Collateral']
     },
@@ -728,7 +728,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'वेंडर आईडी और आधार के साथ ऑनलाइन या बैंक शाखा में आवेदन करें।',
       documents_required: ['1. वेंडर पहचान पत्र।', '2. आधार कार्ड।', '3. बैंक पासबुक।'],
       faqs: [{ question: 'क्या कोई गारंटी चाहिए?', answer: 'नहीं, यह पूरी तरह बिना गारंटी का ऋण है।' }],
-      source_url: 'https://pmsvanidhi.mohua.gov.in',
+      source_url: 'https://pmsvanidhi.mohua.gov.in/Default/Index',
       match_reasons: ['स्ट्रीट वेंडर व्यवसाय सत्यापित', 'कोई गारंटी आवश्यक नहीं', '7% ब्याज सब्सिडी'],
       tags: ['ऋण ₹50,000 तक', '7% ब्याज सब्सिडी', 'बिना किसी गारंटी']
     },
@@ -745,7 +745,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'వెండర్ కార్డు మరియు ఆధార్‌తో ఆన్‌లైన్ లేదా మున్సిపల్ కార్యాలయంలో దరఖాస్తు సమర్పించండి.',
       documents_required: ['1. వెండర్ ఐడీ కార్డు.', '2. ఆధార్ కార్డు కాపీ.', '3. బ్యాంక్ పాస్‌బుక్ కాపీ.'],
       faqs: [{ question: 'ఏదైనా తాకట్టు పెట్టాలా?', answer: 'ఎటువంటి పూచీకత్తు లేదా గ్యారెంటర్ అవసరం లేదు.' }],
-      source_url: 'https://pmsvanidhi.mohua.gov.in',
+      source_url: 'https://pmsvanidhi.mohua.gov.in/Default/Index',
       match_reasons: ['స్ట్రీట్ వెండర్ వృత్తి వర్తిస్తుంది', 'ఎటువంటి పూచీకత్తు అవసరం లేదు', '7% వడ్డీ రాయితీ'],
       tags: ['రూ. 50,000 వరకు రుణం', '7% వడ్డీ రాయితీ', 'హామీ లేని రుణం']
     }
@@ -773,7 +773,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Register with biometric verification at nearest CSC centre. Verification by Gram Panchayat/ULB.',
       documents_required: ['1. Aadhaar Card.', '2. Bank Account Passbook.', '3. Artisan Trade Declaration.'],
       faqs: [{ question: 'How much is the toolkit grant?', answer: '₹15,000 directly provided as a digital e-voucher.' }],
-      source_url: 'https://pmvishwakarma.gov.in',
+      source_url: 'https://pmvishwakarma.gov.in/Home/Index',
       match_reasons: ['Traditional craft/trade match', '₹15k toolkit grant + ₹500/day stipend', '5% subsidized loans'],
       tags: ['₹15,000 Toolkit Grant', 'Loans Up to ₹3 Lakh at 5%', '₹500/day Stipend']
     },
@@ -790,7 +790,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'सीएससी केंद्र जाएं, बायोमेट्रिक कराएं और ग्राम प्रधान/वार्ड सदस्य से सत्यापन कराएं।',
       documents_required: ['1. आधार कार्ड।', '2. बैंक पासबुक।'],
       faqs: [{ question: 'टूलकिट अनुदान कितना मिलता है?', answer: '₹15,000 का ई-वाउचर औजार खरीदने के लिए मिलता है।' }],
-      source_url: 'https://pmvishwakarma.gov.in',
+      source_url: 'https://pmvishwakarma.gov.in/Home/Index',
       match_reasons: ['पारंपरिक कारीगर व्यवसाय', '₹15,000 टूलकिट व ₹500/दिन स्टाइपेंड', '5% पर ₹3 लाख ऋण'],
       tags: ['₹15,000 टूलकिट ग्रांट', '5% पर ₹3 लाख लोन', '₹500/दिन स्टाइपेंड']
     },
@@ -807,7 +807,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'CSC కేంద్రాన్ని సందర్శించి బయోమెట్రిక్ నమోదు చేయించుకోండి. గ్రామ పంచాయతీ ద్వారా ధృవీకరణ పూర్తవుతుంది.',
       documents_required: ['1. ఆధార్ కార్డు కాపీ.', '2. బ్యాంక్ పాస్‌బుక్ కాపీ.'],
       faqs: [{ question: 'టూల్‌కిట్ గ్రాంట్ ఎంత వస్తుంది?', answer: '₹15,000 విలువైన డిజిటల్ ఇ-వోచర్ పరికరాల కొనుగోలుకు లభిస్తుంది.' }],
-      source_url: 'https://pmvishwakarma.gov.in',
+      source_url: 'https://pmvishwakarma.gov.in/Home/Index',
       match_reasons: ['సాంప్రదాయ చేతివృత్తుల కేటగిరీ', '₹15,000 ఉచిత టూల్‌కిట్ గ్రాంట్', '5% రాయితీ వడ్డీ రుణం'],
       tags: ['₹15,000 టూల్‌కిట్ గ్రాంట్', '5% వడ్డీతో ₹3 లక్షల రుణం', 'రోజుకు ₹500 భత్యం']
     }
@@ -959,7 +959,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Submit Mudra application form with business proposal to your bank or apply online at udyamimitra.in.',
       documents_required: ['1. Aadhaar & PAN Card.', '2. Business address proof.', '3. 6 months bank statement.'],
       faqs: [{ question: 'Is collateral needed for Mudra loans?', answer: 'No collateral security is required for any Mudra loan up to ₹10 Lakh.' }],
-      source_url: 'https://mudra.org.in',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmmy',
       match_reasons: ['Informal micro-enterprise match', 'Zero collateral or third-party guarantor', 'Regulated subsidized bank interest'],
       tags: ['Loans Up to ₹10 Lakh', 'Zero Collateral Required', 'Mudra Debit Card']
     },
@@ -976,7 +976,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'बैंक शाखा में बिजनेस प्रस्ताव के साथ आवेदन करें या udyamimitra.in पर ऑनलाइन भरें।',
       documents_required: ['1. आधार व पैन कार्ड।', '2. बैंक खाता विवरण।'],
       faqs: [{ question: 'क्या कोई गारंटी देनी होगी?', answer: 'नहीं, मुद्रा योजना में कोई गारंटी नहीं ली जाती।' }],
-      source_url: 'https://mudra.org.in',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmmy',
       match_reasons: ['असंगठित व छोटे व्यवसायियों के लिए सुलभ', 'कोई गारंटी या गिरवी रखने की जरूरत नहीं', 'कम ब्याज दरें'],
       tags: ['₹10 लाख तक का ऋण', 'बिना किसी गारंटी', 'मुद्रा कार्ड सुविधा']
     },
@@ -998,7 +998,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'వ్యాపార వివరాలతో బ్యాంకులో దరఖాస్తు చేయండి లేదా udyamimitra.in లో ఆన్‌లైన్ ద్వారా దరఖాస్తు చేయండి.',
       documents_required: ['1. ఆధార్ కార్డు & పాన్ కార్డు.', '2. బ్యాంక్ స్టేట్‌మెంట్.'],
       faqs: [{ question: 'తాకట్టు పెట్టాలా?', answer: 'లేదు, ముద్రా పథకంలో ఎటువంటి తాకట్టు అవసరం లేదు.' }],
-      source_url: 'https://mudra.org.in',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmmy',
       match_reasons: ['చిరు వ్యాపారాలు ప్రారంభించే అసంఘటిత కార్మికులకు అనుకూలం', 'పూచీకత్తు లేదా గ్యారెంటర్ అవసరం లేదు', 'రాయితీ వడ్డీ'],
       tags: ['₹10 లక్షల వరకు రుణాలు', 'పూచీకత్తు అవసరం లేదు', 'ముద్రా కార్డు సదుపాయం']
     }
@@ -1025,7 +1025,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Selection through Gram Sabha prioritization. Physical geo-tagging at plinth, roof, and finish stages.',
       documents_required: ['1. Aadhaar Card.', '2. Bank Account Passbook with DBT enabled.', '3. MGNREGA Job Card.'],
       faqs: [{ question: 'Are funds paid in cash?', answer: 'No, all installments are paid directly into Aadhaar-linked bank accounts via DBT.' }],
-      source_url: 'https://pmayg.nic.in',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmayg',
       match_reasons: ['Low-income household without pucca house', 'Direct bank account transfer (DBT)', 'Additional ₹12,000 toilet grant'],
       tags: ['₹1.20–₹1.30 Lakh Housing Grant', 'Permanent Pucca House', '100% DBT Transfer']
     },
@@ -1046,7 +1046,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'ग्राम पंचायत की वरीयता सूची में नाम जांचें, निर्माण की प्रगति पर किस्तों में भुगतान होता है।',
       documents_required: ['1. आधार कार्ड।', '2. बैंक पासबुक।', '3. मनरेगा जॉब कार्ड।'],
       faqs: [{ question: 'पैसा कैसे मिलता है?', answer: 'सीधे बैंक खाते में किस्तों में डीबीटी द्वारा भेजा जाता है।' }],
-      source_url: 'https://pmayg.nic.in',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmayg',
       match_reasons: ['कच्चे मकान वाले ग्रामीण व असंगठित परिवारों के लिए', 'सीधे बैंक खाते में किस्तों में भुगतान', 'शौचालय व बिजली कनेक्शन शामिल'],
       tags: ['₹1.20–₹1.30 लाख आवास अनुदान', 'पक्का मकान सहायता', 'सीधे बैंक खाते में']
     },
@@ -1067,7 +1067,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'గ్రామ సచివాలయంలో పేరు తనిఖీ చేసుకోండి. నిర్మాణ దశల వారీగా నేరుగా ఖాతాలో నగదు జమ చేయబడుతుంది.',
       documents_required: ['1. ఆధార్ కార్డు కాపీ.', '2. బ్యాంక్ పాస్‌బుక్ కాపీ.', '3. జాబ్ కార్డు.'],
       faqs: [{ question: 'డబ్బులు ఎవరి చేతికి ఇస్తారు?', answer: 'డబ్బులు నేరుగా ఆధార్ అనుసంధాన బ్యాంక్ ఖాతాలో విడతల వారీగా జమ అవుతాయి.' }],
-      source_url: 'https://pmayg.nic.in',
+      source_url: 'https://www.myscheme.gov.in/schemes/pmayg',
       match_reasons: ['పక్కా ఇల్లు లేని అసంఘటిత కుటుంబాలకు వర్తిస్తుంది', 'నేరుగా బ్యాంక్ ఖాతాలో జమ (DBT)', 'ఉచిత గృహ సదుపాయం'],
       tags: ['₹1.20–₹1.30 లక్షల గృహ గ్రాంట్', 'శాశ్వత పక్కా ఇల్లు', 'నేరుగా బ్యాంక్ ఖాతాకు']
     }
@@ -1094,7 +1094,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Register on pmkisan.gov.in with land revenue records (Khatauni/RoR) and Aadhaar e-KYC.',
       documents_required: ['1. Aadhaar Card.', '2. Land Revenue Records (RoR / 1-B / Khatauni).', '3. Bank Account Passbook copy.'],
       faqs: [{ question: 'How is e-KYC completed?', answer: 'Using Aadhaar OTP on the PM-Kisan portal or biometric at any CSC centre.' }],
-      source_url: 'https://pmkisan.gov.in/',
+      source_url: 'https://www.myscheme.gov.in/schemes/pm-kisan',
       match_reasons: ['Landholding farmer family eligibility', '100% central DBT transfer', '3 guaranteed ₹2,000 installments'],
       tags: ['₹6,000/yr Direct Income', '3 Installments of ₹2,000', 'Direct Bank DBT']
     },
@@ -1111,7 +1111,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'खतौनी व आधार के साथ pmkisan.gov.in पर फॉर्म भरें और ई-केवाईसी पूर्ण करें।',
       documents_required: ['1. आधार कार्ड।', '2. जमीन की खतौनी/जमाबंदी।', '3. बैंक पासबुक।'],
       faqs: [{ question: 'ई-केवाईसी कैसे करें?', answer: 'पोर्टल पर आधार ओटीपी से या सीएससी पर बायोमेट्रिक द्वारा।' }],
-      source_url: 'https://pmkisan.gov.in/',
+      source_url: 'https://www.myscheme.gov.in/schemes/pm-kisan',
       match_reasons: ['किसान परिवार पात्रता अनुकूल', '100% सरकारी डीबीटी भुगतान', 'नियमित ₹2,000 की किस्तें'],
       tags: ['₹6,000/वर्ष नकद सहायता', '₹2,000 की 3 किस्तें', 'सीधे बैंक खाते में']
     },
@@ -1128,7 +1128,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'పట్టాదారు పాస్‌బుక్ మరియు ఆధార్‌తో pmkisan.gov.in లో నమోదు చేసుకుని ఈ-కేవైసీ పూర్తి చేయండి.',
       documents_required: ['1. ఆధార్ కార్డు కాపీ.', '2. పట్టాదారు పాస్‌బుక్ లేదా 1-బి నకలు.', '3. బ్యాంక్ ఖాతా వివరాలు.'],
       faqs: [{ question: 'ఈ-కేవైసీ ఎలా చేయాలి?', answer: 'pmkisan పోర్టల్‌లో ఆధార్ ఓటీపీ ద్వారా లేదా CSC కేంద్రంలో బయోమెట్రిక్ ద్వారా చేయవచ్చు.' }],
-      source_url: 'https://pmkisan.gov.in/',
+      source_url: 'https://www.myscheme.gov.in/schemes/pm-kisan',
       match_reasons: ['భూమి గల రైతు కుటుంబం అర్హత', '100% కేంద్ర ప్రభుత్వ DBT బదిలీ', 'ప్రతి 4 నెలలకు ₹2,000 జమ'],
       tags: ['సంవత్సరానికి ₹6,000 నగదు', '3 విడతల్లో ₹2,000 జమ', 'రైతులకు పెట్టుబడి భరోసా']
     }
@@ -1156,7 +1156,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Submit SSY application form at any post office or bank branch with minimum opening deposit of ₹250.',
       documents_required: ['1. Birth Certificate of the Girl Child.', '2. Identity & Address Proof of Parent/Guardian (Aadhaar, PAN).', '3. Photograph of child & parent.'],
       faqs: [{ question: 'What is the minimum annual deposit?', answer: 'Minimum ₹250 per financial year, up to a maximum of ₹1.50 Lakh.' }],
-      source_url: 'https://www.indiapost.gov.in/',
+      source_url: 'https://www.myscheme.gov.in/schemes/ssy',
       match_reasons: ['Girl child dependent in household', 'Highest sovereign interest (~8.2%)', 'Complete tax-free wealth creation'],
       tags: ['8.2% Sovereign Interest', '100% Tax Free (EEE)', 'Girl Child Welfare']
     },
@@ -1173,7 +1173,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'डाकघर या बैंक में मात्र ₹250 जमा करके खाता खोलें।',
       documents_required: ['1. बालिका का जन्म प्रमाण पत्र।', '2. माता-पिता का आधार व पैन कार्ड।'],
       faqs: [{ question: 'न्यूनतम कितना जमा करना होता है?', answer: 'प्रति वर्ष न्यूनतम ₹250 और अधिकतम ₹1.5 लाख।' }],
-      source_url: 'https://www.indiapost.gov.in/',
+      source_url: 'https://www.myscheme.gov.in/schemes/ssy',
       match_reasons: ['परिवार में बालिका आश्रित', 'उच्चतम ब्याज (~8.2%)', 'पूर्ण कर-मुक्त बचत'],
       tags: ['8.2% ब्याज दर', 'पूर्णतः टैक्स फ्री', 'बालिका भविष्य सुरक्षा']
     },
@@ -1194,7 +1194,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'పోస్టాఫీస్ లేదా బ్యాంకును సందర్శించి కనీసం ₹250 డిపాజిట్‌తో ఖాతాను ప్రారంభించండి.',
       documents_required: ['1. బాలిక జనన ధృవీకరణ పత్రం (Birth Certificate).', '2. తల్లిదండ్రుల ఆధార్ మరియు పాన్ కార్డులు.'],
       faqs: [{ question: 'సంవత్సరానికి కనీసం ఎంత కట్టాలి?', answer: 'సంవత్సరానికి కనీసం ₹250 నుండి గరిష్టంగా ₹1.50 లక్షల వరకు జమ చేయవచ్చు.' }],
-      source_url: 'https://www.indiapost.gov.in/',
+      source_url: 'https://www.myscheme.gov.in/schemes/ssy',
       match_reasons: ['కుటుంబంలో ఆడపిల్ల ఆధారం', 'అత్యధిక వడ్డీ రేటు (~8.2%)', '100% పన్ను రహిత భవిష్యత్ సంపద'],
       tags: ['8.2% గరిష్ట వడ్డీ', '100% పన్ను రహితం', 'బాలికల ఉన్నత భవిష్యత్తు']
     }
@@ -1222,7 +1222,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Register on standupmitra.in with project report or visit any scheduled commercial bank branch.',
       documents_required: ['1. Identity & Address Proof (Aadhaar, PAN).', '2. SC/ST Certificate (if applicable).', '3. Detailed Project Report (DPR).', '4. Enterprise Registration.'],
       faqs: [{ question: 'What is a greenfield project?', answer: 'Greenfield signifies the first-time venture of the beneficiary in manufacturing, services, or trading sector.' }],
-      source_url: 'https://www.standupmitra.in/',
+      source_url: 'https://www.standupmitra.in/Home/Index',
       match_reasons: ['SC/ST or female entrepreneur category', 'Loans up to ₹1 Crore for enterprise setup', 'Long 7-year repayment window'],
       tags: ['Loan ₹10 Lakh – ₹1 Crore', 'SC/ST & Women Entrepreneurs', 'Greenfield Enterprise']
     },
@@ -1239,7 +1239,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'standupmitra.in पर प्रोजेक्ट रिपोर्ट के साथ आवेदन करें।',
       documents_required: ['1. आधार व पैन कार्ड।', '2. जाति प्रमाण पत्र (यदि लागू हो)।', '3. प्रोजेक्ट रिपोर्ट।'],
       faqs: [{ question: 'ऋण राशि कितनी मिलती है?', answer: '₹10 लाख से ₹1 करोड़ तक।' }],
-      source_url: 'https://www.standupmitra.in/',
+      source_url: 'https://www.standupmitra.in/Home/Index',
       match_reasons: ['एससी/एसटी या महिला उद्यमी वर्ग', '₹1 करोड़ तक का उद्यम ऋण', '7 वर्ष की आसान अवधि'],
       tags: ['ऋण ₹10 लाख – ₹1 करोड़', 'महिला व एससी/एसटी उद्यमी', 'नया व्यापार ऋण']
     },
@@ -1259,7 +1259,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'ప్రాజెక్ట్ నివేదికతో standupmitra.in లో నమోదు చేసుకోండి లేదా బ్యాంకును సంప్రదించండి.',
       documents_required: ['1. ఆధార్ & పాన్ కార్డు.', '2. కుల ధృవీకరణ పత్రం (వర్తిస్తే).', '3. ప్రాజెక్ట్ నివేదిక.'],
       faqs: [{ question: 'రుణం ఎంత లభిస్తుంది?', answer: '₹10 లక్షల నుండి ₹1 కోటి వరకు.' }],
-      source_url: 'https://www.standupmitra.in/',
+      source_url: 'https://www.standupmitra.in/Home/Index',
       match_reasons: ['ఎస్సీ/ఎస్టీ లేదా మహిళా పారిశ్రామికవేత్త వర్గం', '₹1 కోటి వరకు వ్యాపార రుణం', '7 సంవత్సరాల సులభ చెల్లింపు వ్యవధి'],
       tags: ['రుణం ₹10 లక్షలు – ₹1 కోటి', 'మహిళా & ఎస్సీ/ఎస్టీ పారిశ్రామికవేత్తలు', 'నూతన పరిశ్రమల రుణం']
     }
@@ -1353,7 +1353,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'Register on skillindiadigital.gov.in or visit accredited training partner center with Aadhaar.',
       documents_required: ['1. Aadhaar Card.', '2. Educational Certificate (10th/12th/ITI if any).', '3. Bank Account details.'],
       faqs: [{ question: 'Is training completely free?', answer: 'Yes, 100% of the training and assessment cost is borne by the Government of India.' }],
-      source_url: 'https://www.pmkvyofficial.org/',
+      source_url: 'https://www.skillindiadigital.gov.in/',
       match_reasons: ['Youth skill development tier', '100% free certified training', 'Placement and accidental insurance support'],
       tags: ['100% Free Training', 'Govt NSQF Certificate', 'Placement Assistance']
     },
@@ -1370,7 +1370,7 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'पोर्टल पर आधार के साथ पंजीकरण करें और अपनी पसंद का कोर्स चुनें।',
       documents_required: ['1. आधार कार्ड।', '2. बैंक पासबुक।', '3. शैक्षिक अंकतालिका।'],
       faqs: [{ question: 'क्या कोई फीस लगती है?', answer: 'नहीं, प्रशिक्षण पूरी तरह भारत सरकार द्वारा प्रायोजित और मुफ्त है।' }],
-      source_url: 'https://www.pmkvyofficial.org/',
+      source_url: 'https://www.skillindiadigital.gov.in/',
       match_reasons: ['युवा कौशल विकास श्रेणी', '100% मुफ्त सरकारी प्रशिक्षण', 'रोजगार व प्लेसमेंट सहायता'],
       tags: ['100% मुफ्त प्रशिक्षण', 'सरकारी कौशल प्रमाणपत्र', 'रोजगार सहायता']
     },
@@ -1391,12 +1391,50 @@ export const SCHEME_LOCALIZATIONS = {
       application_process: 'ఆధార్ కార్డుతో skillindiadigital.gov.in లో నమోదు చేసుకుని నచ్చిన కోర్సులో చేరండి.',
       documents_required: ['1. ఆధార్ కార్డు కాపీ.', '2. విద్యార్హత ధృవీకరణ పత్రాలు.', '3. బ్యాంక్ ఖాతా వివరాలు.'],
       faqs: [{ question: 'శిక్షణకు ఫీజు చెల్లించాలా?', answer: 'లేదు, కేంద్ర ప్రభుత్వ ఆధ్వర్యంలో శిక్షణ మరియు పరీక్షలు 100% ఉచితం.' }],
-      source_url: 'https://www.pmkvyofficial.org/',
+      source_url: 'https://www.skillindiadigital.gov.in/',
       match_reasons: ['యువత నైపుణ్యాభివృద్ధి అర్హత', '100% ఉచిత సర్టిఫైడ్ శిక్షణ', 'ఉద్యోగ నియామక మద్దతు'],
       tags: ['100% ఉచిత శిక్షణ', 'ప్రభుత్వ NSQF సర్టిఫికేట్', 'ఉద్యోగ అవకాశాలు']
     }
   }
 };
+
+export const VERIFIED_OFFICIAL_SCHEME_URLS = {
+  nmdfc_edu: 'https://www.nmdfc.org/',
+  pmjjby: 'https://www.myscheme.gov.in/schemes/pmjjby',
+  pmsby: 'https://www.myscheme.gov.in/schemes/pmsby',
+  pmjay: 'https://www.myscheme.gov.in/schemes/ab-pmjay',
+  apy: 'https://www.myscheme.gov.in/schemes/apy',
+  pmsym: 'https://maandhan.in/',
+  pmjdy: 'https://pmjdy.gov.in/',
+  svanidhi: 'https://pmsvanidhi.mohua.gov.in/Default/Index',
+  vishwakarma: 'https://pmvishwakarma.gov.in/Home/Index',
+  nfsa: 'https://nfsa.gov.in/',
+  eshram: 'https://eshram.gov.in/',
+  mudra: 'https://www.myscheme.gov.in/schemes/pmmy',
+  pmayg: 'https://www.myscheme.gov.in/schemes/pmayg',
+  pmkisan: 'https://www.myscheme.gov.in/schemes/pm-kisan',
+  sukanya: 'https://www.myscheme.gov.in/schemes/ssy',
+  standup_india: 'https://www.standupmitra.in/Home/Index',
+  pmmsy: 'https://pmmsy.dof.gov.in/',
+  pmkvy: 'https://www.skillindiadigital.gov.in/'
+};
+
+export function sanitizeSchemeUrl(url) {
+  if (!url) return 'https://www.myscheme.gov.in';
+  if (url.includes('financialservices.gov.in') && url.includes('pmjjby')) return 'https://www.myscheme.gov.in/schemes/pmjjby';
+  if (url.includes('financialservices.gov.in') && url.includes('pmsby')) return 'https://www.myscheme.gov.in/schemes/pmsby';
+  if (url.includes('nha.gov.in')) return 'https://www.myscheme.gov.in/schemes/ab-pmjay';
+  if (url.includes('pfrda.org.in')) return 'https://www.myscheme.gov.in/schemes/apy';
+  if (url.includes('pmsvanidhi.mohua.gov.in') && !url.includes('Default/Index')) return 'https://pmsvanidhi.mohua.gov.in/Default/Index';
+  if (url.includes('pmvishwakarma.gov.in') && !url.includes('Home/Index')) return 'https://pmvishwakarma.gov.in/Home/Index';
+  if (url.includes('mudra.org.in')) return 'https://www.myscheme.gov.in/schemes/pmmy';
+  if (url.includes('pmayg.nic.in')) return 'https://www.myscheme.gov.in/schemes/pmayg';
+  if (url.includes('pmkisan.gov.in')) return 'https://www.myscheme.gov.in/schemes/pm-kisan';
+  if (url.includes('indiapost.gov.in')) return 'https://www.myscheme.gov.in/schemes/ssy';
+  if (url.includes('standupmitra.in') && !url.includes('Home/Index')) return 'https://www.standupmitra.in/Home/Index';
+  if (url.includes('pmkvyofficial.org')) return 'https://www.skillindiadigital.gov.in/';
+  return url;
+}
 
 /**
  * Returns localized scheme metadata given a backend scheme object and language code ('en', 'hi', 'te')
@@ -1409,6 +1447,7 @@ export function getLocalizedScheme(scheme, lang = 'en') {
   for (const entry of Object.values(SCHEME_LOCALIZATIONS)) {
     if (entry.matchKeys.some(k => name.toLowerCase().includes(k.toLowerCase()))) {
       const loc = entry[lang] || entry['en'];
+      const resolvedUrl = VERIFIED_OFFICIAL_SCHEME_URLS[entry.key] || sanitizeSchemeUrl(loc.source_url || scheme.source_document_ref);
       return {
         ...scheme,
         key: entry.key,
@@ -1426,7 +1465,7 @@ export function getLocalizedScheme(scheme, lang = 'en') {
         application_process: loc.application_process || scheme.application_process || loc.how_to_apply,
         documents_required: loc.documents_required || scheme.documents_required || [],
         faqs: loc.faqs || scheme.faqs || [],
-        source_url: loc.source_url || scheme.source_document_ref
+        source_url: resolvedUrl
       };
     }
   }
@@ -1458,6 +1497,6 @@ export function getLocalizedScheme(scheme, lang = 'en') {
         answer: 'You can visit any authorized bank branch or nearest Common Service Centre (CSC) with your Aadhaar and bank details.'
       }
     ],
-    source_url: scheme.source_document_ref
+    source_url: sanitizeSchemeUrl(scheme.source_document_ref)
   };
 }

@@ -5,9 +5,13 @@ build/
 *.env.local
 *.log
 .DS_Store
-uploads/
+**/uploads/*
+!**/uploads/.gitkeep
 .vite/
 coverage/
+*-report.html
+lighthouse-report.json
+payload*.json
 
 # Note: .agents/ and docs/ are intentionally NOT ignored. 
 # They contain critical project documentation and agent instructions 

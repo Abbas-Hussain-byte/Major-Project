@@ -470,13 +470,15 @@
 }
 
 .btn-dropdown-action.view-profile {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f1f5f9;
+  font-weight: 600;
 }
 
 .btn-dropdown-action.view-profile:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
 }
 
@@ -672,9 +674,16 @@
 }
 
 [data-theme='light'] .btn-dropdown-action.view-profile {
-  background: #f1f5f9;
-  border-color: #e2e8f0;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
   color: #090d16;
+  font-weight: 600;
+}
+
+[data-theme='light'] .btn-dropdown-action.view-profile:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  color: #000000;
 }
 
 [data-theme='light'] .ai-status-indicator {

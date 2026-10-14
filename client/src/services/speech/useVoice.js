@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { speechProvider } from './browserSpeech';
+import { getApiBaseUrl } from '../../api/client';
 
 export function useVoice({ lang = 'en', moduleName = 'literacy' } = {}) {
   const [micState, setMicState] = useState('idle'); // idle | listening | processing | speaking | error
@@ -25,7 +26,7 @@ export function useVoice({ lang = 'en', moduleName = 'literacy' } = {}) {
     setMicState('processing');
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = getApiBaseUrl();
       const res = await fetch(`${apiUrl}/voice/query`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

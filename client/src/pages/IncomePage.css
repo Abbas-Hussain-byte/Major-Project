@@ -65,7 +65,7 @@
 .stat-label {
   font-size: 13px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #cbd5e1;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -129,7 +129,7 @@
   border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #cbd5e1;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -302,8 +302,13 @@
    ========================================================================== */
 [data-theme='light'] .cashflow-stat-card {
   background: #ffffff;
-  border-color: #e2e8f0;
+  border: 1px solid #e2e8f0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .stat-label {
+  color: #475569;
+  font-weight: 700;
 }
 
 [data-theme='light'] .stat-value {
@@ -321,7 +326,7 @@
 [data-theme='light'] .income-form-card, 
 [data-theme='light'] .transactions-list-card {
   background: #ffffff;
-  border-color: #e2e8f0;
+  border: 1px solid #e2e8f0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -329,10 +334,21 @@
   color: #090d16;
 }
 
-[data-theme='light'] .toggle-btn {
+[data-theme='light'] .toggle-group {
   background: #f1f5f9;
-  border-color: #e2e8f0;
-  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] .toggle-btn {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+[data-theme='light'] .toggle-btn:hover {
+  background: #f1f5f9;
+  color: #090d16;
 }
 
 [data-theme='light'] .toggle-btn.income-btn.active {
@@ -353,21 +369,31 @@
 }
 
 [data-theme='light'] .input-prefix {
-  color: #64748b;
+  color: #475569;
   border-color: #e2e8f0;
+}
+
+[data-theme='light'] .empty-tx-box {
+  color: #475569;
 }
 
 [data-theme='light'] .tx-item {
   background: #f8fafc;
-  border-color: #e2e8f0;
+  border: 1px solid #e2e8f0;
 }
 
 [data-theme='light'] .tx-item:hover {
   background: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
 [data-theme='light'] .tx-category {
   color: #090d16;
+  font-weight: 600;
+}
+
+[data-theme='light'] .tx-date {
+  color: #475569;
 }
 
 [data-theme='light'] .tx-item.income .tx-amount {
@@ -376,5 +402,14 @@
 
 [data-theme='light'] .tx-item.expense .tx-amount {
   color: #db2777;
+}
+
+[data-theme='light'] .btn-delete-tx {
+  color: #64748b;
+}
+
+[data-theme='light'] .btn-delete-tx:hover {
+  color: #dc2626;
+  background: #fee2e2;
 }
 

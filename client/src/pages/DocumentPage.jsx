@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { speechProvider } from '../services/speech/browserSpeech';
+import { getApiBaseUrl } from '../api/client';
 import './DocumentPage.css';
 
 const getDocQuestionChips = (lang) => {
@@ -100,6 +101,7 @@ export default function DocumentPage() {
   const [processingStep, setProcessingStep] = useState(1);
   const [error, setError] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isSpeakingRisks, setIsSpeakingRisks] = useState(false);
   const [isTranslatingDoc, setIsTranslatingDoc] = useState(false);
 
   // Document RAG Q&A State
@@ -169,7 +171,7 @@ export default function DocumentPage() {
     const translateDocContent = async () => {
       setIsTranslatingDoc(true);
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const apiUrl = getApiBaseUrl();
 
         // 1. Translate summary from sourceLang to target language
         let transSummary = '';
@@ -314,7 +316,7 @@ export default function DocumentPage() {
       formData.append('document_type', category);
       formData.append('lang', language);
 
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = getApiBaseUrl();
       const response = await fetch(`${apiUrl}/documents/upload`, {
         method: 'POST',
         headers: token ? { 'Authorization': `Bearer ${token}` } : {},
@@ -381,7 +383,7 @@ export default function DocumentPage() {
     if (docId) {
       try {
         const token = localStorage.getItem('token');
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const apiUrl = getApiBaseUrl();
         await fetch(`${apiUrl}/documents/${docId}`, {
           method: 'DELETE',
           headers: token ? { 'Authorization': `Bearer ${token}` } : {}
@@ -402,6 +404,9 @@ export default function DocumentPage() {
     setError(null);
     setLoading(false);
     setIsTranslatingDoc(false);
+    setIsSpeaking(false);
+    setIsSpeakingRisks(false);
+    speechProvider.stop();
 
     // Clear file input so the same file or a new file can be re-selected
     if (fileInputRef.current) {
@@ -425,6 +430,11 @@ export default function DocumentPage() {
       return;
     }
 
+    if (isSpeakingRisks) {
+      speechProvider.stop();
+      setIsSpeakingRisks(false);
+    }
+
     try {
       setIsSpeaking(true);
       await speechProvider.speak(currentSummary, language);
@@ -434,6 +444,53 @@ export default function DocumentPage() {
       setIsSpeaking(false);
     }
   };
+
+  const handleReadRisksAloud = async () => {
+    if (!currentRisks || currentRisks.length === 0) return;
+
+    if (isSpeakingRisks) {
+      speechProvider.stop();
+      setIsSpeakingRisks(false);
+      return;
+    }
+
+    if (isSpeaking) {
+      speechProvider.stop();
+      setIsSpeaking(false);
+    }
+
+    try {
+      setIsSpeakingRisks(true);
+      const intro = language === 'te' 
+        ? 'దాగి ఉన్న నిబంధనలు మరియు రిస్క్ హెచ్చరికలు: ' 
+        : language === 'hi' 
+        ? 'छिपे हुए नियम और जोखिम चेतावनियां: ' 
+        : 'Important hidden terms and risk warnings: ';
+      
+      const fullText = `${intro}. ${currentRisks.join('. ')}`;
+      await speechProvider.speak(fullText, language);
+    } catch (err) {
+      console.warn('[DocumentPage] Read risks error:', err);
+    } finally {
+      setIsSpeakingRisks(false);
+    }
+  };
+
+  // Stop active speech synthesis if the user changes language
+  useEffect(() => {
+    if (isSpeaking || isSpeakingRisks) {
+      speechProvider.stop();
+      setIsSpeaking(false);
+      setIsSpeakingRisks(false);
+    }
+  }, [language]);
+
+  // Cleanup speech on unmount
+  useEffect(() => {
+    return () => {
+      speechProvider.stop();
+    };
+  }, []);
 
   const handleAskRagQuestion = async (queryText) => {
     if (!queryText || !queryText.trim() || ragLoading) return;
@@ -445,7 +502,7 @@ export default function DocumentPage() {
 
     try {
       const token = localStorage.getItem('token');
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const apiUrl = getApiBaseUrl();
       const docId = result?._id || result?.id;
       
       const res = await fetch(`${apiUrl}/documents/ask`, {
@@ -763,6 +820,19 @@ export default function DocumentPage() {
                     <ShieldAlert size={20} className="glow-red" />
                     <h3>{t('doc_risks_title')}</h3>
                   </div>
+
+                  {currentRisks.length > 0 && (
+                    <button 
+                      type="button" 
+                      className={`btn-read-aloud btn-read-risks ${isSpeakingRisks ? 'active' : ''}`}
+                      onClick={handleReadRisksAloud}
+                      aria-label="Read risks and warnings aloud"
+                      title={isSpeakingRisks ? t('doc_speaking') : t('doc_read_aloud')}
+                    >
+                      <Volume2 size={16} />
+                      <span>{isSpeakingRisks ? t('doc_speaking') : t('doc_read_aloud')}</span>
+                    </button>
+                  )}
                 </div>
 
                 {isTranslatingDoc && currentRisks.length === 0 ? (

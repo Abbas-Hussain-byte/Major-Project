@@ -2,7 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 import 'express-async-errors';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import { ENV } from './config/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -25,23 +31,39 @@ app.set('trust proxy', 1);
 app.use(startTiming);
 app.use(express.json());
 
-const allowedOrigins = [
-  ENV.CLIENT_ORIGIN,
+const parseOrigins = (raw) => {
+  if (!raw) return [];
+  return raw.split(',').map(s => s.trim().replace(/\/+$/, '')).filter(Boolean);
+};
+
+const configuredOrigins = parseOrigins(ENV.CLIENT_ORIGIN);
+const defaultOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
+  'http://localhost:3000',
+  'http://localhost:5000'
 ];
+const allowedOrigins = Array.from(new Set([...configuredOrigins, ...defaultOrigins]));
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true);
+    const cleanOrigin = origin.replace(/\/+$/, '');
+    if (ENV.CLIENT_ORIGIN === '*' || allowedOrigins.includes(cleanOrigin)) {
       return callback(null, true);
     }
-    return callback(new Error('Not allowed by CORS'));
+    if (/\.vercel\.app$/.test(cleanOrigin) || /\.onrender\.com$/.test(cleanOrigin)) {
+      return callback(null, true);
+    }
+    return callback(null, false);
   },
   credentials: true
 }));
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+}));
 if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
   app.use(morgan('dev'));
 }
@@ -62,6 +84,41 @@ app.use('/api/documents', documentsRoutes);
 app.use('/api/literacy', voiceRateLimiter, literacyRoutes);
 app.use('/api/income-expense', incomeExpenseRoutes);
 app.use('/api/admin', adminRoutes);
+
+// In production / unified container: Serve built React client assets
+const candidateDistPaths = [
+  path.resolve(__dirname, '../../client/dist'),
+  path.resolve(__dirname, '../public'),
+  path.resolve('public'),
+  path.resolve('client/dist'),
+];
+const clientDist = candidateDistPaths.find(p => fs.existsSync(p));
+
+if (clientDist) {
+  app.use(express.static(clientDist, {
+    maxAge: '1y',
+    immutable: true,
+    setHeaders: (res, filePath) => {
+      if (
+        filePath.endsWith('.html') ||
+        filePath.endsWith('sw.js') ||
+        filePath.endsWith('registerSW.js') ||
+        filePath.endsWith('.webmanifest')
+      ) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+      }
+    }
+  }));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
 
 app.use(errorHandler);
 

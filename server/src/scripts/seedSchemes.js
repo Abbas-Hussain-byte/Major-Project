@@ -15,7 +15,7 @@ const SCHEMES = [
     premium_annual_inr: 436,
     coverage_inr: 200000,
     how_to_apply: 'Apply through your bank branch, post office, or banking correspondent with your savings account.',
-    source_document_ref: 'https://financialservices.gov.in/beta/en/pmjjby',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/pmjjby',
     is_active: true
   },
   {
@@ -30,7 +30,7 @@ const SCHEMES = [
     premium_annual_inr: 20,
     coverage_inr: 200000,
     how_to_apply: 'Enroll via any public or private bank or post office where you have an active bank account.',
-    source_document_ref: 'https://financialservices.gov.in/beta/en/pmsby',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/pmsby',
     is_active: true
   },
   {
@@ -45,7 +45,7 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 500000,
     how_to_apply: 'Check name on beneficiary portal or visit any CSC center / govt hospital with Aadhaar and Ration card.',
-    source_document_ref: 'https://nha.gov.in/PM-JAY',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/ab-pmjay',
     is_active: true
   },
   {
@@ -60,7 +60,7 @@ const SCHEMES = [
     premium_annual_inr: 504,
     coverage_inr: 60000,
     how_to_apply: 'Visit the bank branch where you have a savings account and submit the APY enrollment form.',
-    source_document_ref: 'https://pfrda.org.in/index1.cshtml?lsid=16',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/apy',
     is_active: true
   },
   {
@@ -104,7 +104,7 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 50000,
     how_to_apply: 'Apply on pmsvanidhi.mohua.gov.in or through urban local bodies / ULBs or local bank branch.',
-    source_document_ref: 'https://pmsvanidhi.mohua.gov.in',
+    source_document_ref: 'https://pmsvanidhi.mohua.gov.in/Default/Index',
     is_active: true
   },
   {
@@ -118,7 +118,7 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 300000,
     how_to_apply: 'Register at CSC center with Aadhaar, skill certificate, and bank details.',
-    source_document_ref: 'https://pmvishwakarma.gov.in',
+    source_document_ref: 'https://pmvishwakarma.gov.in/Home/Index',
     is_active: true
   },
   {
@@ -161,7 +161,7 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 500000,
     how_to_apply: 'Apply at any commercial bank, regional rural bank (RRB), or via Udyamimitra portal.',
-    source_document_ref: 'https://mudra.org.in',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/pmmy',
     is_active: true
   },
   {
@@ -176,7 +176,7 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 130000,
     how_to_apply: 'Identified through Gram Sabha or apply via local block development office / municipal corporation.',
-    source_document_ref: 'https://pmayg.nic.in',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/pmayg',
     is_active: true
   },
   {
@@ -205,7 +205,7 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 6000,
     how_to_apply: 'Self-register on pmkisan.gov.in (Farmers Corner) or apply via local CSC / Village Nodal Officer.',
-    source_document_ref: 'https://pmkisan.gov.in/',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/pm-kisan',
     is_active: true
   },
   {
@@ -220,7 +220,7 @@ const SCHEMES = [
     premium_annual_inr: 250,
     coverage_inr: 150000,
     how_to_apply: 'Open account at any Post Office or authorized commercial bank branch with girl child birth certificate and KYC documents.',
-    source_document_ref: 'https://www.indiapost.gov.in/',
+    source_document_ref: 'https://www.myscheme.gov.in/schemes/ssy',
     is_active: true
   },
   {
@@ -234,7 +234,7 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 1000000,
     how_to_apply: 'Apply through standupmitra.in portal or visit nearest scheduled commercial bank branch.',
-    source_document_ref: 'https://www.standupmitra.in/',
+    source_document_ref: 'https://www.standupmitra.in/Home/Index',
     is_active: true
   },
   {
@@ -262,14 +262,43 @@ const SCHEMES = [
     premium_annual_inr: 0,
     coverage_inr: 20000,
     how_to_apply: 'Register on Skill India Digital (skillindiadigital.gov.in) or visit nearest PMKVY Training Centre.',
-    source_document_ref: 'https://www.pmkvyofficial.org/',
+    source_document_ref: 'https://www.skillindiadigital.gov.in/',
     is_active: true
   }
 ];
 
+export { SCHEMES };
+
+export const autoSeedSchemesIfEmpty = async () => {
+  try {
+    const count = await Scheme.countDocuments();
+    if (count === 0) {
+      console.log('📦 Schemes collection is empty. Auto-seeding central government schemes...');
+      await Scheme.insertMany(SCHEMES);
+      console.log(`✅ Auto-seeded ${SCHEMES.length} schemes successfully.`);
+    } else {
+      // Check if any legacy URLs exist in the database and update them
+      const hasBroken = await Scheme.exists({ 
+        source_document_ref: { $regex: 'financialservices\\.gov\\.in/beta|pfrda\\.org\\.in/index1|pmkvyofficial|pmvishwakarma\\.gov\\.in$|pmsvanidhi\\.mohua\\.gov\\.in$' } 
+      });
+      if (hasBroken) {
+        console.log('🔄 Updating legacy scheme URLs in database to verified live portals...');
+        for (const s of SCHEMES) {
+          await Scheme.updateOne({ name: s.name }, { $set: { source_document_ref: s.source_document_ref } });
+        }
+        console.log('✅ Updated scheme URLs to verified live portals.');
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ Auto-seed schemes check skipped:', err.message);
+  }
+};
+
 export const seedSchemes = async () => {
   try {
-    await mongoose.connect(ENV.MONGO_URI);
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect(ENV.MONGO_URI);
+    }
     console.log('✅ Connected to MongoDB for seeding...');
 
     await Scheme.deleteMany({});
@@ -280,8 +309,10 @@ export const seedSchemes = async () => {
   } catch (err) {
     console.error('❌ Seeding error:', err);
   } finally {
-    await mongoose.disconnect();
-    console.log('Disconnected from DB.');
+    if (process.argv[1] && process.argv[1].endsWith('seedSchemes.js')) {
+      await mongoose.disconnect();
+      console.log('Disconnected from DB.');
+    }
   }
 };
 
