@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   FileText, Upload, Camera, AlertTriangle, CheckCircle2, 
   Sparkles, Volume2, ArrowRight, ShieldAlert, FileCheck, RefreshCw,
-  Send, Mic, ShieldCheck, Trash2
+  Send, Mic, ShieldCheck, Trash2, Scale, Landmark, FileWarning, AlertCircle
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { speechProvider } from '../services/speech/browserSpeech';
@@ -69,6 +69,24 @@ const cleanStoredDocTranslations = (rawTrans) => {
   return cleaned;
 };
 
+const detectCategoryFromFilename = (filename) => {
+  if (!filename || typeof filename !== 'string') return null;
+  const lower = filename.toLowerCase();
+  if (/(insurance|policy|bajaj|lic|pmsby|pmjjby|bima|beema|claim|premium|sum_assured|mediclaim|health_plan|star_health|max_life|tata_aia|sbi_life|allianz)/i.test(lower)) {
+    return 'insurance_policy';
+  }
+  if (/(scheme|yojana|ration|nfsa|pds|pmay|pmkisan|pm_kisan|ayushman|pmjay|shram|eshram|nrega|mgnrega|subsid|welfare|rashan)/i.test(lower)) {
+    return 'government_scheme';
+  }
+  if (/(aadhaar|aadhar|pan|voter|kyc|passbook|bank_form|identity|khata)/i.test(lower)) {
+    return 'KYC';
+  }
+  if (/(loan|emi|repayment|kcc|mortgage|interest|borrower|mudra|kist|byaj|karz|rin|promissory|sanction)/i.test(lower)) {
+    return 'loan_agreement';
+  }
+  return null;
+};
+
 export default function DocumentPage() {
   const { language, t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('government_scheme');
@@ -102,7 +120,9 @@ export default function DocumentPage() {
   const [error, setError] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isSpeakingRisks, setIsSpeakingRisks] = useState(false);
+  const [isSpeakingComparison, setIsSpeakingComparison] = useState(false);
   const [isTranslatingDoc, setIsTranslatingDoc] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   // Document RAG Q&A State
   const [ragQuery, setRagQuery] = useState('');
@@ -284,7 +304,12 @@ export default function DocumentPage() {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setSelectedFile(file.name);
-      await uploadDocument(file, selectedCategory);
+      const autoCat = detectCategoryFromFilename(file.name);
+      const categoryToUse = autoCat || selectedCategory;
+      if (autoCat && autoCat !== selectedCategory) {
+        setSelectedCategory(autoCat);
+      }
+      await uploadDocument(file, categoryToUse);
     }
   };
 
@@ -331,6 +356,9 @@ export default function DocumentPage() {
       }
 
       setResult(data);
+      if (data.document_type && data.document_type !== selectedCategory) {
+        setSelectedCategory(data.document_type);
+      }
       const newSourceLang = detectScriptLang(data.plain_language_summary || data.summary || '');
       const initialTrans = {
         [newSourceLang]: {
@@ -362,15 +390,19 @@ export default function DocumentPage() {
 
   const currentSummary = validCurrentTrans
     ? validCurrentTrans.summary
-    : (sourceLang === language ? rawSummary : '');
+    : (sourceLang === language ? rawSummary : (result?.plain_language_summary || result?.summary || ''));
 
   const currentRisks = validCurrentTrans
     ? (validCurrentTrans.risks || [])
-    : (sourceLang === language ? rawRisks : []);
+    : (sourceLang === language ? rawRisks : (result?.risk_flags || result?.risks || []));
 
   const currentChecklist = validCurrentTrans
     ? (validCurrentTrans.checklist || [])
-    : (sourceLang === language ? rawChecklist : []);
+    : (sourceLang === language ? rawChecklist : (result?.claim_checklist || result?.checklist || []));
+
+  const currentComparison = validCurrentTrans?.scheme_comparison || result?.scheme_comparison || null;
+  const currentKeyTerms = validCurrentTrans?.key_terms || result?.key_terms || [];
+  const currentDisclaimer = result?.disclaimer || '';
 
   const handleDeleteDocument = async () => {
     // Stop any active speech
@@ -406,6 +438,7 @@ export default function DocumentPage() {
     setIsTranslatingDoc(false);
     setIsSpeaking(false);
     setIsSpeakingRisks(false);
+    setIsSpeakingComparison(false);
     speechProvider.stop();
 
     // Clear file input so the same file or a new file can be re-selected
@@ -473,6 +506,29 @@ export default function DocumentPage() {
       console.warn('[DocumentPage] Read risks error:', err);
     } finally {
       setIsSpeakingRisks(false);
+    }
+  };
+
+  const handleReadComparisonAloud = async () => {
+    if (!currentComparison) return;
+
+    if (isSpeakingComparison) {
+      speechProvider.stop();
+      setIsSpeakingComparison(false);
+      return;
+    }
+
+    if (isSpeaking) { speechProvider.stop(); setIsSpeaking(false); }
+    if (isSpeakingRisks) { speechProvider.stop(); setIsSpeakingRisks(false); }
+
+    const textToSpeak = `${t('doc_comparison_title')}. ${currentComparison.alternative_scheme_name || ''}. ${currentComparison.govt_scheme_cost || ''}. ${currentComparison.coverage_comparison || ''}. ${currentComparison.recommendation || ''}. ${currentComparison.how_to_enroll || ''}`;
+    try {
+      setIsSpeakingComparison(true);
+      await speechProvider.speak(textToSpeak, language);
+    } catch (err) {
+      console.warn('[DocumentPage] Speech comparison error:', err);
+    } finally {
+      setIsSpeakingComparison(false);
     }
   };
 
@@ -630,8 +686,25 @@ export default function DocumentPage() {
         {/* Upload Dropzone */}
         {!result && !loading && (
           <section 
-            className="document-dropzone" 
+            className={`document-dropzone ${isDragging ? 'drag-over' : ''}`}
             onClick={handleTriggerUpload}
+            onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); }}
+            onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); setIsDragging(false); }}
+            onDrop={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsDragging(false);
+              if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                const file = e.dataTransfer.files[0];
+                setSelectedFile(file.name);
+                const autoCat = detectCategoryFromFilename(file.name);
+                const categoryToUse = autoCat || selectedCategory;
+                if (autoCat && autoCat !== selectedCategory) {
+                  setSelectedCategory(autoCat);
+                }
+                uploadDocument(file, categoryToUse);
+              }
+            }}
             role="button"
             tabIndex={0}
             aria-label="Upload document file or take photo"
@@ -896,6 +969,128 @@ export default function DocumentPage() {
                 )}
               </div>
             )}
+
+            {/* Government Scheme Alternative Comparison (Savings & Safety Net) */}
+            {currentComparison && (
+              <div className="result-card comparison-card">
+                <div className="result-card-header">
+                  <div className="title-with-icon">
+                    <Scale size={20} className="glow-amber" />
+                    <h3>{t('doc_comparison_title')}</h3>
+                  </div>
+
+                  <button 
+                    type="button" 
+                    className={`btn-read-aloud btn-read-comparison ${isSpeakingComparison ? 'active' : ''}`}
+                    onClick={handleReadComparisonAloud}
+                    aria-label="Read scheme comparison aloud"
+                    title={isSpeakingComparison ? t('doc_speaking') : t('doc_read_aloud')}
+                  >
+                    <Volume2 size={16} />
+                    <span>{isSpeakingComparison ? t('doc_speaking') : t('doc_read_aloud')}</span>
+                  </button>
+                </div>
+
+                <div className="comparison-subtitle">
+                  <p>{t('doc_comparison_sub')}</p>
+                </div>
+
+                {/* Comparison Grid: Private vs Govt Scheme */}
+                <div className="comparison-grid">
+                  {/* Left: Uploaded Private Insurance */}
+                  <div className="comparison-pod comparison-pod-private">
+                    <div className="comparison-pod-header">
+                      <span className="pod-badge pod-badge-private">
+                        <FileWarning size={14} />
+                        <span>{t('doc_comparison_private_label')}</span>
+                      </span>
+                    </div>
+                    <div className="pod-cost pod-cost-private">
+                      {currentComparison.private_plan_cost || '₹5,000 - ₹24,000 / year'}
+                    </div>
+                    <ul className="pod-bullets">
+                      <li>{language === 'hi' ? 'भारी सालाना प्रीमियम का बोझ' : language === 'te' ? 'భారీ వార్షిక ప్రీమియం భారం' : 'Heavy annual premium load'}</li>
+                      <li>{language === 'hi' ? 'किस्त छूटने पर पॉलिसी लैप्स व राशि जब्त' : language === 'te' ? 'ప్రీమియం ఆలస్యమైతే పాలసీ రద్దు' : 'Strict lapse terms on missed renewals'}</li>
+                      <li>{language === 'hi' ? 'जटिल कानूनी कागजी प्रक्रिया' : language === 'te' ? 'క్లిష్టమైన చట్టపరమైన పత్రాలు' : 'Complex claim documentation'}</li>
+                    </ul>
+                  </div>
+
+                  {/* VS Indicator */}
+                  <div className="comparison-vs-badge" aria-hidden="true">
+                    <span>VS</span>
+                  </div>
+
+                  {/* Right: Recommended Government Alternative */}
+                  <div className="comparison-pod comparison-pod-govt">
+                    <div className="comparison-pod-header">
+                      <span className="pod-badge pod-badge-govt">
+                        <ShieldCheck size={14} />
+                        <span>{t('doc_comparison_govt_label')}</span>
+                      </span>
+                    </div>
+                    <h4 className="pod-scheme-title">
+                      {currentComparison.alternative_scheme_name || 'PMSBY & PMJJBY'}
+                    </h4>
+                    <div className="pod-cost pod-cost-govt">
+                      {currentComparison.govt_scheme_cost || '₹20 / year (PMSBY)'}
+                    </div>
+                    <div className="comparison-savings-card">
+                      <div className="savings-badge-pill">
+                        <Sparkles size={13} />
+                        <span>{language === 'hi' ? 'अनुमानित बचत' : language === 'te' ? 'అంచనా పొదుపు' : 'Estimated Annual Savings'}</span>
+                      </div>
+                      <p className="savings-amount-text">
+                        {currentComparison.annual_savings || 'Save ₹15,000 - ₹23,500 every year'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Detailed Comparison Details */}
+                <div className="comparison-details-section">
+                  {currentComparison.coverage_comparison && (
+                    <div className="comparison-detail-block coverage-block">
+                      <h4>
+                        <CheckCircle2 size={16} className="glow-green" />
+                        <span>{language === 'hi' ? 'कवरेज व सुरक्षा तुलना' : language === 'te' ? 'కవరేజ్ & రక్షణ పోలిక' : 'Coverage & Protection Comparison'}</span>
+                      </h4>
+                      <p>{currentComparison.coverage_comparison}</p>
+                    </div>
+                  )}
+
+                  {currentComparison.recommendation && (
+                    <div className="comparison-detail-block recommendation-block">
+                      <h4>
+                        <Sparkles size={16} className="glow-cyan" />
+                        <span>{t('doc_comparison_recommendation_label')}</span>
+                      </h4>
+                      <p>{currentComparison.recommendation}</p>
+                    </div>
+                  )}
+
+                  {currentComparison.how_to_enroll && (
+                    <div className="comparison-detail-block enroll-block">
+                      <h4>
+                        <Landmark size={16} className="glow-amber" />
+                        <span>{t('doc_comparison_enroll_label')}</span>
+                      </h4>
+                      <p>{currentComparison.how_to_enroll}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Official Spoken & Visual Advisory Disclaimer */}
+            <div className="result-card disclaimer-card">
+              <div className="disclaimer-header">
+                <AlertCircle size={18} className="glow-amber" />
+                <h4>{t('doc_comparison_disclaimer_title')}</h4>
+              </div>
+              <p className="disclaimer-text">
+                {currentDisclaimer || 'This is a general plain-language explanation only, not legal or financial advice. Please confirm all details with your bank or a qualified advisor before signing.'}
+              </p>
+            </div>
 
             {/* Interactive Document RAG Q&A Arena */}
             <section className="document-rag-arena" aria-label="Document Question and Answer">

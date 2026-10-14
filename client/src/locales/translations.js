@@ -188,6 +188,15 @@ export const translations = {
     doc_processing_step1: 'Uploading & scanning document text',
     doc_processing_step2: 'Extracting hidden clauses, exclusions & limits',
     doc_processing_step3: 'Verifying against worker profile for coverage gaps',
+    doc_comparison_title: 'Government Scheme Alternative Comparison (Savings & Protection)',
+    doc_comparison_sub: 'Direct cost and benefit comparison against equivalent national welfare safety nets',
+    doc_comparison_private_label: 'Uploaded Private / Commercial Policy',
+    doc_comparison_govt_label: 'Recommended Government Safety Net Alternative',
+    doc_comparison_savings_label: 'Estimated Annual Savings',
+    doc_comparison_recommendation_label: 'Why This Protects You Better',
+    doc_comparison_enroll_label: 'How to Enroll in Government Alternative',
+    doc_comparison_disclaimer_title: 'Official General Advisory Disclaimer',
+    doc_key_terms_title: 'Key Terms Explained Simply',
 
     // Document RAG Q&A
     doc_rag_title: 'Ask Questions About This Document (RAG Grounded)',
@@ -435,6 +444,15 @@ export const translations = {
     doc_processing_step1: 'दस्तावेज का पाठ अपलोड और स्कैन हो रहा है',
     doc_processing_step2: 'छिपी शर्तें, सीमाएं और अपवाद निकाले जा रहे हैं',
     doc_processing_step3: 'मजदूर प्रोफ़ाइल से सुरक्षा अंतर की जांच हो रही है',
+    doc_comparison_title: 'सरकारी योजना विकल्प तुलना (बचत और सामाजिक सुरक्षा)',
+    doc_comparison_sub: 'समान सरकारी कल्याणकारी योजनाओं के साथ लागत और सुरक्षा की सीधी तुलना',
+    doc_comparison_private_label: 'अपलोड की गई निजी/व्यावसायिक पॉलिसी',
+    doc_comparison_govt_label: 'अनुशंसित सरकारी सामाजिक सुरक्षा विकल्प',
+    doc_comparison_savings_label: 'सालाना अनुमानित बचत',
+    doc_comparison_recommendation_label: 'यह आपके लिए क्यों अधिक सुरक्षित है',
+    doc_comparison_enroll_label: 'सरकारी विकल्प में नामांकन कैसे करें',
+    doc_comparison_disclaimer_title: 'आधिकारिक सामान्य सूचना एवं अस्वीकरण',
+    doc_key_terms_title: 'मुख्य शब्दों की सरल व्याख्या',
 
     // Document RAG Q&A
     doc_rag_title: 'इस दस्तावेज से जुड़े सवाल पूछें (सत्यापित RAG)',
@@ -682,6 +700,15 @@ export const translations = {
     doc_processing_step1: 'పత్రం అప్‌లోడ్ మరియు స్కాన్ చేయబడుతోంది',
     doc_processing_step2: 'దాచిన నిబంధనలు మరియు మినహాయింపులు గుర్తించబడుతున్నాయి',
     doc_processing_step3: 'కార్మిక ప్రొఫైల్ ఆధారంగా ప్రయోజనాలు విశ్లేషించబడుతున్నాయి',
+    doc_comparison_title: 'ప్రభుత్వ పథకం ప్రత్యామ్నాయ పోలిక (ఆదా & సామాజిక భద్రత)',
+    doc_comparison_sub: 'సమానమైన జాతీయ సంక్షేమ పథకాలతో ఖర్చు మరియు రక్షణ యొక్క ప్రత్యక్ష పోలిక',
+    doc_comparison_private_label: 'అప్‌లోడ్ చేసిన ప్రైవేట్ / వాణిజ్య పాలసీ',
+    doc_comparison_govt_label: 'సిఫార్సు చేయబడిన ప్రభుత్వ భద్రతా ప్రత్యామ్నాయం',
+    doc_comparison_savings_label: 'అంచనా వార్షిక ఆదా',
+    doc_comparison_recommendation_label: 'ఇది మీకు ఎందుకు మెరుగైన రక్షణనిస్తుంది',
+    doc_comparison_enroll_label: 'ప్రభుత్వ ప్రత్యామ్నాయంలో ఎలా నమోదు చేసుకోవాలి',
+    doc_comparison_disclaimer_title: 'అధికారిక సాధారణ సమాచార నిరాకరణ',
+    doc_key_terms_title: 'ముఖ్యమైన పదాల సరళమైన వివరణ',
 
     // Document RAG Q&A
     doc_rag_title: 'ఈ పత్రంపై ప్రశ్నలు అడగండి (ధృవీకరించబడిన RAG)',

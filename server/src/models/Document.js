@@ -19,6 +19,9 @@ const documentSchema = new mongoose.Schema(
     plain_language_summary: { type: String },
     risk_flags: { type: mongoose.Schema.Types.Mixed, default: [] }, // JSON array
     claim_checklist: [{ type: String }],
+    key_terms: [{ type: String }],
+    scheme_comparison: { type: mongoose.Schema.Types.Mixed, default: null },
+    disclaimer: { type: String },
     uploaded_at: { type: Date, default: Date.now },
   },
   { timestamps: false }

@@ -77,7 +77,7 @@ export const synthesize = async (req, res) => {
     res.json(result);
   } catch (err) {
     console.warn('[VoiceGatewayController] synthesize warning:', err.message);
-    res.status(500).json({ error: err.message, audio: null });
+    res.status(200).json({ success: false, warning: err.message, audio: null, fallbackToBrowser: true });
   }
 };
 

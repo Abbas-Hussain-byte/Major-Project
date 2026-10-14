@@ -1,14 +1,22 @@
 import path from 'path';
 import DocumentModel from '../models/Document.js';
-import { processDocument } from '../services/documentExplainer/documentService.js';
+import { processDocument, inferCategoryFromFilename } from '../services/documentExplainer/documentService.js';
 
 export const uploadDocument = async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'Document file required' });
 
-  const { document_type, lang = 'en' } = req.body;
+  let { document_type, lang = 'en' } = req.body;
   const validTypes = ['insurance_policy', 'government_scheme', 'KYC', 'loan_agreement', 'card_tnc'];
-  if (!validTypes.includes(document_type))
-    return res.status(400).json({ message: `document_type must be one of: ${validTypes.join(', ')}` });
+
+  // Infer category from filename if not specified or left on default government_scheme
+  const inferred = inferCategoryFromFilename(req.file.originalname);
+  if (inferred && (!document_type || document_type === 'government_scheme')) {
+    document_type = inferred;
+  }
+
+  if (!document_type || !validTypes.includes(document_type)) {
+    document_type = inferred || 'government_scheme';
+  }
 
   // Save document record first
   const doc = await DocumentModel.create({
@@ -53,6 +61,9 @@ export const uploadDocument = async (req, res) => {
     explanation: summary,
     risks: risks,
     checklist: checklist,
+    key_terms: processed.key_terms || [],
+    scheme_comparison: processed.scheme_comparison || null,
+    disclaimer: processed.disclaimer || '',
   };
   delete response.file_path;
 

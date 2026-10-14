@@ -86,7 +86,7 @@ export const groqChat = async (systemPrompt, userMessage, jsonMode = false) => {
         { role: 'user', content: userMessage },
       ],
       temperature: 0.1,
-      max_tokens: 1024,
+      max_tokens: 4096,
       ...(jsonMode ? { response_format: { type: 'json_object' } } : {})
     }),
   });
@@ -238,7 +238,7 @@ export const geminiAnalyzeFile = async (systemPrompt, userMessage, fileBuffer, m
           }
         ],
         generationConfig: { 
-          maxOutputTokens: 2048, 
+          maxOutputTokens: 4096, 
           temperature: 0.1,
           responseMimeType: 'application/json' 
         }
