@@ -71,7 +71,6 @@ export function useVoice({ lang = 'en', moduleName = 'literacy' } = {}) {
       }
 
       setLastAnswer(answerText);
-      setMicState('idle');
 
       // Text-to-Speech in the strictly selected language
       try {
@@ -80,12 +79,14 @@ export function useVoice({ lang = 'en', moduleName = 'literacy' } = {}) {
 
         if (textToSpeak) {
           setIsSpeaking(true);
+          setMicState('speaking');
           await speechProvider.speak(textToSpeak, speakLang);
-          setIsSpeaking(false);
         }
       } catch (speechErr) {
         console.warn('[useVoice] Text-to-speech skipped or interrupted:', speechErr);
+      } finally {
         setIsSpeaking(false);
+        setMicState((prev) => (prev === 'speaking' ? 'idle' : prev));
       }
 
       return data;
@@ -102,6 +103,8 @@ export function useVoice({ lang = 'en', moduleName = 'literacy' } = {}) {
   }, [lang, moduleName]);
 
   const startListening = useCallback(async (textFallbackCallback) => {
+    speechProvider.stop();
+    setIsSpeaking(false);
     setErrorMsg('');
     setLastAnswer('');
     setSources([]);
@@ -144,11 +147,13 @@ export function useVoice({ lang = 'en', moduleName = 'literacy' } = {}) {
     if (!lastAnswer) return;
     try {
       setIsSpeaking(true);
+      setMicState('speaking');
       await speechProvider.speak(lastAnswer, lang);
-      setIsSpeaking(false);
     } catch (err) {
       console.warn('[useVoice] Replay failed:', err);
+    } finally {
       setIsSpeaking(false);
+      setMicState((prev) => (prev === 'speaking' ? 'idle' : prev));
     }
   }, [lastAnswer, lang]);
 

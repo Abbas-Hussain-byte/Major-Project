@@ -304,6 +304,16 @@
   transform: translateY(-1px);
 }
 
+.btn-replay.active {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.btn-replay.active:hover {
+  background: rgba(239, 68, 68, 0.28);
+}
+
 .sources-container {
   display: flex;
   flex-direction: column;

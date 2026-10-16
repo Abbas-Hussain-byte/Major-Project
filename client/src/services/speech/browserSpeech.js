@@ -10,6 +10,8 @@ let mediaRecorder = null;
 let audioChunks = [];
 let currentUtterance = null;
 let currentAudio = null;
+let currentAbortController = null;
+let currentSpeechResolve = null;
 
 const waitForVoices = () => {
   return new Promise(resolve => {
@@ -119,6 +121,9 @@ export const speechProvider = {
     speechProvider.stop(); // cancel ongoing speech / audio
     if (!text || !text.trim()) return;
 
+    const controller = new AbortController();
+    currentAbortController = controller;
+
     let textToSynthesize = text.trim();
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
@@ -132,13 +137,15 @@ export const speechProvider = {
         const transRes = await fetch(`${apiUrl}/voice/translate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: textToSynthesize.slice(0, 800), from: 'en', to: 'te' })
+          body: JSON.stringify({ text: textToSynthesize.slice(0, 800), from: 'en', to: 'te' }),
+          signal: controller.signal
         });
         if (transRes.ok) {
           const transData = await transRes.json();
           if (transData.translated) textToSynthesize = transData.translated;
         }
       } catch (e) {
+        if (controller.signal.aborted) return;
         console.warn('[speechProvider] Pre-speak translation to Telugu failed:', e.message);
       }
     } else if (lang === 'hi' && !hasHindi) {
@@ -146,66 +153,91 @@ export const speechProvider = {
         const transRes = await fetch(`${apiUrl}/voice/translate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: textToSynthesize.slice(0, 800), from: 'en', to: 'hi' })
+          body: JSON.stringify({ text: textToSynthesize.slice(0, 800), from: 'en', to: 'hi' }),
+          signal: controller.signal
         });
         if (transRes.ok) {
           const transData = await transRes.json();
           if (transData.translated) textToSynthesize = transData.translated;
         }
       } catch (e) {
+        if (controller.signal.aborted) return;
         console.warn('[speechProvider] Pre-speak translation to Hindi failed:', e.message);
       }
     }
+
+    if (controller.signal.aborted) return;
 
     // 1. Primary: High-fidelity authentic Indian native speech via Sarvam AI TTS
     try {
       const res = await fetch(`${apiUrl}/voice/synthesize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: textToSynthesize, lang })
+        body: JSON.stringify({ text: textToSynthesize, lang }),
+        signal: controller.signal
       });
 
       if (res.ok) {
         const data = await res.json();
+        if (controller.signal.aborted) return;
         if (data && data.audio) {
           return new Promise((resolve) => {
+            if (controller.signal.aborted) return resolve();
+            currentSpeechResolve = resolve;
             const audio = new Audio(`data:audio/wav;base64,${data.audio}`);
             currentAudio = audio;
-            audio.onended = () => {
-              currentAudio = null;
-              resolve();
+
+            const finish = () => {
+              if (currentAudio === audio) currentAudio = null;
+              if (currentSpeechResolve === resolve) {
+                currentSpeechResolve = null;
+                resolve();
+              }
             };
-            audio.onerror = () => {
-              currentAudio = null;
-              resolve();
+
+            audio.onended = finish;
+            audio.onerror = finish;
+            audio.onpause = () => {
+              if (!currentAudio || currentAudio !== audio) finish();
             };
+
             audio.play().catch((playErr) => {
               console.warn('[speechProvider] Audio play error:', playErr);
-              currentAudio = null;
-              resolve();
+              finish();
             });
           });
         }
       }
     } catch (err) {
+      if (controller.signal.aborted) return;
       console.warn('[speechProvider] Sarvam TTS request failed, trying browser speech fallback:', err.message);
     }
 
+    if (controller.signal.aborted) return;
+
     // 2. Fallback: Browser Web Speech API ONLY if matching voice exists or English
     return new Promise(async (resolve) => {
+      if (controller.signal.aborted) return resolve();
       if (!window.speechSynthesis) {
         return resolve();
       }
 
+      currentSpeechResolve = resolve;
       const targetLang = langMap[lang] || 'hi-IN';
       const voices = await waitForVoices();
       
+      if (controller.signal.aborted) {
+        if (currentSpeechResolve === resolve) currentSpeechResolve = null;
+        return resolve();
+      }
+
       // Look for a native matching voice for this specific language code
       const matchedVoice = voices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
 
       // Never use default English voice if citizen selected Telugu or Hindi and no native voice exists
       if (lang !== 'en' && !matchedVoice) {
         console.warn(`[speechProvider] No native ${lang} voice installed in browser; skipped to avoid incorrect English voice.`);
+        if (currentSpeechResolve === resolve) currentSpeechResolve = null;
         return resolve();
       }
 
@@ -217,14 +249,16 @@ export const speechProvider = {
         utterance.lang = targetLang;
       }
 
-      utterance.onend = () => {
+      const finish = () => {
         currentUtterance = null;
-        resolve();
+        if (currentSpeechResolve === resolve) {
+          currentSpeechResolve = null;
+          resolve();
+        }
       };
-      utterance.onerror = () => {
-        currentUtterance = null;
-        resolve();
-      };
+
+      utterance.onend = finish;
+      utterance.onerror = finish;
 
       currentUtterance = utterance;
       window.speechSynthesis.speak(utterance);
@@ -232,20 +266,36 @@ export const speechProvider = {
   },
 
   stop: () => {
+    if (currentAbortController) {
+      try {
+        currentAbortController.abort();
+      } catch {}
+      currentAbortController = null;
+    }
     if (mediaRecorder && mediaRecorder.state === 'recording') {
-      mediaRecorder.stop();
+      try {
+        mediaRecorder.stop();
+      } catch {}
       mediaRecorder = null;
     }
     if (currentAudio) {
       try {
         currentAudio.pause();
         currentAudio.currentTime = 0;
+        currentAudio.src = '';
       } catch {}
       currentAudio = null;
     }
     if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch {}
       currentUtterance = null;
+    }
+    if (currentSpeechResolve) {
+      const res = currentSpeechResolve;
+      currentSpeechResolve = null;
+      res();
     }
   }
 };

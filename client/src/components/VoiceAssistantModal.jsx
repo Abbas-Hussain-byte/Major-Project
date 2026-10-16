@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Volume2, Send, Sparkles, ShieldCheck, RefreshCw, AlertCircle } from 'lucide-react';
+import { X, Volume2, Square, Send, Sparkles, ShieldCheck, RefreshCw, AlertCircle } from 'lucide-react';
 import MicButton from './MicButton';
 import { useVoice } from '../services/speech/useVoice';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -99,8 +99,11 @@ export default function VoiceAssistantModal({ isOpen, onClose }) {
             size="hero" 
             state={micState} 
             onClick={() => {
-              if (micState === 'listening' || micState === 'processing') stop();
-              else startListening();
+              if (micState === 'listening' || micState === 'processing' || micState === 'speaking' || isSpeaking) {
+                stop();
+              } else {
+                startListening();
+              }
             }}
           />
 
@@ -154,13 +157,12 @@ export default function VoiceAssistantModal({ isOpen, onClose }) {
 
               <button 
                 type="button" 
-                className="btn-replay-audio"
-                onClick={replaySpeech}
-                disabled={isSpeaking}
-                aria-label="Listen to answer again"
+                className={`btn-replay-audio ${isSpeaking ? 'playing' : ''}`}
+                onClick={isSpeaking ? stop : replaySpeech}
+                aria-label={isSpeaking ? "Stop audio playback" : "Listen to answer again"}
               >
-                <Volume2 size={16} />
-                <span>{isSpeaking ? 'Playing...' : 'Listen Again'}</span>
+                {isSpeaking ? <Square size={16} /> : <Volume2 size={16} />}
+                <span>{isSpeaking ? 'Stop Audio' : 'Listen Again'}</span>
               </button>
             </div>
 

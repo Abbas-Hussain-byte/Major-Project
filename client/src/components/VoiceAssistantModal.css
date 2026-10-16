@@ -215,6 +215,16 @@
   transform: translateY(-1px);
 }
 
+.btn-replay-audio.playing {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.btn-replay-audio.playing:hover {
+  background: rgba(239, 68, 68, 0.28);
+}
+
 .voice-sources-box {
   display: flex;
   flex-direction: column;

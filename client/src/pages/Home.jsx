@@ -5,7 +5,7 @@ import MicButton from '../components/MicButton';
 import { useVoice } from '../services/speech/useVoice';
 import { speechProvider } from '../services/speech/browserSpeech';
 import { 
-  User, Volume2, ArrowRight, CheckCircle2, 
+  User, Volume2, Square, ArrowRight, CheckCircle2, 
   Send, HelpCircle, BookOpen, AlertCircle, ShieldCheck, ChevronRight,
   Sparkles, Mic
 } from 'lucide-react';
@@ -51,7 +51,7 @@ export default function Home() {
   }, [errorMsg]);
 
   const handleMicClick = () => {
-    if (micState === 'listening' || micState === 'processing' || micState === 'speaking') {
+    if (micState === 'listening' || micState === 'processing' || micState === 'speaking' || isSpeaking) {
       stop();
     } else {
       startListening();
@@ -387,11 +387,11 @@ export default function Home() {
                 <button 
                   type="button" 
                   className={`btn-listen-again ${isSpeaking ? 'active' : ''}`}
-                  onClick={replaySpeech}
-                  aria-label="Listen to answer again"
+                  onClick={isSpeaking ? stop : replaySpeech}
+                  aria-label={isSpeaking ? (t('home_stop_speaking') || 'Stop Audio') : t('home_listen_again')}
                 >
-                  <Volume2 size={18} />
-                  <span>{isSpeaking ? t('home_speaking') : t('home_listen_again')}</span>
+                  {isSpeaking ? <Square size={18} /> : <Volume2 size={18} />}
+                  <span>{isSpeaking ? (t('home_stop_speaking') || 'Stop Audio') : t('home_listen_again')}</span>
                 </button>
               </div>
             </section>

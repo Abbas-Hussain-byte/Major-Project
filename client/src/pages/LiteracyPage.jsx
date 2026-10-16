@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { 
-  BookOpen, Send, Volume2, VolumeX, ShieldCheck, AlertCircle, 
+  BookOpen, Send, Volume2, VolumeX, Square, ShieldCheck, AlertCircle, 
   ExternalLink, Search, X, ChevronRight, CheckCircle2, 
   Sparkles, Filter, Info, ArrowUpRight, HelpCircle
 } from 'lucide-react';
@@ -163,7 +163,7 @@ export default function LiteracyPage() {
 
   // Voice Mic click
   const handleMicClick = () => {
-    if (micState === 'listening' || micState === 'processing') stop();
+    if (micState === 'listening' || micState === 'processing' || micState === 'speaking' || isSpeaking) stop();
     else startListening();
   };
 
@@ -320,13 +320,12 @@ export default function LiteracyPage() {
 
               <button 
                 type="button" 
-                className="btn-replay" 
-                onClick={replaySpeech}
-                disabled={isSpeaking}
-                aria-label="Replay spoken answer"
+                className={`btn-replay ${isSpeaking ? 'active' : ''}`} 
+                onClick={isSpeaking ? stop : replaySpeech}
+                aria-label={isSpeaking ? t('literacy_stop_reading') : 'Replay spoken answer'}
               >
-                <Volume2 size={18} />
-                <span>{isSpeaking ? t('home_speaking') : t('home_listen_again')}</span>
+                {isSpeaking ? <Square size={18} /> : <Volume2 size={18} />}
+                <span>{isSpeaking ? t('literacy_stop_reading') : t('home_listen_again')}</span>
               </button>
             </div>
 
